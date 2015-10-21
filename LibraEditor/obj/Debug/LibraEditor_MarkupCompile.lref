@@ -1,5 +1,7 @@
 ﻿
-FG:\codeLib\LibraEditor\LibraEditor\LibraEditor\App.xaml;;
-FG:\codeLib\LibraEditor\LibraEditor\LibraEditor\MainWindow.xaml;;
-FG:\codeLib\LibraEditor\LibraEditor\LibraEditor\view\newMap\NewMap.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\App.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\MainWindow.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
 

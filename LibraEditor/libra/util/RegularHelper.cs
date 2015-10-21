@@ -17,7 +17,7 @@ namespace libra.util
         /// <returns></returns>
         public static bool IsEmail(string str_Email)
         {
-            return Regex.IsMatch(str_Email, @"^([/w-/.]+)@((/[[0-9]{1,3}/.[0-9] {1,3}/.[0-9]{1,3}/.)|(([/w-]+/.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(/)?]$");
+            return IsNull(str_Email) ? false : Regex.IsMatch(str_Email, @"^([/w-/.]+)@((/[[0-9]{1,3}/.[0-9] {1,3}/.[0-9]{1,3}/.)|(([/w-]+/.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(/)?]$");
         }
 
         /// <summary>
@@ -27,6 +27,10 @@ namespace libra.util
         /// <returns></returns>
         public static bool IsIP(string IP)
         {
+            if (IsNull(IP))
+            {
+                return false;
+            }
             string num = "(25[0-5]|2[0-4]//d|[0-1]//d{2}|[1-9]?//d)";
             return Regex.IsMatch(IP, ("^" + num + "//." + num + "//." + num + "//." + num + "$"));
         }
@@ -38,7 +42,17 @@ namespace libra.util
         /// <returns></returns>
         public static bool IsUrl(string str_url)
         {
-            return Regex.IsMatch(str_url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&$%\$#\=~])*$");
+            return IsNull(str_url) ? false : Regex.IsMatch(str_url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&$%\$#\=~])*$");
+        }
+
+        public static bool IsLetterAndNumber(string str)
+        {
+            return IsNull(str) ? false : Regex.IsMatch(str, @"^[a-zA-Z][a-zA-Z0-9_]*$");
+        }
+
+        private static bool IsNull(string str)
+        {
+            return string.IsNullOrEmpty(str);
         }
            
         /*

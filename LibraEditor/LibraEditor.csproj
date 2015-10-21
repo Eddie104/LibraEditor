@@ -72,7 +72,14 @@
     <Compile Include="libra\util\RegularHelper.cs" />
     <Compile Include="libra\util\StringHelper.cs" />
     <Compile Include="libra\web\HTMLHelper.cs" />
-    <Compile Include="view\newMap\NewMap.xaml.cs">
+    <Compile Include="mapEditor\model\MapData.cs" />
+    <Compile Include="mapEditor\view\mapLayer\LayerItem.xaml.cs">
+      <DependentUpon>LayerItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\MapLayer.xaml.cs">
+      <DependentUpon>MapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -87,13 +94,21 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="mapEditor\view\mapLayer\LayerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\MapLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\NewMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="view\newMap\NewMap.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +163,7 @@
   <ItemGroup>
     <Resource Include="Resources\new_file.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
