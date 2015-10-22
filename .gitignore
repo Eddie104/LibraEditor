@@ -1,6 +1,6 @@
 # Build and Release Folders
-LibraEditor/bin/
-LibraEditor/obj/
+obj/
+bin/
 .vs/
 
 # Project property files
