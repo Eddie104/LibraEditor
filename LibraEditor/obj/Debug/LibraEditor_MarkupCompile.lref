@@ -1,7 +1,9 @@
-﻿G:\codeLib\LibraEditor\LibraEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FG:\codeLib\LibraEditor\LibraEditor\App.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\MainWindow.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
+FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayer.xaml;;
+FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MouseCursor.xaml;;
 

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 G:\codeLib\LibraEditor\LibraEditor\App.xaml
-5781172208
+71306302295
 
-16761230649
+21989758528
 17-681074623
-MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\NewMap.xaml;Resources\Icons.xaml;
+MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\NewMap.xaml;Resources\Icons.xaml;
 
 False
 

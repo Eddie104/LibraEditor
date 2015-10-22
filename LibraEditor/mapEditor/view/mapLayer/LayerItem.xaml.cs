@@ -35,8 +35,17 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             if (this.IsInitialized)
             {
-                IsCanVisible = (bool)(sender as CheckBox).IsChecked;
+                IsCanVisible = !IsCanVisible;
+                eyeImage.Source = new BitmapImage(new Uri(IsCanVisible ? "/LibraEditor;component/Resources/eye_24.png" : "/LibraEditor;component/Resources/x_24.png", UriKind.RelativeOrAbsolute));
             }
         }
+
+        //private void OnVisibleChanged(object sender, RoutedEventArgs e)
+        //{
+        //    if (this.IsInitialized)
+        //    {
+        //        IsCanVisible = (bool)(sender as CheckBox).IsChecked;
+        //    }
+        //}
     }
 }

@@ -65,10 +65,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config.cs" />
     <Compile Include="libra\log4CSharp\Logger.cs" />
     <Compile Include="libra\util\ByteConvertHelper.cs" />
     <Compile Include="libra\util\FileHelper.cs" />
+    <Compile Include="libra\util\GraphicsHelper.cs" />
     <Compile Include="libra\util\ImageHelper.cs" />
+    <Compile Include="libra\util\ISOHelper.cs" />
     <Compile Include="libra\util\RegularHelper.cs" />
     <Compile Include="libra\util\StringHelper.cs" />
     <Compile Include="libra\web\HTMLHelper.cs" />
@@ -78,6 +81,12 @@
     </Compile>
     <Compile Include="mapEditor\view\mapLayer\MapLayer.xaml.cs">
       <DependentUpon>MapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\MouseCursor.xaml.cs">
+      <DependentUpon>MouseCursor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\NetLayer.xaml.cs">
+      <DependentUpon>NetLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="mapEditor\view\NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
@@ -99,6 +108,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="mapEditor\view\mapLayer\MapLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\MouseCursor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\NetLayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,7 +180,21 @@
   <ItemGroup>
     <Resource Include="Resources\new_file.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\add_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delete_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\eye_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\x_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\alpha.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -12,7 +12,22 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="160"/>
         </Grid.ColumnDefinitions>
-        <Canvas/>
+        <Canvas Grid.Column="0" MouseMove="OnMouseMove">
+            <Canvas.Background>
+                <VisualBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">
+                    <VisualBrush.Visual>
+                        <Image Source="/LibraEditor;component/Resources/alpha.png"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Canvas.Background>
+        </Canvas>
+
+        <local:NetLayer x:Name="netLayer" Grid.Column="0"/>
+        <!--<Canvas Grid.Column="0">
+            <Canvas Name="mouseCursor"/>
+        </Canvas>-->
+        <local:MouseCursor Grid.Column="0" x:Name="mouseCursor"/>
+
         <TreeView Grid.Column="1">
             <TreeViewItem>
                 <Button Content="dd"/>
@@ -20,10 +35,14 @@
             </TreeViewItem>
             <TreeViewItem Header="层管理" IsExpanded="True">
                 <ToolBar Width="126">
-                    <Button Content="+" Click="OnAddLayerHandler"/>
-                    <Button Content="-"/>
+                    <Button Click="OnAddLayerHandler">
+                        <Image Source="/LibraEditor;component/Resources/add_16.png"/>
+                    </Button>
+                    <Button Click="OnDeleteLayerHandler">
+                        <Image Source="/LibraEditor;component/Resources/delete_16.png"/>
+                    </Button>
                 </ToolBar>
-                <ListBox Name="layerListBox"/>
+                <ListBox Name="layerListBox" Width="118"/>
             </TreeViewItem>
         </TreeView>
     </Grid>
