@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using LibraEditor.view.newMap;
+using LibraEditor.mapEditor.view.newMap;
 
 namespace LibraEditor
 {
@@ -23,15 +23,24 @@ namespace LibraEditor
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+
+        private static MainWindow instance;
+
         public MainWindow()
         {
             InitializeComponent();
+            instance = this;
         }
 
         private void NewMapButton_Click(object sender, RoutedEventArgs e)
         {
             NewMap newMap = new NewMap();
             newMap.ShowDialog();
+        }
+
+        public static MainWindow GetInstance()
+        {
+            return instance;
         }
     }
 }

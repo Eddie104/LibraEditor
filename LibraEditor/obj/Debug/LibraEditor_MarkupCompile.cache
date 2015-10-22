@@ -4,17 +4,30 @@
 winexe
 C#
 .cs
+<<<<<<< HEAD
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\
+=======
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\
+>>>>>>> c4747758ef2635e4b394b6c8aea64806bd1219bd
 LibraEditor
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 G:\codeLib\LibraEditor\LibraEditor\App.xaml
 3-1881338461
 
 131267585
 17-681074623
 MainWindow.xaml;Resources\Icons.xaml;view\newMap\NewMap.xaml;
+=======
+E:\vsProjects\LibraEditor\LibraEditor\App.xaml
+5781172208
+
+16761230649
+17-1004949949
+MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\NewMap.xaml;Resources\Icons.xaml;
+>>>>>>> c4747758ef2635e4b394b6c8aea64806bd1219bd
 
 False
 

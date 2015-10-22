@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:LibraEditor"
+        xmlns:mapEditor="clr-namespace:LibraEditor.mapEditor.view.mapLayer"
         Title="MainWindow" Height="800" Width="1224" WindowStartupLocation="CenterScreen">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -131,9 +132,10 @@
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="AUTO"/>
-                <ColumnDefinition Width="AUTO"/>
+                <ColumnDefinition Width="73*"/>
+                <ColumnDefinition Width="508*"/>
             </Grid.ColumnDefinitions>
-            <ToolBarTray Orientation="Vertical">
+            <ToolBarTray Orientation="Vertical" Grid.Column="0">
                 <ToolBar VerticalAlignment="Top">
                     <RadioButton GroupName="toolBar" IsChecked="True">
                         <Image Source="Resources/direct.png"/>
@@ -143,8 +145,9 @@
                     </RadioButton>
                 </ToolBar>
             </ToolBarTray>
+            <mapEditor:MapLayer Grid.Column="1" Grid.ColumnSpan="2"/>
         </Grid>
-        
+
         <StatusBar Grid.Row="3" Width="Auto">
             <TextBlock Text="dd"></TextBlock>
             <Button x:Name="button1" Content="添加" Width="75"/>
