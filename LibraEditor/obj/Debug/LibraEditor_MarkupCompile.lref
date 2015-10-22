@@ -3,5 +3,9 @@ FE:\vsProjects\LibraEditor\LibraEditor\App.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\MainWindow.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MouseCursor.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayer.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayerItem.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\plistTool\PlistTool.xaml;;
 

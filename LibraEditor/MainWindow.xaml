@@ -104,6 +104,9 @@
                 <Separator/>
                 <MenuItem Header="退出(_E)"/>
             </MenuItem>
+            <MenuItem Header="工具(_T)" ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}">
+                <MenuItem Header="Plist(_P)" Click="OnShowPlistTool"/>
+            </MenuItem>
             <MenuItem Header="还没做" ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}">
             </MenuItem>
         </Menu>

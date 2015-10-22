@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using LibraEditor.mapEditor.view.newMap;
+using LibraEditor.plistTool;
 using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using LibraEditor.mapEditor.view.newMap;
+using System.Windows;
 
 namespace LibraEditor
 {
@@ -36,6 +23,12 @@ namespace LibraEditor
         {
             NewMap newMap = new NewMap();
             newMap.ShowDialog();
+        }
+
+        private void OnShowPlistTool(object sender, RoutedEventArgs e)
+        {
+            PlistTool plistTool = new PlistTool();
+            plistTool.ShowDialog();
         }
 
         public static MainWindow GetInstance()

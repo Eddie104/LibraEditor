@@ -21,13 +21,7 @@
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0">
                     <Label Content="引擎选择"/>
-                    <!--<controls:SplitButton 
-                        HorizontalContentAlignment="Left" HorizontalAlignment="Center" VerticalContentAlignment="Center" 
-                        Width="120" Height="20" SelectedIndex="0" DisplayMemberPath="Title" VerticalAlignment="Center"
-                        ItemsSource="{Binding Source=Albums}"/>-->
-                    <ComboBox SelectedIndex="0" Width="190">
-                        <ComboBoxItem Content="quick-cocos"/>
-                    </ComboBox>
+                    <ComboBox Name="projectTypeComboBox" SelectedIndex="0" Width="190"/>
                 </WrapPanel>
                 <WrapPanel Grid.Row="1">
                     <Label Content="地图名称"/>
@@ -46,9 +40,9 @@
                 </WrapPanel>
                 <WrapPanel Grid.Row="4">
                     <Label Content="格子行数"/>
-                    <controls:NumericUpDown Maximum="999" Minimum="1" Value="10"/>
+                    <controls:NumericUpDown Name="tileRowsNumeric" Maximum="999" Minimum="1" Value="10"/>
                     <Label Content="格子列数"/>
-                    <controls:NumericUpDown Maximum="999" Minimum="1" Value="10"/>
+                    <controls:NumericUpDown Name="tileColsNumeric" Maximum="999" Minimum="1" Value="10"/>
                 </WrapPanel>
                 <WrapPanel Grid.Row="5">
                     <Label Content="存储路径"/>

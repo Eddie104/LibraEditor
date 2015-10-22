@@ -6,24 +6,43 @@
              xmlns:local="clr-namespace:LibraEditor.mapEditor.view.mapLayer"
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="800" BorderBrush="Gray" BorderThickness="1">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="160"/>
         </Grid.ColumnDefinitions>
-        <Canvas/>
-        <TreeView Grid.Column="1"  BorderBrush="Gray" BorderThickness="1">
-            <TreeViewItem>
-                <Button Content="dd"/>
-                <Label Content="dd"/>
+        <Canvas Grid.Column="0" MouseMove="OnMouseMove">
+            <Canvas.Background>
+                <VisualBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">
+                    <VisualBrush.Visual>
+                        <Image Source="/LibraEditor;component/Resources/alpha.png"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Canvas.Background>
+        </Canvas>
+
+        <local:NetLayer x:Name="netLayer" Grid.Column="0"/>
+        <local:MouseCursor Grid.Column="0" x:Name="mouseCursor"/>
+
+        <TreeView Grid.Column="1">
+            <TreeViewItem Header="资源库" IsExpanded="True">
+                <ToolBar Width="126">
+                    <Button ToolTip="导入资源" Click="OnImportRes">
+                        <Image Source="/LibraEditor;component/Resources/import_16.png"/>
+                    </Button>
+                </ToolBar>
             </TreeViewItem>
             <TreeViewItem Header="层管理" IsExpanded="True">
                 <ToolBar Width="126">
-                    <Button Content="+" Click="OnAddLayerHandler"/>
-                    <Button Content="-"/>
+                    <Button Click="OnAddLayerHandler" ToolTip="添加图层">
+                        <Image Source="/LibraEditor;component/Resources/add_16.png"/>
+                    </Button>
+                    <Button Click="OnDeleteLayerHandler" ToolTip="删除图层">
+                        <Image Source="/LibraEditor;component/Resources/delete_16.png"/>
+                    </Button>
                 </ToolBar>
-                <ListBox Name="layerListBox"/>
+                <ListBox Name="layerListBox" Width="118"/>
             </TreeViewItem>
         </TreeView>
     </Grid>

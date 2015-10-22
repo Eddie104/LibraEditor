@@ -1,8 +1,6 @@
 # Build and Release Folders
-Debug/
-Release/
-bin/
 obj/
+bin/
 .vs/
 
 # Project property files

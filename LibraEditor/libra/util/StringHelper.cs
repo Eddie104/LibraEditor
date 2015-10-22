@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace libra.util
+﻿namespace libra.util
 {
     class StringHelper
     {
@@ -19,6 +13,17 @@ namespace libra.util
                     return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// 首字母变大写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ToTitleCase(string str)
+        {
+            //return System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(str);
+            return str.Substring(0, 1).ToUpper() + str.Substring(1);
         }
     }
 }
