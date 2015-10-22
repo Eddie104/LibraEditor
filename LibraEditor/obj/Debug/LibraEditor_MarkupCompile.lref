@@ -1,13 +1,7 @@
-﻿
-<<<<<<< HEAD
+﻿G:\codeLib\LibraEditor\LibraEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
 FG:\codeLib\LibraEditor\LibraEditor\App.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\MainWindow.xaml;;
-FG:\codeLib\LibraEditor\LibraEditor\view\newMap\NewMap.xaml;;
-=======
-FE:\vsProjects\LibraEditor\LibraEditor\App.xaml;;
-FE:\vsProjects\LibraEditor\LibraEditor\MainWindow.xaml;;
-FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
-FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;
-FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
->>>>>>> c4747758ef2635e4b394b6c8aea64806bd1219bd
+FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
+FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;
+FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
 

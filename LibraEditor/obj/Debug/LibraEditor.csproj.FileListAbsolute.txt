@@ -72,3 +72,10 @@ E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapLayer
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\LayerItem.baml
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapLayer.baml
 >>>>>>> c4747758ef2635e4b394b6c8aea64806bd1219bd
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\LayerItem.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapLayer.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\NewMap.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\LayerItem.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapLayer.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\NewMap.baml
