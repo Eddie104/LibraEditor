@@ -1,6 +1,7 @@
 ﻿using libra.log4CSharp;
 using libra.util;
 using LibraEditor.libra.util;
+using LibraEditor.mapEditor.events;
 using LibraEditor.mapEditor.view.newMap;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -18,6 +19,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
     public partial class MapLayer : UserControl
     {
 
+        private NetLayerItem netLayerItem;
+
         public MapLayer()
         {
             InitializeComponent();
@@ -29,6 +32,21 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             netLayer.CreateMap();
             mouseCursor.DrawCursor();
+
+            if (netLayerItem == null)
+            {
+                netLayerItem = new NetLayerItem();
+                netLayerItem.VisibleChanged += OnNetLayerItemVisibleChanged;
+            }
+            if (!layerListBox.Items.Contains(netLayerItem))
+            {
+                layerListBox.Items.Add(netLayerItem);
+            }
+        }
+
+        private void OnNetLayerItemVisibleChanged(object sender, EventArgs e)
+        {
+            netLayer.Visibility = (e as VisibleChangedEventArgs).IsVisible ? Visibility.Visible : Visibility.Hidden;
         }
 
         private async void OnAddLayerHandler(object sender, RoutedEventArgs e)
@@ -60,7 +78,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             //Point p = e.GetPosition(netLayer);
             //Canvas.SetLeft(mouseCursor, p.X);
             //Canvas.SetTop(mouseCursor, p.Y);
-            Point index = ISOHelper.GetItemIndex(e.GetPosition(netLayer));
+            Point index = Config.ViewType == ViewType.iso ? ISOHelper.GetItemIndex(e.GetPosition(netLayer)) : RectangularHelper.GetItemIndex(e.GetPosition(netLayer));
             mouseCursor.SetRowAndCol((int)index.Y, (int)index.X);
             //if (mouseCursorRowIndex != index.X || )
             //{

@@ -63,11 +63,11 @@ namespace LibraEditor.mapEditor.view.newMap
                 Config.CellRows = (int)tileRowsNumeric.Value;
                 Config.CellCols = (int)tileColsNumeric.Value;
 
-                ISOHelper.Width = Config.CellWidth;
-                ISOHelper.Height = Config.CellHeight;
-
                 if (Config.ViewType == ViewType.iso)
                 {
+                    ISOHelper.Width = Config.CellWidth;
+                    ISOHelper.Height = Config.CellHeight;
+
                     if (Config.CellWidth % 4 != 0)
                     {
                         DialogManager.ShowMessageAsync(this, "地图宽度有误", "斜视角地图中，格子宽度应为4的倍数");
@@ -75,6 +75,11 @@ namespace LibraEditor.mapEditor.view.newMap
                     }
                     Config.CellHeight = Config.CellWidth / 2;
                     ISOHelper.Height = ISOHelper.Width / 2;
+                }
+                else
+                {
+                    RectangularHelper.Width = Config.CellWidth;
+                    RectangularHelper.Height = Config.CellHeight;
                 }
 
                 CreateMapHandler(this, null);

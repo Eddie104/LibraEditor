@@ -27,8 +27,13 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 int totalWidth = Config.CellWidth * Config.CellCols;
                 int totalHeight = Config.CellHeight * Config.CellRows;
-                startX = (int)Math.Floor((this.canvas.ActualWidth - totalWidth) * 0.5);
-                startY = (int)Math.Floor((this.canvas.ActualHeight - totalHeight) * 0.5);
+                startX = (int)(this.canvas.ActualWidth - totalWidth) / 2;
+                startY = (int)(this.canvas.ActualHeight - totalHeight) / 2;
+                RectangularHelper.TopPoint = new Point(startX, startY);
+
+                Point index = RectangularHelper.GetItemIndex(new Point(startX, startY));
+                index = RectangularHelper.GetItemPos((int)index.X, (int)index.Y);
+                startX = (int)index.X;startY = (int)index.Y;
                 for (int row = 0; row <= Config.CellRows; row++)
                 {
                     points.Add(new LinePoint()

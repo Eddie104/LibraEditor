@@ -29,3 +29,5 @@ G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\NetLayer.g.
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\NetLayer.baml
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MouseCursor.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MouseCursor.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\NetLayerItem.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\NetLayerItem.baml

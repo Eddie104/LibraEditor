@@ -23,22 +23,22 @@
         </Canvas>
 
         <local:NetLayer x:Name="netLayer" Grid.Column="0"/>
-        <!--<Canvas Grid.Column="0">
-            <Canvas Name="mouseCursor"/>
-        </Canvas>-->
         <local:MouseCursor Grid.Column="0" x:Name="mouseCursor"/>
 
         <TreeView Grid.Column="1">
-            <TreeViewItem>
-                <Button Content="dd"/>
-                <Label Content="dd"/>
+            <TreeViewItem Header="资源库">
+                <ToolBar Width="126">
+                    <Button ToolTip="导入资源">
+                        <Image Source="/LibraEditor;component/Resources/import_16.png"/>
+                    </Button>
+                </ToolBar>
             </TreeViewItem>
             <TreeViewItem Header="层管理" IsExpanded="True">
                 <ToolBar Width="126">
-                    <Button Click="OnAddLayerHandler">
+                    <Button Click="OnAddLayerHandler" ToolTip="添加图层">
                         <Image Source="/LibraEditor;component/Resources/add_16.png"/>
                     </Button>
-                    <Button Click="OnDeleteLayerHandler">
+                    <Button Click="OnDeleteLayerHandler" ToolTip="删除图层">
                         <Image Source="/LibraEditor;component/Resources/delete_16.png"/>
                     </Button>
                 </ToolBar>

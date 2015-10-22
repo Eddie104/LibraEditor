@@ -72,9 +72,11 @@
     <Compile Include="libra\util\GraphicsHelper.cs" />
     <Compile Include="libra\util\ImageHelper.cs" />
     <Compile Include="libra\util\ISOHelper.cs" />
+    <Compile Include="libra\util\RectangularHelper.cs" />
     <Compile Include="libra\util\RegularHelper.cs" />
     <Compile Include="libra\util\StringHelper.cs" />
     <Compile Include="libra\web\HTMLHelper.cs" />
+    <Compile Include="mapEditor\events\VisibleChangedEventArgs.cs" />
     <Compile Include="mapEditor\model\MapData.cs" />
     <Compile Include="mapEditor\view\mapLayer\LayerItem.xaml.cs">
       <DependentUpon>LayerItem.xaml</DependentUpon>
@@ -87,6 +89,9 @@
     </Compile>
     <Compile Include="mapEditor\view\mapLayer\NetLayer.xaml.cs">
       <DependentUpon>NetLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\NetLayerItem.xaml.cs">
+      <DependentUpon>NetLayerItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="mapEditor\view\NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
@@ -116,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="mapEditor\view\mapLayer\NetLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\NetLayerItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\alpha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\import_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

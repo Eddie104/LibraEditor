@@ -62,7 +62,22 @@ namespace LibraEditor.mapEditor.view.mapLayer
             }
             else if (Config.ViewType == ViewType.tile)
             {
-
+                for (int i = 0; i < 2; i++)
+                {
+                    points.Add(new LinePoint()
+                    {
+                        StartPoint = new Point(0, i * Config.CellHeight),
+                        EndPoint = new Point(Config.CellWidth, i * Config.CellHeight)
+                    });
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    points.Add(new LinePoint()
+                    {
+                        StartPoint = new Point(i * Config.CellWidth, 0),
+                        EndPoint = new Point(Config.CellWidth * i, Config.CellHeight)
+                    });
+                }
             }
             GraphicsHelper.Draw(mouseCursor, points, Brushes.Red);
         }
@@ -73,7 +88,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 CurRow = row;
                 CurCol = col;
-                Point p = ISOHelper.GetItemPos(row, col);
+                Point p = Config.ViewType == ViewType.iso ? ISOHelper.GetItemPos(row, col) : RectangularHelper.GetItemPos(row, col);
                 Canvas.SetLeft(mouseCursor, p.X);
                 Canvas.SetTop(mouseCursor, p.Y);
             }
