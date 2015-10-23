@@ -39,5 +39,10 @@ namespace LibraEditor.plistTool
             //    Logger.Info(item.ToString());
             //}
         }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Console.WriteLine("aaaaaaaaaaaaaaaaaaa");
+        }
     }
 }

@@ -7,7 +7,20 @@
         xmlns:local="clr-namespace:LibraEditor"
         xmlns:mapEditor="clr-namespace:LibraEditor.mapEditor.view.mapLayer"
         Title="MainWindow" Height="400" Width="300" WindowStartupLocation="CenterScreen">
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="New" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>-->
     <Grid>
-        <Button Content="dd" Click="Button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button Command="New" Grid.Row="0" Content="ddd"/>
+
+        <Expander x:Name="expander" Header="Expander" Grid.Row="1">
+            <Grid Background="#FFE5E5E5"/>
+        </Expander>
+
     </Grid>
 </controls:MetroWindow>

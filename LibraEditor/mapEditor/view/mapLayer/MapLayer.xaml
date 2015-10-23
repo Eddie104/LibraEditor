@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Canvas Grid.Column="0" MouseMove="OnMouseMove">
             <Canvas.Background>
@@ -25,25 +25,54 @@
         <local:NetLayer x:Name="netLayer" Grid.Column="0"/>
         <local:MouseCursor Grid.Column="0" x:Name="mouseCursor"/>
 
-        <TreeView Grid.Column="1">
-            <TreeViewItem Header="资源库" IsExpanded="True">
-                <ToolBar Width="126">
-                    <Button ToolTip="导入资源" Click="OnImportRes">
-                        <Image Source="/LibraEditor;component/Resources/import_16.png"/>
-                    </Button>
-                </ToolBar>
-            </TreeViewItem>
-            <TreeViewItem Header="层管理" IsExpanded="True">
-                <ToolBar Width="126">
-                    <Button Click="OnAddLayerHandler" ToolTip="添加图层">
-                        <Image Source="/LibraEditor;component/Resources/add_16.png"/>
-                    </Button>
-                    <Button Click="OnDeleteLayerHandler" ToolTip="删除图层">
-                        <Image Source="/LibraEditor;component/Resources/delete_16.png"/>
-                    </Button>
-                </ToolBar>
-                <ListBox Name="layerListBox" Width="118"/>
-            </TreeViewItem>
-        </TreeView>
+        <controls:MetroAnimatedTabControl Grid.Column="1">
+            <controls:MetroTabItem Header="项目">
+                <StackPanel>
+                    <Expander Header="预览" IsExpanded="True">
+                        <Image Width="200" Height="200"/>
+                    </Expander>
+                    <Expander Header="资源库" IsExpanded="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <WrapPanel Grid.Row="0">
+                                <Button>
+                                    <Image Source="/LibraEditor;component/Resources/import_16.png"/>
+                                </Button>
+                            </WrapPanel>
+                        </Grid>
+                    </Expander>
+                    <Expander Header="图层管理" IsExpanded="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <WrapPanel Grid.Row="0">
+                                <Button Click="OnAddLayerHandler" ToolTip="添加图层">
+                                    <Image Source="/LibraEditor;component/Resources/add_16.png"/>
+                                </Button>
+                                <Button Click="OnDeleteLayerHandler" ToolTip="删除图层" Margin="5, 0, 0, 0">
+                                    <Image Source="/LibraEditor;component/Resources/delete_16.png"/>
+                                </Button>
+                            </WrapPanel>
+                            <ListBox Grid.Row="1" Name="layerListBox"/>
+                        </Grid>
+                    </Expander>
+                    <Expander Header="图层管理" IsExpanded="True">
+                        <Grid></Grid>
+                    </Expander>
+                </StackPanel>
+            </controls:MetroTabItem>
+            <controls:MetroTabItem Header="属性">
+                <StackPanel>
+                    <Expander Header="aaa" IsExpanded="True">
+                        <Button Content="3434343"/>
+                    </Expander>
+                </StackPanel>
+            </controls:MetroTabItem>
+        </controls:MetroAnimatedTabControl>
     </Grid>
 </UserControl>

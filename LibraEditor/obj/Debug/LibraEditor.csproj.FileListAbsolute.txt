@@ -66,3 +66,5 @@ E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\LibraEditor.exe
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\LibraEditor.pdb
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.g.cs
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.baml

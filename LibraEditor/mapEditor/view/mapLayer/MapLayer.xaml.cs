@@ -75,15 +75,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            //Point p = e.GetPosition(netLayer);
-            //Canvas.SetLeft(mouseCursor, p.X);
-            //Canvas.SetTop(mouseCursor, p.Y);
             Point index = Config.ViewType == ViewType.iso ? ISOHelper.GetItemIndex(e.GetPosition(netLayer)) : RectangularHelper.GetItemIndex(e.GetPosition(netLayer));
             mouseCursor.SetRowAndCol((int)index.Y, (int)index.X);
-            //if (mouseCursorRowIndex != index.X || )
-            //{
-
-            //}
         }
 
         private void OnImportRes(object sender, RoutedEventArgs e)
