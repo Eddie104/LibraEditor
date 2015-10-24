@@ -2,13 +2,10 @@
 using libra.util;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace LibraEditor.libra.util
 {
@@ -24,7 +21,9 @@ namespace LibraEditor.libra.util
         DATA,
         INTEGER,
         REAL,
-        KEY
+        KEY,
+        TRUE,
+        FALSE
     }
 
     class DataType
@@ -204,6 +203,7 @@ namespace LibraEditor.libra.util
                     plistData.Metadata = metadata;
                 }
             }
+            plistData.Init();
             return plistData;
         }
 
@@ -240,12 +240,22 @@ namespace LibraEditor.libra.util
         {
             this.Frames = new List<FrameData>();
         }
+
+        internal void Init()
+        {
+            Metadata.Init();
+            foreach (FrameData frameData in Frames)
+            {
+                frameData.Init(Metadata);
+            }
+        }
     }
 
     public class FrameData
     {
         public string PngName { get; set; }
 
+        #region format为0的属性
         public string Width { get; set; }
 
         public string Height { get; set; }
@@ -261,13 +271,145 @@ namespace LibraEditor.libra.util
         public string OffsetX { get; set; }
 
         public string OffsetY { get; set; }
+        #endregion
+
+        #region format为2的属性
+        public string Frame { get; set; }
+
+        public string Offset { get; set; }
+
+        public string Rotated { get; set; }
+
+        public string SourceColorRect { get; set; }
+
+        public string SourceSize { get; set; }
+        #endregion
+
+        #region format为3的属性
+        public string Aliases { get; set; }
+
+        public string SpriteColorRect { get; set; }
+
+        public string SpriteOffset { get; set; }
+
+        public string SpriteSize { get; set; }
+
+        public string SpriteSourceSize { get; set; }
+
+        public string SpriteTrimmed { get; set; }
+
+        public string TextureRect { get; set; }
+
+        public string TextureRotated { get; set; }
+        #endregion
+
+        private Rectangle textureRect = new Rectangle();
+
+        internal void Init(Metadata metadata)
+        {
+            int rectX = 0;int rectY = 0;int rectW = 0;int rectH = 0;
+            switch (metadata.GetFormat())
+            {
+                case 0:
+                    /*
+                    <key>width</key>
+				    <integer>211</integer>
+				    <key>height</key>
+				    <integer>167</integer>
+				    <key>originalWidth</key>
+				    <integer>211</integer>
+				    <key>originalHeight</key>
+				    <integer>167</integer>
+				    <key>x</key>
+				    <integer>544</integer>
+				    <key>y</key>
+				    <integer>436</integer>
+				    <key>offsetX</key>
+				    <real>0</real>
+				    <key>offsetY</key>
+				    <real>0</real>
+                    */
+                    int.TryParse(this.X, out rectX);
+                    int.TryParse(this.Y, out rectY);
+                    int.TryParse(this.Width, out rectW);
+                    int.TryParse(this.Height, out rectH);
+                    break;
+                case 1:
+                case 2:
+                    /*
+                    <key>frame</key>
+                    <string>{{902,131},{108,125}}</string>
+                    <key>offset</key>
+                    <string>{0,0}</string>
+                    <key>rotated</key>
+                    <false/>
+                    <key>sourceColorRect</key>
+                    <string>{{1,4},{108,125}}</string>
+                    <key>sourceSize</key>
+                    <string>{110,133}</string>
+                    */
+                    MatchCollection mathchs = Regex.Matches(Frame, @"\d+");
+                    int.TryParse(mathchs[0].ToString(), out rectX);
+                    int.TryParse(mathchs[1].ToString(), out rectY);
+                    int.TryParse(mathchs[2].ToString(), out rectW);
+                    int.TryParse(mathchs[3].ToString(), out rectH);
+                    break;
+                case 3:
+                    //{{104, 242}, {24, 32}}
+                    mathchs = Regex.Matches(TextureRect, @"\d+");
+                    int.TryParse(mathchs[0].ToString(), out rectX);
+                    int.TryParse(mathchs[1].ToString(), out rectY);
+                    int.TryParse(mathchs[2].ToString(), out rectW);
+                    int.TryParse(mathchs[3].ToString(), out rectH);
+                    break;
+            }
+            this.textureRect.X = rectX;
+            this.textureRect.Y = rectY;
+            this.textureRect.Width = rectW;
+            this.textureRect.Height = rectH;
+        }
+
+        public Rectangle GetTextureRect()
+        {
+            return this.textureRect;
+        }
     }
 
     public class Metadata
     {
+        //默认为3
+        private int format = 0;
+
+        private int width = 0;
+
+        private int height = 0;
+
         public string Format { get; set; }
 
         public string Size { get; set; }
+
+        internal void Init()
+        {
+            int.TryParse(Format, out format);
+            MatchCollection mathchs = Regex.Matches(Size, @"\d+");
+            int.TryParse(mathchs[0].ToString(), out this.width);
+            int.TryParse(mathchs[1].ToString(), out this.height);
+        }
+
+        public int GetFormat()
+        {
+            return this.format;
+        }
+
+        public int GetWidth()
+        {
+            return this.width;
+        }
+
+        public int GetHeight()
+        {
+            return this.height;
+        }
     }
 
     #region xml

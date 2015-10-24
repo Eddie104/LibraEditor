@@ -4,31 +4,174 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>hywx_fx_bbjf_04.png</key>
+            <key>hywx_fx_bhcs_s1_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{320,631},{150,116}}</string>
+                <string>{{902,131},{108,125}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{150,116}}</string>
+                <string>{{1,4},{108,125}}</string>
                 <key>sourceSize</key>
-                <string>{150,116}</string>
+                <string>{110,133}</string>
             </dict>
-            <key>hywx_fx_bbjf_bao_06.png</key>
+            <key>hywx_fx_bhcs_s1_3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{302,213},{278,211}}</string>
+                <string>{{895,0},{110,129}}</string>
                 <key>offset</key>
-                <string>{2,7}</string>
+                <string>{0,1}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{16,2},{278,211}}</string>
+                <string>{{0,1},{110,129}}</string>
                 <key>sourceSize</key>
-                <string>{306,229}</string>
+                <string>{110,133}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s1_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{824,321},{110,85}}</string>
+                <key>offset</key>
+                <string>{0,-21}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,45},{110,85}}</string>
+                <key>sourceSize</key>
+                <string>{110,133}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s1_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{824,408},{110,71}}</string>
+                <key>offset</key>
+                <string>{0,-29}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,60},{110,71}}</string>
+                <key>sourceSize</key>
+                <string>{110,133}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s2_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{297,324},{224,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{224,128}}</string>
+                <key>sourceSize</key>
+                <string>{224,128}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s2_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{313,188},{293,134}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{293,134}}</string>
+                <key>sourceSize</key>
+                <string>{293,134}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s2_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{608,189},{292,130}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{292,130}}</string>
+                <key>sourceSize</key>
+                <string>{292,130}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s2_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,402},{243,85}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{243,85}}</string>
+                <key>sourceSize</key>
+                <string>{243,85}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s3_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,208},{295,192}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{295,192}}</string>
+                <key>sourceSize</key>
+                <string>{295,192}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s3_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{313,0},{295,186}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{295,186}}</string>
+                <key>sourceSize</key>
+                <string>{295,186}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s3_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,0},{311,206}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{311,206}}</string>
+                <key>sourceSize</key>
+                <string>{311,206}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s3_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{610,0},{283,187}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{283,187}}</string>
+                <key>sourceSize</key>
+                <string>{283,187}</string>
+            </dict>
+            <key>hywx_fx_bhcs_s4-1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{608,321},{214,146}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{214,146}}</string>
+                <key>sourceSize</key>
+                <string>{214,146}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -36,13 +179,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>Hywx_Fx_Bbjf0.png</string>
+            <string>Hywx_Fx_Bhcsq0.png</string>
             <key>size</key>
-            <string>{596,1024}</string>
+            <string>{1010,487}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d6dbc4c9285d1fe198f8beb50a8ddf3b:26684fe332b9827e728961d37ae03587:7388625577e86469821710d5126d692e$</string>
+            <string>$TexturePacker:SmartUpdate:1a93e7b1ada18e19ccbc149915d68cfa:13228f79d2437dbf656c2f0a5aa62377:69c274af18b7c3a049aa4d42b625060d$</string>
             <key>textureFileName</key>
-            <string>Hywx_Fx_Bbjf0.png</string>
+            <string>Hywx_Fx_Bhcsq0.png</string>
         </dict>
     </dict>
 </plist>

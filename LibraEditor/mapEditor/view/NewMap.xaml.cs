@@ -1,5 +1,6 @@
 ﻿using libra.util;
 using LibraEditor.libra.util;
+using LibraEditor.mapEditor.model;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -53,41 +54,49 @@ namespace LibraEditor.mapEditor.view.newMap
 
         private void OnCreateMap(object sender, RoutedEventArgs e)
         {
-            string mapName = this.mapNameTextBox.Text;
-            if (RegularHelper.IsLetterAndNumber(mapName))
+            if (!string.IsNullOrEmpty(mapFloderTextBlock.Text))
             {
-                Config.ProjectType = (ProjectType)Enum.GetValues(typeof(ProjectType)).GetValue(projectTypeComboBox.SelectedIndex);
-                Config.ViewType = (bool)obliqueRadioButton.IsChecked ? ViewType.iso : ViewType.tile;
-                Config.CellWidth = (int)tileWidthNumeric.Value;
-                Config.CellHeight = (int)tileHeightNumeric.Value;
-                Config.CellRows = (int)tileRowsNumeric.Value;
-                Config.CellCols = (int)tileColsNumeric.Value;
-
-                if (Config.ViewType == ViewType.iso)
+                MapData mapData = MapData.GetInstance();
+                string mapName = this.mapNameTextBox.Text;
+                if (RegularHelper.IsLetterAndNumber(mapName))
                 {
-                    ISOHelper.Width = Config.CellWidth;
-                    ISOHelper.Height = Config.CellHeight;
+                    mapData.ProjectType = (ProjectType)Enum.GetValues(typeof(ProjectType)).GetValue(projectTypeComboBox.SelectedIndex);
+                    mapData.ViewType = (bool)obliqueRadioButton.IsChecked ? ViewType.iso : ViewType.tile;
+                    mapData.CellWidth = (int)tileWidthNumeric.Value;
+                    mapData.CellHeight = (int)tileHeightNumeric.Value;
+                    mapData.CellRows = (int)tileRowsNumeric.Value;
+                    mapData.CellCols = (int)tileColsNumeric.Value;
 
-                    if (Config.CellWidth % 4 != 0)
+                    if (mapData.ViewType == ViewType.iso)
                     {
-                        DialogManager.ShowMessageAsync(this, "地图宽度有误", "斜视角地图中，格子宽度应为4的倍数");
-                        return;
+                        ISOHelper.Width = mapData.CellWidth;
+                        ISOHelper.Height = mapData.CellHeight;
+
+                        if (mapData.CellWidth % 4 != 0)
+                        {
+                            DialogManager.ShowMessageAsync(this, "地图宽度有误", "斜视角地图中，格子宽度应为4的倍数");
+                            return;
+                        }
+                        mapData.CellHeight = mapData.CellWidth / 2;
+                        ISOHelper.Height = ISOHelper.Width / 2;
                     }
-                    Config.CellHeight = Config.CellWidth / 2;
-                    ISOHelper.Height = ISOHelper.Width / 2;
+                    else
+                    {
+                        RectangularHelper.Width = mapData.CellWidth;
+                        RectangularHelper.Height = mapData.CellHeight;
+                    }
+
+                    CreateMapHandler(this, null);
+                    this.Close();
                 }
                 else
                 {
-                    RectangularHelper.Width = Config.CellWidth;
-                    RectangularHelper.Height = Config.CellHeight;
+                    DialogManager.ShowMessageAsync(this, "地图名错误", "命名应以字母开头，并且只能包含字母数字和下划线");
                 }
-
-                CreateMapHandler(this, null);
-                this.Close();
             }
             else
             {
-                DialogManager.ShowMessageAsync(this, "地图名错误", "命名应以字母开头，并且只能包含字母数字和下划线");
+                DialogManager.ShowMessageAsync(this, "存储路径有误", "请选择正确的地图存储路径");
             }
         }
     }

@@ -42,6 +42,139 @@
 				<key>offsetY</key>
 				<real>0</real>
 			</dict>
+			<key>hywx_fx_arxhz_ci_05.png</key>
+			<dict>
+				<key>width</key>
+				<integer>332</integer>
+				<key>height</key>
+				<integer>434</integer>
+				<key>originalWidth</key>
+				<integer>332</integer>
+				<key>originalHeight</key>
+				<integer>434</integer>
+				<key>x</key>
+				<integer>668</integer>
+				<key>y</key>
+				<integer>0</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>hywx_fx_arxhz_ci_06.png</key>
+			<dict>
+				<key>width</key>
+				<integer>332</integer>
+				<key>height</key>
+				<integer>434</integer>
+				<key>originalWidth</key>
+				<integer>332</integer>
+				<key>originalHeight</key>
+				<integer>434</integer>
+				<key>x</key>
+				<integer>1002</integer>
+				<key>y</key>
+				<integer>0</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>hywx_fx_arxhz_ci_07.png</key>
+			<dict>
+				<key>width</key>
+				<integer>332</integer>
+				<key>height</key>
+				<integer>434</integer>
+				<key>originalWidth</key>
+				<integer>332</integer>
+				<key>originalHeight</key>
+				<integer>434</integer>
+				<key>x</key>
+				<integer>1336</integer>
+				<key>y</key>
+				<integer>0</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>hywx_fx_arxhz_ci_08.png</key>
+			<dict>
+				<key>width</key>
+				<integer>332</integer>
+				<key>height</key>
+				<integer>434</integer>
+				<key>originalWidth</key>
+				<integer>332</integer>
+				<key>originalHeight</key>
+				<integer>434</integer>
+				<key>x</key>
+				<integer>1670</integer>
+				<key>y</key>
+				<integer>0</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>hywx_fx_arxhz_zhang1_02.png</key>
+			<dict>
+				<key>width</key>
+				<integer>276</integer>
+				<key>height</key>
+				<integer>297</integer>
+				<key>originalWidth</key>
+				<integer>276</integer>
+				<key>originalHeight</key>
+				<integer>297</integer>
+				<key>x</key>
+				<integer>0</integer>
+				<key>y</key>
+				<integer>436</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>hywx_fx_arxhz_zhang3_13.png</key>
+			<dict>
+				<key>width</key>
+				<integer>264</integer>
+				<key>height</key>
+				<integer>214</integer>
+				<key>originalWidth</key>
+				<integer>264</integer>
+				<key>originalHeight</key>
+				<integer>214</integer>
+				<key>x</key>
+				<integer>278</integer>
+				<key>y</key>
+				<integer>436</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
+			<key>hywx_fx_arxhz_zhang2_08.png</key>
+			<dict>
+				<key>width</key>
+				<integer>211</integer>
+				<key>height</key>
+				<integer>167</integer>
+				<key>originalWidth</key>
+				<integer>211</integer>
+				<key>originalHeight</key>
+				<integer>167</integer>
+				<key>x</key>
+				<integer>544</integer>
+				<key>y</key>
+				<integer>436</integer>
+				<key>offsetX</key>
+				<real>0</real>
+				<key>offsetY</key>
+				<real>0</real>
+			</dict>
 		</dict>
 		<key>metadata</key>
 		<dict>
@@ -63,32 +196,3 @@
 		</dict>
 	</dict>
 </plist>
-
-<!-- [INFO] => id = 1, name = , val = , parentID = 0
-[INFO] => id = 4, name = width, val = 332, parentID = 3
-[INFO] => id = 5, name = height, val = 434, parentID = 3
-[INFO] => id = 6, name = originalWidth, val = 332, parentID = 3
-[INFO] => id = 7, name = originalHeight, val = 434, parentID = 3
-[INFO] => id = 8, name = x, val = 0, parentID = 3
-[INFO] => id = 9, name = y, val = 0, parentID = 3
-[INFO] => id = 10, name = offsetX, val = 0, parentID = 3
-[INFO] => id = 11, name = offsetY, val = 0, parentID = 3
-[INFO] => id = 13, name = width, val = 332, parentID = 12
-[INFO] => id = 14, name = height, val = 434, parentID = 12
-[INFO] => id = 15, name = originalWidth, val = 332, parentID = 12
-[INFO] => id = 16, name = originalHeight, val = 434, parentID = 12
-[INFO] => id = 17, name = x, val = 334, parentID = 12
-[INFO] => id = 18, name = y, val = 0, parentID = 12
-[INFO] => id = 19, name = offsetX, val = 0, parentID = 12
-[INFO] => id = 20, name = offsetY, val = 0, parentID = 12
-[INFO] => id = 3, name = hywx_fx_arxhz_ci_03.png, val = , parentID = 2
-[INFO] => id = 12, name = hywx_fx_arxhz_ci_04.png, val = , parentID = 2
-[INFO] => id = 22, name = format, val = 0, parentID = 21
-[INFO] => id = 23, name = textureFileName, val = Hywx_Fx_Arxhz0.png, parentID = 21
-[INFO] => id = 24, name = realTextureFileName, val = Hywx_Fx_Arxhz0.png, parentID = 21
-[INFO] => id = 25, name = size, val = {2048,2048}, parentID = 21
-[INFO] => id = 27, name = width, val = 2048, parentID = 26
-[INFO] => id = 28, name = height, val = 2048, parentID = 26
-[INFO] => id = 2, name = frames, val = , parentID = 1
-[INFO] => id = 21, name = metadata, val = , parentID = 1
-[INFO] => id = 26, name = texture, val = , parentID = 1 -->

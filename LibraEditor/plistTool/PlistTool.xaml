@@ -16,11 +16,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Button Command="New" Grid.Row="0" Content="ddd"/>
-
-        <Expander x:Name="expander" Header="Expander" Grid.Row="1">
-            <Grid Background="#FFE5E5E5"/>
-        </Expander>
-
+        <Button Click="Button_Click" Grid.Row="0" Content="ddd"/>
     </Grid>
 </controls:MetroWindow>

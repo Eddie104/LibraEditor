@@ -1,15 +1,13 @@
-﻿using libra.log4CSharp;
-using libra.util;
+﻿using libra.util;
 using LibraEditor.libra.util;
 using LibraEditor.mapEditor.events;
+using LibraEditor.mapEditor.model;
 using LibraEditor.mapEditor.view.newMap;
 using MahApps.Metro.Controls.Dialogs;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace LibraEditor.mapEditor.view.mapLayer
 {
@@ -42,6 +40,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 layerListBox.Items.Add(netLayerItem);
             }
+
+            this.IsEnabled = true;
         }
 
         private void OnNetLayerItemVisibleChanged(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            Point index = Config.ViewType == ViewType.iso ? ISOHelper.GetItemIndex(e.GetPosition(netLayer)) : RectangularHelper.GetItemIndex(e.GetPosition(netLayer));
+            Point index = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(e.GetPosition(netLayer)) : RectangularHelper.GetItemIndex(e.GetPosition(netLayer));
             mouseCursor.SetRowAndCol((int)index.Y, (int)index.X);
         }
 

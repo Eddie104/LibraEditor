@@ -1,4 +1,5 @@
 ﻿using LibraEditor.libra.util;
+using LibraEditor.mapEditor.model;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -22,11 +23,12 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             List<LinePoint> points = new List<LinePoint>();
 
+            MapData mapData = MapData.GetInstance();
             int startX = 0;int startY = 0;
-            if (Config.ViewType == ViewType.tile)
+            if (mapData.ViewType == ViewType.tile)
             {
-                int totalWidth = Config.CellWidth * Config.CellCols;
-                int totalHeight = Config.CellHeight * Config.CellRows;
+                int totalWidth = mapData.CellWidth * mapData.CellCols;
+                int totalHeight = mapData.CellHeight * mapData.CellRows;
                 startX = (int)(this.canvas.ActualWidth - totalWidth) / 2;
                 startY = (int)(this.canvas.ActualHeight - totalHeight) / 2;
                 RectangularHelper.TopPoint = new Point(startX, startY);
@@ -34,37 +36,37 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 Point index = RectangularHelper.GetItemIndex(new Point(startX, startY));
                 index = RectangularHelper.GetItemPos((int)index.X, (int)index.Y);
                 startX = (int)index.X;startY = (int)index.Y;
-                for (int row = 0; row <= Config.CellRows; row++)
+                for (int row = 0; row <= mapData.CellRows; row++)
                 {
                     points.Add(new LinePoint()
                     {
-                        StartPoint = new Point(startX, startY + row * Config.CellHeight),
-                        EndPoint = new Point(startX + Config.CellCols * Config.CellWidth, startY + row * Config.CellHeight)
+                        StartPoint = new Point(startX, startY + row * mapData.CellHeight),
+                        EndPoint = new Point(startX + mapData.CellCols * mapData.CellWidth, startY + row * mapData.CellHeight)
                     });
                 }
-                for (int col = 0; col <= Config.CellCols; col++)
+                for (int col = 0; col <= mapData.CellCols; col++)
                 {
                     points.Add(new LinePoint()
                     {
-                        StartPoint = new Point(startX + col * Config.CellWidth, startY),
-                        EndPoint = new Point(startX + col * Config.CellWidth, startY + Config.CellRows * Config.CellHeight)
+                        StartPoint = new Point(startX + col * mapData.CellWidth, startY),
+                        EndPoint = new Point(startX + col * mapData.CellWidth, startY + mapData.CellRows * mapData.CellHeight)
                     });
                 }
             }
-            else if (Config.ViewType == ViewType.iso)
+            else if (mapData.ViewType == ViewType.iso)
             {
-                int totalWidth = (Config.CellRows + Config.CellCols) * Config.CellWidth / 2;
-                int totalHeight = (Config.CellRows + Config.CellCols) * Config.CellHeight / 2;
-                ISOHelper.TopPoint = new Point(this.canvas.ActualWidth / 2 - (totalWidth -  Config.CellWidth * Config.CellRows) / 2,
+                int totalWidth = (mapData.CellRows + mapData.CellCols) * mapData.CellWidth / 2;
+                int totalHeight = (mapData.CellRows + mapData.CellCols) * mapData.CellHeight / 2;
+                ISOHelper.TopPoint = new Point(this.canvas.ActualWidth / 2 - (totalWidth - mapData.CellWidth * mapData.CellRows) / 2,
                     (int)Math.Floor((this.canvas.ActualHeight - totalHeight) * 0.5));
 
-                double endX = Config.CellCols * Config.CellWidth / 2;
+                double endX = mapData.CellCols * mapData.CellWidth / 2;
                 double endY = endX / 2;
                 Point p;
-                for (int row = 0; row <= Config.CellRows; row++)
+                for (int row = 0; row <= mapData.CellRows; row++)
                 {
-                    p = new Point(ISOHelper.TopPoint.X - Config.CellWidth / 2 * row,
-                            ISOHelper.TopPoint.Y + Config.CellHeight / 2 * row);
+                    p = new Point(ISOHelper.TopPoint.X - mapData.CellWidth / 2 * row,
+                            ISOHelper.TopPoint.Y + mapData.CellHeight / 2 * row);
                     points.Add(new LinePoint()
                     {
                         StartPoint = p,
@@ -72,12 +74,12 @@ namespace LibraEditor.mapEditor.view.mapLayer
                     });
                 }
 
-                endX = Config.CellRows * Config.CellWidth / 2;
+                endX = mapData.CellRows * mapData.CellWidth / 2;
                 endY = endX / 2;
-                for (int col = 0; col <= Config.CellCols; col++)
+                for (int col = 0; col <= mapData.CellCols; col++)
                 {
-                    p = new Point(ISOHelper.TopPoint.X + Config.CellWidth / 2 * col,
-                        ISOHelper.TopPoint.Y + Config.CellHeight / 2 * col);
+                    p = new Point(ISOHelper.TopPoint.X + mapData.CellWidth / 2 * col,
+                        ISOHelper.TopPoint.Y + mapData.CellHeight / 2 * col);
                     points.Add(new LinePoint()
                     {
                         StartPoint = p,
