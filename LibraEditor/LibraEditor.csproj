@@ -65,6 +65,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="egret\resourceTool\ResourceGroup.xaml.cs">
+      <DependentUpon>ResourceGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="egret\resourceTool\ResourceTool.xaml.cs">
+      <DependentUpon>ResourceTool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="libra\log4CSharp\Logger.cs" />
     <Compile Include="libra\util\ByteConvertHelper.cs" />
     <Compile Include="libra\util\FileHelper.cs" />
@@ -96,6 +102,14 @@
     <Compile Include="mapEditor\view\NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
     </Compile>
+    <Page Include="egret\resourceTool\ResourceGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="egret\resourceTool\ResourceTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

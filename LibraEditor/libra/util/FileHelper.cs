@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,26 @@ namespace libra.util
                 return openFile.FileNames;
             }
             return null;
+        }
+
+        /// <summary>
+        /// 查找指定目录下的所有文件
+        /// </summary>
+        /// <param name="dir">指定的目录</param>
+        /// <returns></returns>
+        public static List<string> FindFile(string dir)  
+        {
+            List<string> result = new List<string>();
+            DirectoryInfo dirInfo = new DirectoryInfo(dir);
+            foreach (DirectoryInfo d in dirInfo.GetDirectories())//查找子目录      
+            {
+                result.AddRange(FindFile(dir + "\\" + d.ToString()));
+            }
+            foreach (FileInfo f in dirInfo.GetFiles("*.*")) //查找文件   
+            {
+                result.Add(dirInfo + "\\" + f.ToString());
+            }
+            return result;
         }
 
     }

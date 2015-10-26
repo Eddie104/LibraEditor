@@ -1,0 +1,59 @@
+﻿<controls:MetroWindow x:Class="LibraEditor.egret.resourceTool.ResourceTool"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraEditor.egret.resourceTool"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="ResourceTool" Height="300" Width="300" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="Gray" Margin="0, 5, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="项目路径:" Grid.Column="0" Foreground="White"/>
+            <TextBlock Name="pathTextBlock" Grid.Column="1" Background="LightGray" VerticalAlignment="Center" Margin="5, 0, 0, 0"/>
+            <Button Content="..." Grid.Column="2" Margin="5, 0, 5, 0" Click="OnFindProjectPath"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="160"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" Name="resourceDataGrid" Margin="10,10,10,0"
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                  Style="{StaticResource AzureDataGrid}" SelectedCellsChanged="OnResourceSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="图片名" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="路径" Binding="{Binding Path}"/>
+                    <DataGridTextColumn Header="资源组" Binding="{Binding GroupName}"/>
+                    <DataGridTextColumn Header="类型" Binding="{Binding Type}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Column="1">
+                <Image Name="img"/>
+                <GroupBox Header="资源组">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="26"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ToolBar Grid.Row="0">
+                            <Button Content="添加" Click="OnAddGroup"/>
+                        </ToolBar>
+                        <StackPanel Name="groupPanel" Grid.Row="1">
+                            
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>

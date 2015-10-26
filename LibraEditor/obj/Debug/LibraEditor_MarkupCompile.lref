@@ -8,4 +8,6 @@ FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayer.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayerItem.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\plistTool\PlistTool.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\egret\resourceTool\ResourceTool.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\egret\resourceTool\ResourceGroup.xaml;;
 

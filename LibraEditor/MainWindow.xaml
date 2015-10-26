@@ -106,6 +106,7 @@
             </MenuItem>
             <MenuItem Header="工具(_T)" ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}">
                 <MenuItem Header="Plist(_P)" Click="OnShowPlistTool"/>
+                <MenuItem Header="白鹭资源工具" Click="OnShowEgretResTool"/>
             </MenuItem>
             <MenuItem Header="还没做" ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}">
             </MenuItem>

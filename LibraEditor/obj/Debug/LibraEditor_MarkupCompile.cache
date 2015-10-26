@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\vsProjects\LibraEditor\LibraEditor\App.xaml
-9-1727769272
+11861834785
 
-25-1486621654
+27-1090219521
 17-1004949949
-MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
+egret\resourceTool\ResourceGroup.xaml;egret\resourceTool\ResourceTool.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
 
 False
 

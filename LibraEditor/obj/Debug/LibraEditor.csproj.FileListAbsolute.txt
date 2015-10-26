@@ -68,3 +68,7 @@ E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.g.cs
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.baml
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.baml
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.g.cs
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.baml
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.g.cs
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.baml

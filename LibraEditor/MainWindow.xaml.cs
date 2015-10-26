@@ -1,4 +1,5 @@
-﻿using LibraEditor.mapEditor.view.newMap;
+﻿using LibraEditor.egret.resourceTool;
+using LibraEditor.mapEditor.view.newMap;
 using LibraEditor.plistTool;
 using MahApps.Metro.Controls;
 using System.Windows;
@@ -34,6 +35,12 @@ namespace LibraEditor
         public static MainWindow GetInstance()
         {
             return instance;
+        }
+
+        private void OnShowEgretResTool(object sender, RoutedEventArgs e)
+        {
+            ResourceTool win = new ResourceTool();
+            win.ShowDialog();
         }
     }
 }
