@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LibraEditor.egret.resourceTool"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="ResourceTool" Height="300" Width="300" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="ResourceTool" Height="300" Width="300" WindowStartupLocation="CenterScreen" WindowState="Maximized" Name="this">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -17,24 +17,37 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Label Content="项目路径:" Grid.Column="0" Foreground="White"/>
             <TextBlock Name="pathTextBlock" Grid.Column="1" Background="LightGray" VerticalAlignment="Center" Margin="5, 0, 0, 0"/>
             <Button Content="..." Grid.Column="2" Margin="5, 0, 5, 0" Click="OnFindProjectPath"/>
+            <Button Content="导出" Grid.Column="3" Margin="5, 0, 5, 0" Click="OnExport"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <DataGrid Grid.Column="0" Name="resourceDataGrid" Margin="10,10,10,0"
-                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
-                  Style="{StaticResource AzureDataGrid}" SelectedCellsChanged="OnResourceSelected">
+                  AutoGenerateColumns="False" SelectionMode="Single" SelectedCellsChanged="OnResourceSelected" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="图片名" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="路径" Binding="{Binding Path}"/>
-                    <DataGridTextColumn Header="资源组" Binding="{Binding GroupName}"/>
-                    <DataGridTextColumn Header="类型" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="图片名" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="图片名" Binding="{Binding ResName}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="路径" Binding="{Binding Path}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="Template模式">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding GroupName}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox SelectedIndex="0" SelectedValue="{Binding Path=GroupName}" ItemsSource="{Binding Path=ResourceDataGroups,ElementName=this}" SelectionChanged="OnGroupChanged"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="类型" Binding="{Binding Type}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Column="1">

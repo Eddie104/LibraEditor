@@ -17,6 +17,7 @@ namespace LibraEditor
         public MainWindow()
         {
             InitializeComponent();
+            Config.init();
             instance = this;
         }
 
@@ -41,6 +42,11 @@ namespace LibraEditor
         {
             ResourceTool win = new ResourceTool();
             win.ShowDialog();
+        }
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Config.Save();
         }
     }
 }

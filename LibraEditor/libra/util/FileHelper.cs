@@ -11,9 +11,13 @@ namespace libra.util
     class FileHelper
     {
 
-        public static string FindFolder()
+        public static string FindFolder(string selectedPath = null)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (!string.IsNullOrEmpty(selectedPath))
+            {
+                dialog.SelectedPath = selectedPath;
+            }
             return dialog.ShowDialog() == DialogResult.OK ? dialog.SelectedPath : null;
         }
 
