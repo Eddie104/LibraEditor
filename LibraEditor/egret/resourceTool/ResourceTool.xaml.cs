@@ -21,7 +21,7 @@ namespace LibraEditor.egret.resourceTool
 
         public List<ResourceDataGroup> ResourceDataGroups { get; set; }
 
-        public List<ResourceGroup> ResourceGroupList { get; set; }
+        //public List<ResourceGroup> ResourceGroupList { get; set; }
 
         public ResJson ResJson { get; set; }
 
@@ -31,7 +31,7 @@ namespace LibraEditor.egret.resourceTool
         {
             InitializeComponent();
 
-            ResourceGroupList = new List<ResourceGroup>();
+            //ResourceGroupList = new List<ResourceGroup>();
             ResourceList = new List<Resource>();
             ResourceDataGroups = new List<ResourceDataGroup>();
             ResourceDataGroups.Add(new ResourceDataGroup("no group"));
@@ -112,7 +112,7 @@ namespace LibraEditor.egret.resourceTool
                                     ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.font });
                                     break;
                                 case ".mp3":
-                                    ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.sound });
+                                    ResourceList.Add(new SoundResource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.sound, SoundType = SoundType.music });
                                     break;
                                 default:
                                     ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.bin });
@@ -246,17 +246,67 @@ namespace LibraEditor.egret.resourceTool
             }
         }
 
+        private void OnRemoveGroup(object sender, System.Windows.RoutedEventArgs e)
+        {
+            string name = this.groupListBox.SelectedItem.ToString();
+            groupListBox.Items.Remove(name);
+            foreach (ResourceDataGroup item in ResourceDataGroups)
+            {
+                if (item.GroupName == name)
+                {
+                    ResourceDataGroups.Remove(item);
+                    break;
+                }
+            }
+
+            foreach (var item in ResJson.groups)
+            {
+                if (item.name == name)
+                {
+                    ResJson.groups.Remove(item);
+                    break;
+                }
+            }
+        }
+
         private void AddGroup(string name, List<Resource> resourceList = null)
         {
-            ResourceGroup resourceGroup = new ResourceGroup(name, resourceList);
-            this.ResourceGroupList.Add(resourceGroup);
-            groupPanel.Children.Add(resourceGroup);
-            ResourceDataGroup group = new ResourceDataGroup(name);
-            if (resourceList != null)
+            //ResourceGroup resourceGroup = new ResourceGroup(name, resourceList);
+            //this.ResourceGroupList.Add(resourceGroup);
+            //groupPanel.Children.Add(resourceGroup);
+
+            if (!HasGroupData(name))
             {
-                group.ResourceList = resourceList;
+                groupListBox.Items.Add(name);
+
+                ResourceDataGroup group = new ResourceDataGroup(name);
+                if (resourceList != null)
+                {
+                    group.ResourceList = resourceList;
+                }
+                this.ResourceDataGroups.Add(group);
             }
-            this.ResourceDataGroups.Add(group);
+
+            foreach (var item in ResJson.groups)
+            {
+                if (item.name == name)
+                {
+                    return;
+                }
+            }
+            ResJson.groups.Add(new ResGroup() { name = name });
+        }
+
+        private bool HasGroupData(string name)
+        {
+            foreach (ResourceDataGroup item in ResourceDataGroups)
+            {
+                if (item.GroupName == name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void OnGroupChanged(object sender, SelectionChangedEventArgs e)
@@ -346,6 +396,11 @@ namespace LibraEditor.egret.resourceTool
         }
     }
 
+    public class SoundResource : Resource
+    {
+        public SoundType SoundType { get; set; }
+    }
+
     public enum ResourceType
     {
         image,
@@ -354,6 +409,11 @@ namespace LibraEditor.egret.resourceTool
         sheet,
         sound,
         bin
+    }
+
+    public enum SoundType
+    {
+        music, effect
     }
 
     public class ResourceDataGroup
@@ -478,8 +538,8 @@ namespace LibraEditor.egret.resourceTool
     {
         public string name { get; set; }
 
-        private List<string> _keyList;
-        private string _keys;
+        private List<string> _keyList = new List<string>();
+        private string _keys = "";
         public string keys
         {
             get

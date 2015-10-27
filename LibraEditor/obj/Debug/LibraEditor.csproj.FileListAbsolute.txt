@@ -72,9 +72,7 @@ E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.baml
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.g.cs
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.baml
-G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.g.cs
-G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.baml
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.baml
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.dll
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.xml

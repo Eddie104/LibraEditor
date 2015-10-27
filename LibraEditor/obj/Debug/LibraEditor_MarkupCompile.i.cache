@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 G:\codeLib\LibraEditor\LibraEditor\App.xaml
-11861834785
+111098825143
 
-32-2038885893
+32-648629281
 18-1969596784
-egret\resourceTool\ResourceGroup.xaml;egret\resourceTool\ResourceTool.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
+egret\resourceTool\ResourceTool.xaml;egret\resourceTool\Scale9Grid.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
 
-True
+False
 
