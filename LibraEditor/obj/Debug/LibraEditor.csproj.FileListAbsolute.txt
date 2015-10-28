@@ -76,3 +76,5 @@ G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.g.c
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.baml
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.dll
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.xml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.baml
