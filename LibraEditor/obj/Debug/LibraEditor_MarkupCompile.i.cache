@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-G:\codeLib\LibraEditor\LibraEditor\obj\Debug\
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\
 LibraEditor
 none
 false
 DEBUG;TRACE
-G:\codeLib\LibraEditor\LibraEditor\App.xaml
-111098825143
+E:\vsProjects\LibraEditor\LibraEditor\App.xaml
+10-1407901228
 
-32-648629281
-18-1969596784
-egret\resourceTool\ResourceTool.xaml;egret\resourceTool\Scale9Grid.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
+31-260866274
+17-1004949949
+egret\resourceTool\ResourceTool.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
 
 False
 
