@@ -73,6 +73,9 @@
     <Compile Include="egret\resourceTool\ResourceTool.xaml.cs">
       <DependentUpon>ResourceTool.xaml</DependentUpon>
     </Compile>
+    <Compile Include="egret\resourceTool\Scale9Grid.xaml.cs">
+      <DependentUpon>Scale9Grid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="libra\log4CSharp\Logger.cs" />
     <Compile Include="libra\util\ByteConvertHelper.cs" />
     <Compile Include="libra\util\FileHelper.cs" />
@@ -105,6 +108,10 @@
       <DependentUpon>NewMap.xaml</DependentUpon>
     </Compile>
     <Page Include="egret\resourceTool\ResourceTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="egret\resourceTool\Scale9Grid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
