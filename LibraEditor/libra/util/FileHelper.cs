@@ -25,9 +25,10 @@ namespace libra.util
         /// 查找文件
         /// </summary>
         /// <param name="filter">文件格式过滤器 比如 "*.png;*.jpg"</param>
+        /// <param name="multiselect">是否多选，默认单选</param>
         /// <param name="initialDirectory">初始文件夹，可选</param>
         /// <returns>选择的文件路径数组</returns>
-        public static string[] FindFile(string filter, string initialDirectory = null)
+        public static string[] FindFile(string filter, bool multiselect = false, string initialDirectory = null)
         {
             OpenFileDialog openFile = new OpenFileDialog();
             //检查文件是否存在
@@ -35,7 +36,7 @@ namespace libra.util
             //检查路径是否存在
             openFile.CheckPathExists = true;
             //是否允许多选，false表示单选
-            openFile.Multiselect = true;
+            openFile.Multiselect = multiselect;
             if (initialDirectory != null)
             {
                 openFile.InitialDirectory = initialDirectory;

@@ -12,6 +12,8 @@ namespace LibraEditor
     {
         private static List<string> recentEgretResourcePath = new List<string>();
 
+        private static string recentPlistPath = "";
+
         private const string XML_NAME = "config.xml";
 
         public static void init()
@@ -20,11 +22,24 @@ namespace LibraEditor
             {
                 XmlDocument cfgXml = new XmlDocument();
                 cfgXml.Load(XML_NAME);
+
                 XmlNodeList recentEgretResourcePathNodeList = cfgXml.GetElementsByTagName("recentEgretResourcePath");
-                XmlNode recentEgretResourcePathNode = recentEgretResourcePathNodeList[0];
-                foreach (XmlNode node in recentEgretResourcePathNode.ChildNodes)
+                if (recentEgretResourcePathNodeList != null && recentEgretResourcePathNodeList.Count > 0)
                 {
-                    recentEgretResourcePath.Add(node.InnerText);
+                    XmlNode recentEgretResourcePathNode = recentEgretResourcePathNodeList[0];
+                    foreach (XmlNode node in recentEgretResourcePathNode.ChildNodes)
+                    {
+                        recentEgretResourcePath.Add(node.InnerText);
+                    }
+                }
+
+                XmlNodeList recentPlistPathNodeList = cfgXml.GetElementsByTagName("recentPlistPath");
+                if (recentPlistPathNodeList != null && recentPlistPathNodeList.Count > 0)
+                {
+                    if (recentPlistPathNodeList[0].ChildNodes.Count > 0)
+                    {
+                        recentPlistPath = recentPlistPathNodeList[0].ChildNodes[0].InnerText;
+                    }
                 }
             }
         }
@@ -43,6 +58,11 @@ namespace LibraEditor
             }
             cfgXml.AppendChild(element);
 
+            element = cfgXml.CreateElement("recentPlistPath");
+            pathElement = cfgXml.CreateElement("path");
+            pathElement.InnerText = recentPlistPath;
+            element.AppendChild(pathElement);
+
             cfgXml.Save(XML_NAME);
         }
 
@@ -55,9 +75,13 @@ namespace LibraEditor
         {
             if (!recentEgretResourcePath.Contains(projectPath))
             {
-                recentEgretResourcePath.Add(projectPath);
+                recentEgretResourcePath.Insert(0, projectPath);
             }
         }
+
+        public static string GetRecentPlistPath() { return recentPlistPath; }
+
+        public static void SetRecentPlistPath(string val) { recentPlistPath = val; }
 
     }
 }
