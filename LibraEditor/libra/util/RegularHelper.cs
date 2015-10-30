@@ -25,14 +25,15 @@ namespace libra.util
         /// </summary>
         /// <param name="IP"></param>
         /// <returns></returns>
-        public static bool IsIP(string IP)
+        public static bool IsIP(string ip)
         {
-            if (IsNull(IP))
+            if (IsNull(ip))
             {
                 return false;
             }
-            string num = "(25[0-5]|2[0-4]//d|[0-1]//d{2}|[1-9]?//d)";
-            return Regex.IsMatch(IP, ("^" + num + "//." + num + "//." + num + "//." + num + "$"));
+            //string num = "(25[0-5]|2[0-4]//d|[0-1]//d{2}|[1-9]?//d)";
+            //return Regex.IsMatch(IP, ("^" + num + "//." + num + "//." + num + "//." + num + "$"));
+            return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
         }
 
         /// <summary>
