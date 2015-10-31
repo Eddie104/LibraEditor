@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LibraEditor.mapEditor.events;
+using LibraEditor.mapEditor.model;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LibraEditor.mapEditor.view.mapLayer
 {
@@ -21,14 +13,19 @@ namespace LibraEditor.mapEditor.view.mapLayer
     public partial class LayerItem : UserControl
     {
 
+        public event EventHandler VisibleChangedEvent;
+
         public bool IsCanVisible { get; set; }
 
-        public LayerItem(string name)
+        public LayerData LayerData { get; set; }
+
+        public LayerItem(LayerData layerData)
         {
             InitializeComponent();
 
             IsCanVisible = true;
-            this.nameLabel.Content = name;
+            LayerData = layerData;
+            this.nameLabel.Content = LayerData.Name;
         }
 
         private void OnVisibleChanged(object sender, RoutedEventArgs e)
@@ -37,15 +34,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 IsCanVisible = !IsCanVisible;
                 eyeImage.Source = new BitmapImage(new Uri(IsCanVisible ? "/LibraEditor;component/Resources/eye_24.png" : "/LibraEditor;component/Resources/x_24.png", UriKind.RelativeOrAbsolute));
+                VisibleChangedEvent(this, new VisibleChangedEventArgs(IsCanVisible, LayerData.Name));
             }
         }
-
-        //private void OnVisibleChanged(object sender, RoutedEventArgs e)
-        //{
-        //    if (this.IsInitialized)
-        //    {
-        //        IsCanVisible = (bool)(sender as CheckBox).IsChecked;
-        //    }
-        //}
     }
 }

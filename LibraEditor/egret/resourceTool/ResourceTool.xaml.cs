@@ -11,396 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace LibraEditor.egret.resourceTool
 {
-    /// <summary>
-    /// ResourceTool.xaml 的交互逻辑
-    /// </summary>
-    public partial class ResourceTool : MetroWindow
-    {
-
-        public List<Resource> ResourceList { get; set; }
-
-        public List<ResourceDataGroup> ResourceDataGroups { get; set; }
-
-        //public List<ResourceGroup> ResourceGroupList { get; set; }
-
-        public ResJson ResJson { get; set; }
-
-        public static string projectPath;
-
-        public ResourceTool()
-        {
-            InitializeComponent();
-
-            //ResourceGroupList = new List<ResourceGroup>();
-            ResourceList = new List<Resource>();
-            ResourceDataGroups = new List<ResourceDataGroup>();
-            ResourceDataGroups.Add(new ResourceDataGroup("no group"));
-        }
-
-        private void OnFindProjectPath(object sender, System.Windows.RoutedEventArgs e)
-        {
-            projectPath = FileHelper.FindFolder(Config.GetFirstRecentEgretResourcePath());
-            if (!string.IsNullOrEmpty(projectPath))
-            {
-                Config.AddRecentEgretResourcePath(projectPath);
-                pathTextBlock.Text = projectPath;
-
-                string egretJsonPath = projectPath + "\\egretProperties.json";
-                if (File.Exists(egretJsonPath))
-                {
-                    string resourceDir = projectPath + "\\resource";
-                    if (Directory.Exists(resourceDir))
-                    {
-                        ResourceList.Clear();
-
-                        List<string> files = FileHelper.FindFile(resourceDir);
-                        foreach (string filePath in files)
-                        {
-                            //string filename = Path.GetFileName(fullPath);//文件名  “Default.aspx”
-                            string extension = Path.GetExtension(filePath);//扩展名 “.aspx”
-                            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);// 没有扩展名的文件名 “Default”
-                            switch (extension.ToLower())
-                            {
-                                case ".png":
-                                case ".jpg":
-                                    ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.image });
-                                    break;
-                                case ".json":
-                                    if (fileNameWithoutExtension == "default.res")
-                                    {
-                                        this.AnalyticalResJson(filePath);
-                                        continue;
-                                    }
-                                    else if ("defaultTest.res" == fileNameWithoutExtension)
-                                    {
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        string sheetImageName = GetSheetImageName(filePath);
-                                        if (string.IsNullOrEmpty(sheetImageName))
-                                        {
-                                            ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.json });
-                                        }
-                                        else
-                                        {
-                                            string[] a = sheetImageName.Split(new char[] { '.' });
-                                            List<string> aa = new List<string>(filePath.Split(new char[] { '\\' }));
-                                            aa.RemoveAt(aa.Count - 1);
-                                            ResourceList.Add(new Resource()
-                                            {
-                                                Name = fileNameWithoutExtension,
-                                                Path = filePath,
-                                                Json = new Resource()
-                                                {
-                                                    Name = fileNameWithoutExtension,
-                                                    Path = filePath,
-                                                    Type = ResourceType.json
-                                                },
-                                                Image = new Resource()
-                                                {
-                                                    Name = a[0],
-                                                    Path = string.Join("\\", aa) + "\\" + sheetImageName,
-                                                    Type = ResourceType.image
-                                                },
-                                                Type = ResourceType.sheet
-                                            });
-                                        }
-                                    }
-                                    break;
-                                case ".fnt":
-                                    ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.font });
-                                    break;
-                                case ".mp3":
-                                    ResourceList.Add(new SoundResource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.sound, SoundType = SoundType.music });
-                                    break;
-                                default:
-                                    ResourceList.Add(new Resource() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.bin });
-                                    break;
-                            }
-                        }
-                        //将sheet中的img资源剔除
-                        var tmp = new List<Resource>(ResourceList.ToArray());
-                        foreach (Resource item in tmp)
-                        {
-                            if (item.Type == ResourceType.sheet)
-                            {
-                                foreach (var i in ResourceList)
-                                {
-                                    if (i.Path == item.Image.Path)
-                                    {
-                                        ResourceList.Remove(i);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        //初始化配置中的group
-                        foreach (ResGroup group in ResJson.groups)
-                        {
-                            List<Resource> groupRes = new List<Resource>();
-                            string[] keys = group.keys.Split(new char[] { ',' });
-                            foreach (string key in keys)
-                            {
-                                ResItem resItem = ResJson.GetResItemByName(key);
-                                foreach (Resource res in ResourceList)
-                                {
-                                    if (res.Path.Contains(resItem.url))
-                                    {
-                                        res.ResName = resItem.name;
-                                        res.GroupName = group.name;
-                                        groupRes.Add(res);
-                                        break;
-                                    }
-                                }
-                            }
-                            AddGroup(group.name, groupRes);
-                        }
-
-                        //剔除resJson中有但是却不存在的资源
-                        bool b = false;
-                        List<ResItem> tmpList = new List<ResItem>(ResJson.resources.ToArray());
-                        foreach (ResItem item in tmpList)
-                        {
-                            b = false;
-                            foreach (Resource res in ResourceList)
-                            {
-                                if (res.Path.Contains(item.url))
-                                {
-                                    b = true;
-                                    break;
-                                }
-                            }
-                            if (!b)
-                            {
-                                ResJson.resources.Remove(item);
-                            }
-                        }
-
-                        //将新的资源加入resJson
-                        foreach (Resource res in ResourceList)
-                        {
-                            ResJson.AddRes(res);
-                        }
-
-                        resourceDataGrid.ItemsSource = ResourceList;
-                    }
-                    else
-                    {
-                        DialogManager.ShowMessageAsync(this, "路径错误", "没有resource目录！");
-                    }
-                }
-                else
-                {
-                    DialogManager.ShowMessageAsync(this, "路径错误", "白鹭引擎路径选择错误，请重新选择！");
-                }
-            }
-        }
-
-        private void AnalyticalResJson(string filePath)
-        {
-            using (StreamReader sr = new StreamReader(filePath))
-            {
-                string jsonTxt = sr.ReadToEnd();
-                ResJson = (ResJson)JsonConvert.DeserializeObject(jsonTxt, typeof(ResJson));
-            }
-        }
-
-        private string GetSheetImageName(string filePath)
-        {
-            using (StreamReader sr = new StreamReader(filePath))
-            {
-                string jsonTxt = sr.ReadToEnd();
-                Match math = Regex.Match(jsonTxt, "^{\"file\":\"\\w+\\.png\"");
-                if (math.Groups.Count > 0)
-                {
-                    return math.ToString().Replace("\"", "").Replace("{file:", "");
-                }
-            }
-            return null;
-        }
-
-        private void OnResourceSelected(object sender, SelectedCellsChangedEventArgs e)
-        {
-            Resource resource = resourceDataGrid.SelectedItem as Resource;
-            if (resource != null)
-            {
-                if (resource.Type == ResourceType.image)
-                {
-                    img.Source = new BitmapImage(new Uri(resource.Path, UriKind.Absolute));
-                }
-                else if (resource.Type == ResourceType.sheet)
-                {
-                    img.Source = new BitmapImage(new Uri(resource.Image.Path, UriKind.Absolute));
-                }
-            }
-        }
-
-        private async void OnAddGroup(object sender, System.Windows.RoutedEventArgs e)
-        {
-            string name = await DialogManager.ShowInputAsync(this, "资源组名", "请输入资源组名");
-            if (!string.IsNullOrEmpty(name))
-            {
-                AddGroup(name);
-            }
-        }
-
-        private void OnRemoveGroup(object sender, System.Windows.RoutedEventArgs e)
-        {
-            string name = this.groupListBox.SelectedItem.ToString();
-            groupListBox.Items.Remove(name);
-            foreach (ResourceDataGroup item in ResourceDataGroups)
-            {
-                if (item.GroupName == name)
-                {
-                    ResourceDataGroups.Remove(item);
-                    break;
-                }
-            }
-
-            foreach (var item in ResJson.groups)
-            {
-                if (item.name == name)
-                {
-                    ResJson.groups.Remove(item);
-                    break;
-                }
-            }
-        }
-
-        private void AddGroup(string name, List<Resource> resourceList = null)
-        {
-            //ResourceGroup resourceGroup = new ResourceGroup(name, resourceList);
-            //this.ResourceGroupList.Add(resourceGroup);
-            //groupPanel.Children.Add(resourceGroup);
-
-            if (!HasGroupData(name))
-            {
-                groupListBox.Items.Add(name);
-
-                ResourceDataGroup group = new ResourceDataGroup(name);
-                if (resourceList != null)
-                {
-                    group.ResourceList = resourceList;
-                }
-                this.ResourceDataGroups.Add(group);
-            }
-
-            foreach (var item in ResJson.groups)
-            {
-                if (item.name == name)
-                {
-                    return;
-                }
-            }
-            ResJson.groups.Add(new ResGroup() { name = name });
-        }
-
-        private bool HasGroupData(string name)
-        {
-            foreach (ResourceDataGroup item in ResourceDataGroups)
-            {
-                if (item.GroupName == name)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void OnGroupChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int index = (sender as ComboBox).SelectedIndex;
-            if (index > -1)
-            {
-                Resource resource = resourceDataGrid.SelectedItem as Resource;
-                string oldGroupName = resource.GroupName;
-                resource.GroupName = this.ResourceDataGroups[index].GroupName;
-                //foreach (ResourceGroup group in ResourceGroupList)
-                //{
-                //    if (group.TryRemoveResource())
-                //    {
-                //        break;
-                //    }
-                //}
-                //foreach (ResourceGroup group in ResourceGroupList)
-                //{
-                //    if (group.TryAddResource(resource))
-                //    {
-                //        break;
-                //    }
-                //}
-                ResJson.OnGroupChanged(resource, oldGroupName);
-            }
-        }
-
-        private void OnExport(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(projectPath))
-            {
-                string strSerializeJSON = JsonConvert.SerializeObject(ResJson);
-                using (StreamWriter sw = new StreamWriter(projectPath + "\\resource\\defaultTest.res.json"))
-                {
-                    sw.Write(strSerializeJSON);
-                    DialogManager.ShowMessageAsync(this, "导出成功", "default.res.json文件已导出");
-                }
-            }
-        }
-    }
-
-    public class Resource
-    {
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                if (string.IsNullOrEmpty(ResName))
-                {
-                    ResName = name;
-                }
-            }
-        }
-
-        public string ResName { get; set; }
-
-        private string path;
-        public string Path
-        {
-            get { return path; }
-            set
-            {
-                path = value.Replace("\\", "/");
-            }
-        }
-
-        public string GroupName { get; set; }
-
-        public ResourceType Type { get; set; }
-
-        public Resource Json { get; set; }
-
-        public Resource Image { get; set; }
-
-        public Resource()
-        {
-            GroupName = "no group";
-        }
-
-        public override string ToString()
-        {
-            return this.ResName;
-        }
-    }
-
-    public class SoundResource : Resource
-    {
-        public SoundType SoundType { get; set; }
-    }
-
+    
     public enum ResourceType
     {
         image,
@@ -416,21 +27,354 @@ namespace LibraEditor.egret.resourceTool
         music, effect
     }
 
-    public class ResourceDataGroup
+    /// <summary>
+    /// ResourceTool.xaml 的交互逻辑
+    /// </summary>
+    /// 
+    public partial class ResourceTool : MetroWindow
     {
-        public string GroupName { get; set; }
 
-        public List<Resource> ResourceList { get; set; }
+        internal static string projectPath;
 
-        public ResourceDataGroup(string name)
+        public ResJson ResJson { get; set; }
+
+        public ResourceTool()
         {
-            GroupName = name;
-            ResourceList = new List<Resource>();
+            InitializeComponent();
         }
 
-        public override string ToString()
+        private void OnFindProjectPath(object sender, System.Windows.RoutedEventArgs e)
         {
-            return this.GroupName;
+            projectPath = FileHelper.FindFolder(Config.GetInstance().GetFirstEgretProject());
+            if (!string.IsNullOrEmpty(projectPath))
+            {
+                //判断路径是否正确，若包含egretProperties.json文件则说明正确
+                string egretJsonPath = projectPath + "\\egretProperties.json";
+                if (File.Exists(egretJsonPath))
+                {
+                    Config.GetInstance().EgretProjects.Insert(0, projectPath);
+                    pathTextBlock.Text = projectPath;
+
+                    string resourceDir = projectPath + "\\resource";
+                    if (Directory.Exists(resourceDir))
+                    {
+                        //ResourceList.Clear();
+
+                        //遍历resource目录下的所有文件，生成一个TmpFile放进fileList中，以便之后的逻辑处理
+                        List<TmpFile> fileList = new List<TmpFile>();
+                        List<string> files = FileHelper.FindFile(resourceDir);
+                        foreach (string filePath in files)
+                        {
+                            //文件名  “Default.aspx”
+                            //string filename = Path.GetFileName(fullPath);
+                            //扩展名 “.aspx”
+                            string extension = Path.GetExtension(filePath);
+                            //没有扩展名的文件名 “Default”
+                            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+                            switch (extension.ToLower())
+                            {
+                                case ".png":
+                                case ".jpg":
+                                    fileList.Add(new TmpFile() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.image });
+                                    break;
+                                case ".json":
+                                    if (fileNameWithoutExtension == "default.res")
+                                    {
+                                        // 这是资源的配置文件，进行反序列化
+                                        using (StreamReader sr = new StreamReader(filePath))
+                                        {
+                                            string jsonTxt = sr.ReadToEnd();
+                                            ResJson = JsonConvert.DeserializeObject(jsonTxt, typeof(ResJson)) as ResJson;
+                                        }
+                                        continue;
+                                    }
+                                    else if ("defaultTest.res" == fileNameWithoutExtension)
+                                    {
+                                        //测试的，直接跳过
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        string sheetImageName = GetSheetImageName(filePath);
+                                        if (string.IsNullOrEmpty(sheetImageName))
+                                        {
+                                            fileList.Add(new TmpFile() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.json });
+                                        }
+                                        else
+                                        {
+                                            string[] a = sheetImageName.Split(new char[] { '.' });
+                                            List<string> aa = new List<string>(filePath.Split(new char[] { '\\' }));
+                                            aa.RemoveAt(aa.Count - 1);
+                                            fileList.Add(new TmpFile()
+                                            {
+                                                Name = fileNameWithoutExtension,
+                                                Path = filePath,
+                                                Json = new TmpFile()
+                                                {
+                                                    Name = fileNameWithoutExtension,
+                                                    Path = filePath,
+                                                    Type = ResourceType.json
+                                                },
+                                                Image = new TmpFile()
+                                                {
+                                                    Name = a[0],
+                                                    Path = string.Join("\\", aa) + "\\" + sheetImageName,
+                                                    Type = ResourceType.image
+                                                },
+                                                Type = ResourceType.sheet
+                                            });
+                                        }
+                                    }
+                                    break;
+                                case ".fnt":
+                                    fileList.Add(new TmpFile() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.font });
+                                    break;
+                                case ".mp3":
+                                    fileList.Add(new TmpFile() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.sound });
+                                    break;
+                                default:
+                                    fileList.Add(new TmpFile() { Name = fileNameWithoutExtension, Path = filePath, Type = ResourceType.bin });
+                                    break;
+                            }
+                        }
+
+                        //遍历fileList，把sheet中的图片资源删除
+                        List<TmpFile> tmpFileList = new List<TmpFile>(fileList.ToArray());
+                        foreach (var item in tmpFileList)
+                        {
+                            if (item.Type == ResourceType.sheet)
+                            {
+                                fileList.RemoveAll(p => { return item.Image.Path == p.Path; });
+                            }
+                        }
+
+                        //遍历resJson.resources，把不存在的资源删除
+                        if (ResJson != null)
+                        {
+                            List<ResItem> tmpResItemList = new List<ResItem>(ResJson.resources.ToArray());
+                            foreach (var item in tmpResItemList)
+                            {
+                                if (!fileList.Exists(p =>
+                                {
+                                    if (p.Path == item.url)
+                                    {
+                                        return true;
+                                    }
+                                    return false;
+                                }))
+                                {
+                                    ResJson.resources.Remove(item);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ResJson = new ResJson();
+                        }
+                        //添加一个空组
+                        ResJson.AddNullGroup();
+
+                        //遍历fileList，把新加入的资源放进resJson
+                        foreach (var item in fileList)
+                        {
+                            if (!ResJson.resources.Exists(p=> { return item.Path == p.url; }))
+                            {
+                                ResJson.resources.Add(new ResItem() { name = item.Name, url = item.Path, type = Enum.GetName(typeof(ResourceType), item.Type) });
+                            }
+                            if (item.Type == ResourceType.sheet)
+                            {
+                                ResJson.resources.ForEach(p =>
+                                {
+                                    if (p.url == item.Path)
+                                    {
+                                        p.Json = new ResItem() { name = item.Json.Name, url = item.Json.Path, type = Enum.GetName(typeof(ResourceType), item.Json.Type) };
+                                        p.Image = new ResItem() { name = item.Image.Name, url = item.Image.Path, type = Enum.GetName(typeof(ResourceType), item.Image.Type) };
+                                    }
+                                });
+                            }
+                        }
+
+                        //初始化配置中的group
+                        foreach (ResGroup group in ResJson.groups)
+                        {
+                            AddGroup(group);
+                        }
+
+                        resourceDataGrid.ItemsSource = ResJson.resources;
+                    }
+                    else
+                    {
+                        DialogManager.ShowMessageAsync(this, "路径错误", "没有resource目录！");
+                    }
+                }
+                else
+                {
+                    DialogManager.ShowMessageAsync(this, "路径错误", "白鹭引擎路径选择错误，请重新选择！");
+                }
+            }
+        }
+
+        private void AddGroup(ResGroup group)
+        {
+            ResJson.resources.ForEach(p =>
+            {
+                if (group.HasKey(p.name))
+                {
+                    p.groupName = group.name;
+                }
+            });
+            groupListBox.Items.Add(group.name);
+        }
+
+        /// <summary>
+        /// 读取json，判断是否是sheet的json
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns>如果是sheet的json，返回png名字，否则返回null</returns>
+        private string GetSheetImageName(string filePath)
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                string jsonTxt = sr.ReadToEnd();
+                Match math = Regex.Match(jsonTxt, "^{\"file\":\"\\w+\\.png\"");
+                if (math.Groups.Count > 0)
+                {
+                    return math.ToString().Replace("\"", "").Replace("{file:", "");
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 导出json文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnExport(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(projectPath))
+            {
+                //如果resJson中有重名的resItem，提示一下
+                string itemName = null;
+                for (int i = 0; i < ResJson.resources.Count; i++)
+                {
+                    itemName = ResJson.resources[i].name;
+                    for (int j = i + 1; j < ResJson.resources.Count; j++)
+                    {
+                        if (itemName == ResJson.resources[j].name)
+                        {
+                            DialogManager.ShowMessageAsync(this, "资源重名错误", "有重名的资源了:" + itemName);
+                            return;
+                        }
+                    }
+                }
+                //移除多余的group
+                ResJson.RemoveRedundantGroup();
+                string strSerializeJSON = JsonConvert.SerializeObject(ResJson, Formatting.Indented);
+                using (StreamWriter sw = new StreamWriter(projectPath + "\\resource\\defaultTest.res.json"))
+                {
+                    sw.Write(strSerializeJSON);
+                    DialogManager.ShowMessageAsync(this, "导出成功", "default.res.json文件已导出");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 资源库中资源选中状态变化了，预览窗口也跟着变化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnResourceSelected(object sender, SelectedCellsChangedEventArgs e)
+        {
+            ResItem item = resourceDataGrid.SelectedItem as ResItem;
+            BitmapImage bi = null;
+            switch (item.ResType)
+            {
+                case ResourceType.image:
+                    bi = new BitmapImage(new Uri(projectPath + "/resource/" + item.url, UriKind.Absolute));
+                    break;
+                case ResourceType.sheet:
+                    bi = new BitmapImage(new Uri(projectPath + "/resource/" + item.Image.url, UriKind.Absolute));
+                    break;
+                default:
+                    break;
+            }
+            img.Source = bi;
+            if (bi != null)
+            {
+                img.Width = bi.PixelWidth;
+                img.Height = bi.PixelHeight;
+            }
+        }
+        
+        /// <summary>
+        /// 资源组变化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnGroupChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = (sender as ComboBox).SelectedIndex;
+            if (index > -1)
+            {
+                ResItem item = resourceDataGrid.SelectedItem as ResItem;
+
+                string oldGroupName = item.groupName;
+                item.groupName = ResJson.groups[index].name;
+                ResJson.OnGroupChanged(item, oldGroupName);
+            }
+        }
+
+        /// <summary>
+        /// 增加资源组
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void OnAddGroup(object sender, System.Windows.RoutedEventArgs e)
+        {
+            string name = await DialogManager.ShowInputAsync(this, "新建资源组", "请输入资源组名");
+            if (!string.IsNullOrEmpty(name))
+            {
+                AddGroup(name);
+            }
+        }
+
+        private void AddGroup(string name)
+        {
+            ResJson.groups.Add(new ResGroup() { name = name });
+            groupListBox.Items.Add(name);
+        }
+
+        /// <summary>
+        /// 删除资源组
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnRemoveGroup(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (groupListBox.SelectedItem != null)
+            {
+                string groupName = groupListBox.SelectedItem.ToString();
+                if (groupName != "noGroup")
+                {
+                    ResJson.groups.RemoveAll(p=> 
+                    {
+                        return p.name == groupName;
+                    });
+                    groupListBox.Items.Remove(groupName);
+                    ResJson.resources.ForEach(p =>
+                    {
+                        if (p.groupName == groupName)
+                        {
+                            p.groupName = "noGroup";
+                        }
+                    });
+                }
+                else
+                {
+                    DialogManager.ShowMessageAsync(this, "无法删除", "noGroup资源组是无法删除！");
+                }
+            }
         }
     }
 
@@ -447,53 +391,9 @@ namespace LibraEditor.egret.resourceTool
             groups = new List<ResGroup>();
         }
 
-        internal void AddRes(Resource res)
+        public void AddNullGroup()
         {
-            if (!HasRes(res))
-            {
-                resources.Add(new ResItem()
-                {
-                    name = res.ResName,
-                    type = Enum.GetName(typeof(ResourceType), res.Type),
-                    url = res.Path.Replace(ResourceTool.projectPath.Replace("\\", "/") + "/resource/", "")
-                });
-            }
-        }
-
-        private bool HasRes(Resource res)
-        {
-            foreach (ResItem item in resources)
-            {
-                if (res.Path.Contains(item.url))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public ResItem GetResItemByName(string name)
-        {
-            foreach (ResItem item in resources)
-            {
-                if (item.name == name)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        private ResItem GetResItemByPath(string path)
-        {
-            foreach (ResItem item in resources)
-            {
-                if (path.Contains(item.url))
-                {
-                    return item;
-                }
-            }
-            return null;
+            groups.Insert(0, new ResGroup() { name = "noGroup" });
         }
 
         private ResGroup GetResGroup(string name)
@@ -508,30 +408,58 @@ namespace LibraEditor.egret.resourceTool
             return null;
         }
 
-        internal void OnGroupChanged(Resource resource, string oldGroupName)
+        internal void OnGroupChanged(ResItem resItem, string oldGroupName)
         {
-            ResItem resItem = GetResItemByPath(resource.Path);
-            if (resItem != null)
+            ResGroup oldGroup = GetResGroup(oldGroupName);
+            if (oldGroup != null)
             {
-                ResGroup oldGroup = GetResGroup(oldGroupName);
-                if (oldGroup != null)
-                {
-                    oldGroup.RemoveKey(resItem.name);
-                }
-                if (resource.GroupName != "no group")
-                {
-                    ResGroup newGroup = GetResGroup(resource.GroupName);
-                    newGroup.AddKey(resItem.name);
-                }
+                oldGroup.RemoveKey(resItem.name);
             }
+            ResGroup newGroup = GetResGroup(resItem.groupName);
+            if (newGroup != null)
+            {
+                newGroup.AddKey(resItem.name);
+            }
+        }
+
+        internal void RemoveRedundantGroup()
+        {
+            groups.RemoveAll(p=> 
+            {
+                return string.IsNullOrEmpty(p.keys) || p.name == "noGroup";
+            });
         }
     }
 
     public class ResItem
     {
         public string name { get; set; }
-        public string type { get; set; }
+
+        private string _type;
+        public string type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                ResType = (ResourceType)Enum.Parse(typeof(ResourceType), value, true);
+            }
+        }
+
         public string url { get; set; }
+
+        [JsonIgnore]
+        public string groupName { get; set; }
+
+        [JsonIgnore]
+        public ResourceType ResType { get; set; }
+
+        [JsonIgnore]
+        public ResItem Json { get; set; }
+
+        [JsonIgnore]
+        public ResItem Image { get; set; }
+
     }
 
     public class ResGroup
@@ -553,7 +481,7 @@ namespace LibraEditor.egret.resourceTool
             }
         }
 
-        internal void RemoveKey(string name)
+        public void RemoveKey(string name)
         {
             foreach (string item in _keyList)
             {
@@ -566,7 +494,7 @@ namespace LibraEditor.egret.resourceTool
             }
         }
 
-        internal void AddKey(string name)
+        public void AddKey(string name)
         {
             if (!_keyList.Contains(name))
             {
@@ -574,5 +502,40 @@ namespace LibraEditor.egret.resourceTool
                 this._keys = string.Join(",", _keyList);
             }
         }
+
+        public bool HasKey(string name)
+        {
+            return _keyList.Contains(name);
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+    }
+
+    internal class TmpFile
+    {
+        public ResourceType Type { get; set; }
+
+        public string Name { get; set; }
+
+        private string path;
+        public string Path
+        {
+            get
+            {
+                return path;
+            }
+            set
+            {
+                path = value.Replace(ResourceTool.projectPath, "").Replace("\\", "/").Replace("/resource/", "");
+            }
+        }
+
+        public TmpFile Json { get; set; }
+
+        public TmpFile Image { get; set; }
+
     }
 }

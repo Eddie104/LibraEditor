@@ -11,9 +11,12 @@ namespace LibraEditor.mapEditor.events
 
         public bool IsVisible { get; set; }
 
-        public VisibleChangedEventArgs(bool isVisible)
+        public string Name { get; set; }
+
+        public VisibleChangedEventArgs(bool isVisible, string name = null)
         {
             IsVisible = isVisible;
+            Name = name;
         }
     }
 }

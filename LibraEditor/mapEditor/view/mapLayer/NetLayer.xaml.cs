@@ -5,22 +5,23 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace LibraEditor.mapEditor.view.mapLayer
 {
     /// <summary>
     /// NetLayer.xaml 的交互逻辑
     /// </summary>
-    public partial class NetLayer : UserControl
+    public partial class NetLayer : Canvas
     {
         public NetLayer()
         {
             InitializeComponent();
         }
 
-        public void CreateMap()
+        public void CreateMap(int canvasWidth, int canvasHeight)
         {
+            this.Children.Clear();
+
             List<LinePoint> points = new List<LinePoint>();
 
             MapData mapData = MapData.GetInstance();
@@ -29,8 +30,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 int totalWidth = mapData.CellWidth * mapData.CellCols;
                 int totalHeight = mapData.CellHeight * mapData.CellRows;
-                startX = (int)(this.canvas.ActualWidth - totalWidth) / 2;
-                startY = (int)(this.canvas.ActualHeight - totalHeight) / 2;
+                startX = (canvasWidth - totalWidth) / 2;
+                startY = (canvasHeight - totalHeight) / 2;
                 RectangularHelper.TopPoint = new Point(startX, startY);
 
                 Point index = RectangularHelper.GetItemIndex(new Point(startX, startY));
@@ -57,8 +58,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 int totalWidth = (mapData.CellRows + mapData.CellCols) * mapData.CellWidth / 2;
                 int totalHeight = (mapData.CellRows + mapData.CellCols) * mapData.CellHeight / 2;
-                ISOHelper.TopPoint = new Point(this.canvas.ActualWidth / 2 - (totalWidth - mapData.CellWidth * mapData.CellRows) / 2,
-                    (int)Math.Floor((this.canvas.ActualHeight - totalHeight) * 0.5));
+                ISOHelper.TopPoint = new Point(canvasWidth / 2 - (totalWidth - mapData.CellWidth * mapData.CellRows) / 2,
+                    (int)Math.Floor((canvasHeight - totalHeight) * 0.5));
 
                 double endX = mapData.CellCols * mapData.CellWidth / 2;
                 double endY = endX / 2;
@@ -88,7 +89,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 }
             }
 
-            GraphicsHelper.Draw(this.canvas, points, Brushes.Black);
+            GraphicsHelper.Draw(this, points, Brushes.Black);
         }
     }
 }

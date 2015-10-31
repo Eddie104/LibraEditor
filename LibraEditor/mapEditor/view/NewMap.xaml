@@ -54,7 +54,14 @@
         </controls:MetroTabItem>
         <controls:MetroTabItem Header="打开地图">
             <Grid>
-
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="220"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ListBox Name="mapListBox" Grid.Row="0"/>
+                <Canvas Grid.Row="1">
+                    <Button Content="打开" Width="36" Height="30" Canvas.Left="226" Canvas.Top="6" Click="OnOpenMap"/>
+                </Canvas>
             </Grid>
         </controls:MetroTabItem>
     </controls:MetroAnimatedTabControl>

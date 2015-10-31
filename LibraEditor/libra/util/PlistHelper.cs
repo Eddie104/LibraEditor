@@ -114,6 +114,14 @@ namespace LibraEditor.libra.util
                     XElement newElement = nowElement.Elements().Except(nowElement.Elements("key")).ElementAt(i);
                     childrenIDList = XMLOnce(newElement, id);
                 }
+                else if(valuetype == EnumValueType.TRUE)
+                {
+                    value = "true";
+                }
+                else if (valuetype == EnumValueType.FALSE)
+                {
+                    value = "false";
+                }
                 else
                 {
                     value = valList[i].Value.ToString();
@@ -305,9 +313,12 @@ namespace LibraEditor.libra.util
 
         private Rectangle textureRect = new Rectangle();
 
+        public bool IsRotated { get; set; }
+
         internal void Init(Metadata metadata)
         {
             int rectX = 0;int rectY = 0;int rectW = 0;int rectH = 0;
+            bool isRotated = false;
             switch (metadata.GetFormat())
             {
                 case 0:
@@ -348,6 +359,8 @@ namespace LibraEditor.libra.util
                     <key>sourceSize</key>
                     <string>{110,133}</string>
                     */
+                    bool.TryParse(Rotated, out isRotated);
+
                     MatchCollection mathchs = Regex.Matches(Frame, @"\d+");
                     int.TryParse(mathchs[0].ToString(), out rectX);
                     int.TryParse(mathchs[1].ToString(), out rectY);
@@ -356,6 +369,8 @@ namespace LibraEditor.libra.util
                     break;
                 case 3:
                     //{{104, 242}, {24, 32}}
+                    bool.TryParse(TextureRotated, out isRotated);
+
                     mathchs = Regex.Matches(TextureRect, @"\d+");
                     int.TryParse(mathchs[0].ToString(), out rectX);
                     int.TryParse(mathchs[1].ToString(), out rectY);
@@ -367,6 +382,8 @@ namespace LibraEditor.libra.util
             this.textureRect.Y = rectY;
             this.textureRect.Width = rectW;
             this.textureRect.Height = rectH;
+
+            IsRotated = isRotated;
         }
 
         public Rectangle GetTextureRect()

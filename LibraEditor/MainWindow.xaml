@@ -112,7 +112,7 @@
             </MenuItem>
         </Menu>
 
-        <ToolBarTray Grid.Row="1">
+        <WrapPanel Grid.Row="1">
             <ToolBar>
                 <Button ToolTip="新建地图" Click="NewMapButton_Click">
                     <Image Source="Resources/new_file.png"/>
@@ -131,26 +131,17 @@
                     <Image Source="Resources/go.png"/>
                 </Button>
             </ToolBar>
-        </ToolBarTray>
+            <ToolBar VerticalAlignment="Top">
+                <RadioButton GroupName="toolBar" IsChecked="True">
+                    <Image Source="Resources/direct.png"/>
+                </RadioButton>
+                <RadioButton GroupName="toolBar">
+                    <Image Source="Resources/hand.png"/>
+                </RadioButton>
+            </ToolBar>
+        </WrapPanel>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="AUTO"/>
-                <ColumnDefinition Width="73*"/>
-                <ColumnDefinition Width="508*"/>
-            </Grid.ColumnDefinitions>
-            <ToolBarTray Orientation="Vertical" Grid.Column="0">
-                <ToolBar VerticalAlignment="Top">
-                    <RadioButton GroupName="toolBar" IsChecked="True">
-                        <Image Source="Resources/direct.png"/>
-                    </RadioButton>
-                    <RadioButton GroupName="toolBar">
-                        <Image Source="Resources/hand.png"/>
-                    </RadioButton>
-                </ToolBar>
-            </ToolBarTray>
-            <mapEditor:MapLayer Grid.Column="1" Grid.ColumnSpan="2"/>
-        </Grid>
+        <mapEditor:MapLayer Grid.Row="2" Grid.ColumnSpan="2"/>
 
         <StatusBar Grid.Row="3" Width="Auto">
             <TextBlock Text="dd"></TextBlock>

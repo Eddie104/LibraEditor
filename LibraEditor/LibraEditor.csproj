@@ -105,9 +105,14 @@
     <Compile Include="libra\util\StringHelper.cs" />
     <Compile Include="libra\web\HTMLHelper.cs" />
     <Compile Include="mapEditor\events\VisibleChangedEventArgs.cs" />
+    <Compile Include="mapEditor\model\LayerData.cs" />
     <Compile Include="mapEditor\model\MapData.cs" />
+    <Compile Include="mapEditor\model\MapRes.cs" />
     <Compile Include="mapEditor\view\mapLayer\LayerItem.xaml.cs">
       <DependentUpon>LayerItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\MapCanvas.xaml.cs">
+      <DependentUpon>MapCanvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="mapEditor\view\mapLayer\MapLayer.xaml.cs">
       <DependentUpon>MapLayer.xaml</DependentUpon>
@@ -145,6 +150,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="mapEditor\view\mapLayer\LayerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\MapCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

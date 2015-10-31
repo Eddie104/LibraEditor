@@ -80,3 +80,5 @@ E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.dll
 E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.xml
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.g.cs
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.baml
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapCanvas.g.cs
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapCanvas.baml

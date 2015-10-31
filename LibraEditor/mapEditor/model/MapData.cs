@@ -1,4 +1,10 @@
-﻿namespace LibraEditor.mapEditor.model
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System;
+using System.Timers;
+
+namespace LibraEditor.mapEditor.model
 {
     enum ProjectType
     {
@@ -30,6 +36,8 @@
         /// </summary>
         public ProjectType ProjectType { get; set; }
 
+        public string Name { get; set; }
+
         /// <summary>
         /// 视角类型
         /// </summary>
@@ -56,11 +64,89 @@
         public int CellCols { get; set; }
 
         /// <summary>
+        /// 路径
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
+        /// 资源列表
+        /// </summary>
+        public List<MapRes> ResList { get; set; }
+
+        /// <summary>
+        /// 图层列表
+        /// </summary>
+        public List<LayerData> LayerList { get; set; }
+
+        [JsonIgnore]
+        public bool NeedSave { get; set; }
+
+        public MapData()
+        {
+            ResList = new List<MapRes>();
+            LayerList = new List<LayerData>();
+
+            //每10秒就自动保存一次
+            MainWindow.GetInstance().Timer.Elapsed += Save;
+        }
+
+        /// <summary>
+        /// 添加一个资源文件
+        /// </summary>
+        /// <param name="path">文件的路径</param>
+        public void AddMapRes(string[] path)
+        {
+            if (path != null)
+            {
+                foreach (string p in path)
+                {
+                    ResList.Add(new MapRes(p));
+                }
+            }
+        }
+
+        ///// <summary>
+        ///// 往图层里添加资源
+        ///// </summary>
+        ///// <param name="name">图层名</param>
+        ///// <param name="res">资源</param>
+        //internal void AddMapRes(string layerName, MapRes res)
+        //{
+        //    foreach (var item in LayerList)
+        //    {
+        //        if (item.Name == layerName)
+        //        {
+                    
+        //            break;
+        //        }
+        //    }
+        //}
+
+        public void Created()
+        {
+            //创建map的文件夹
+            if (!Directory.Exists(Path))
+            {
+                Directory.CreateDirectory(Path);
+            }
+            Save();
+        }
+
+        /// <summary>
         /// 保存地图的配置文件
         /// </summary>
-        public void Save()
+        public void Save(object sender = null, ElapsedEventArgs e = null)
         {
-
+            if (NeedSave)
+            {
+                string cfgPath = string.Format("{0}\\{1}.json", Path, Name);
+                string cfgJson = JsonConvert.SerializeObject(this, Formatting.Indented);
+                using (StreamWriter sr = new StreamWriter(cfgPath))
+                {
+                    sr.Write(cfgJson);
+                    NeedSave = false;
+                }
+            }
         }
 
         public static MapData GetInstance()
@@ -70,6 +156,15 @@
                 instance = new MapData();
             }
             return instance;
+        }
+
+        internal static void CreateWithJson(string mapJsonPath)
+        {
+            using (StreamReader sr = new StreamReader(mapJsonPath))
+            {
+                string jsonTxt = sr.ReadToEnd();
+                instance = JsonConvert.DeserializeObject(jsonTxt, typeof(MapData)) as MapData;
+            }
         }
     }
 }

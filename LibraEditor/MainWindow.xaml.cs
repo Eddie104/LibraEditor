@@ -1,7 +1,9 @@
 ﻿using LibraEditor.egret.resourceTool;
+using LibraEditor.mapEditor.model;
 using LibraEditor.mapEditor.view.newMap;
 using LibraEditor.plistTool;
 using MahApps.Metro.Controls;
+using System.Timers;
 using System.Windows;
 
 namespace LibraEditor
@@ -14,11 +16,17 @@ namespace LibraEditor
 
         private static MainWindow instance;
 
+        public Timer Timer { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            Config.init();
+            Config.GetInstance();
             instance = this;
+
+            Timer = new Timer(10000);
+            Timer.AutoReset = true;
+            Timer.Start();
         }
 
         private void NewMapButton_Click(object sender, RoutedEventArgs e)
