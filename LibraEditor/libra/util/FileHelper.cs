@@ -58,11 +58,13 @@ namespace libra.util
         {
             List<string> result = new List<string>();
             DirectoryInfo dirInfo = new DirectoryInfo(dir);
-            foreach (DirectoryInfo d in dirInfo.GetDirectories())//查找子目录      
+            //查找子目录
+            foreach (DirectoryInfo d in dirInfo.GetDirectories())
             {
                 result.AddRange(FindFile(dir + "\\" + d.ToString()));
             }
-            foreach (FileInfo f in dirInfo.GetFiles("*.*")) //查找文件   
+            //查找文件
+            foreach (FileInfo f in dirInfo.GetFiles("*.*"))
             {
                 result.Add(dirInfo + "\\" + f.ToString());
             }

@@ -70,11 +70,13 @@ G:\codeLib\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.baml
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.g.cs
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.baml
-E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.g.cs
-E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceGroup.baml
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\ResourceTool.baml
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.dll
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.xml
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.baml
+E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.dll
+E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\Newtonsoft.Json.xml
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.g.cs
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.baml
