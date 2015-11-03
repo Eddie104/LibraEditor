@@ -1,0 +1,24 @@
+﻿<controls:MetroWindow x:Class="LibraEditor.mapEditor.view.mapLayer.ResEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraEditor.mapEditor.view.mapLayer"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="ResEditor" Height="300" Width="400" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0" Name="canvas"/>
+        <Canvas Grid.Row="0" Name="resCanvas"/>
+        <WrapPanel Grid.Row="1">
+            <Label Content="offsetX:"/>
+            <controls:NumericUpDown Name="offsetXNumericUpDown" Width="120" ValueChanged="offsetXNumericUpDown_ValueChanged"/>
+            <Label Content="offsetX:"/>
+            <controls:NumericUpDown Name="offsetYNumericUpDown" Width="120" ValueChanged="offsetYNumericUpDown_ValueChanged"/>
+        </WrapPanel>
+    </Grid>
+</controls:MetroWindow>

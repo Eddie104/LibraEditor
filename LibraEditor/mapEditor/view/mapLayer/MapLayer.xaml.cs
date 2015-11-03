@@ -1,10 +1,10 @@
-﻿using libra.util;
-using LibraEditor.libra.util;
+﻿using Libra.helper;
 using LibraEditor.mapEditor.events;
 using LibraEditor.mapEditor.model;
 using LibraEditor.mapEditor.view.newMap;
 using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,6 +25,23 @@ namespace LibraEditor.mapEditor.view.mapLayer
             NewMap.CreateMapHandler += OnCreateMap;
         }
 
+        //private void CreateResMenu(FrameworkElement element)
+        //{
+        //    ContextMenu cm = new ContextMenu();
+        //    element.ContextMenu = cm;
+
+
+        //    MenuItem item = new MenuItem();
+        //    item.Header = "删除";
+        //    item.Click += new RoutedEventHandler(OnResEditor);
+        //    cm.Items.Add(item);
+        //}
+
+        //private void OnResEditor(object sender, RoutedEventArgs e)
+        //{
+        //    Console.WriteLine("aaaaaaaaa");
+        //}
+
         /// <summary>
         /// 创建新地图
         /// </summary>
@@ -41,7 +58,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
             foreach (var item in MapData.GetInstance().ResList)
             {
-                resLibListBox.Items.Add(item);
+                AddResToResLibListBox(item);
             }
 
             foreach (var item in MapData.GetInstance().LayerList)
@@ -62,7 +79,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             string name = await DialogManager.ShowInputAsync(MainWindow.GetInstance(), "新建图层", "请输入图层名");
             if (!string.IsNullOrEmpty(name))
             {
-                LayerData layerData = new LayerData() { Name = name };
+                LayerData layerData = new LayerData() { Name = name.Trim() };
                 MapData.GetInstance().LayerList.Add(layerData);
                 MapData.GetInstance().NeedSave = true;
 
@@ -117,14 +134,38 @@ namespace LibraEditor.mapEditor.view.mapLayer
             if (resList != null)
             {
                 MapData mapData = MapData.GetInstance();
-                mapData.AddMapRes(resList);
+                List<MapRes> newResList = mapData.AddMapRes(resList);
                 mapData.Save();
 
-                foreach (var item in mapData.ResList)
+                foreach (MapRes item in newResList)
                 {
-                    resLibListBox.Items.Add(item);
+                    AddResToResLibListBox(item);
                 }
             }
+        }
+
+        private void AddResToResLibListBox(MapRes res)
+        {
+            TextListBoxItem t = new TextListBoxItem(res);
+            t.OnEdit += OnEditResFromLib;
+            t.OnDel += OnDelResFromLib;
+            resLibListBox.Items.Add(t);
+        }
+
+        private void OnEditResFromLib(object sender, EventArgs e)
+        {
+            ResEditor win = new ResEditor((sender as TextListBoxItem).Data as MapRes);
+            win.ShowDialog();
+        }
+
+        private void OnDelResFromLib(object sender, EventArgs e)
+        {
+            TextListBoxItem t = sender as TextListBoxItem;
+            resLibListBox.Items.Remove(t);
+
+            MapData.GetInstance().RemoveMapRes(t.Data as MapRes);
+
+            //TODO: 删除了库里的资源，那么地图上相关的资源也应该要删除掉
         }
 
         /// <summary>
@@ -136,7 +177,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             if (resLibListBox.SelectedItem != null)
             {
-                MapRes res = resLibListBox.SelectedItem as MapRes;
+                MapRes res = (resLibListBox.SelectedItem as TextListBoxItem).Data as MapRes;
                 BitmapImage bi = new BitmapImage(new Uri(res.Path, UriKind.Absolute));
                 previewImg.Source = bi;
                 if (bi.PixelWidth > 200)
@@ -161,7 +202,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             if (resLibListBox.SelectedItem != null)
             {
-                MapRes res = resLibListBox.SelectedItem as MapRes;
+                MapRes res = (resLibListBox.SelectedItem as TextListBoxItem).Data as MapRes;
                 DragDrop.DoDragDrop(resLibListBox, new DataObject(DataFormats.FileDrop, res), DragDropEffects.Copy);
             }
         }

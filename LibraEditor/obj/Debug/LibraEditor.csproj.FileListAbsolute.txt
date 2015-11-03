@@ -82,3 +82,11 @@ E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.g.
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\egret\resourceTool\Scale9Grid.baml
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapCanvas.g.cs
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapCanvas.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapCanvas.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\MapCanvas.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\TextListBoxItem.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\TextListBoxItem.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.baml
+G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Libra.dll
+G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Libra.pdb

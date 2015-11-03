@@ -30,8 +30,7 @@
                             <Image Source="/LibraEditor;component/Resources/import_16.png"/>
                         </Button>
                     </WrapPanel>
-                    <ListBox Name="resLibListBox" Grid.Row="2" SelectionChanged="OnResSelected" AllowDrop="True" PreviewMouseLeftButtonDown="OnDragRes">
-                    </ListBox>
+                    <ListBox Name="resLibListBox" Grid.Row="2" SelectionChanged="OnResSelected" AllowDrop="True" PreviewMouseLeftButtonDown="OnDragRes"/>
                 </Grid>
             </Expander>
             <Expander Header="图层管理" IsExpanded="True">

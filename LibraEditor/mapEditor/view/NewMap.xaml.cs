@@ -1,5 +1,4 @@
-﻿using libra.util;
-using LibraEditor.libra.util;
+﻿using Libra.helper;
 using LibraEditor.mapEditor.model;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -63,6 +62,7 @@ namespace LibraEditor.mapEditor.view.newMap
             if (!string.IsNullOrEmpty(mapFloderTextBlock.Text))
             {
                 MapData mapData = MapData.GetInstance();
+                mapData.NeedSave = true;
                 string mapName = this.mapNameTextBox.Text;
                 if (RegularHelper.IsLetterAndNumber(mapName))
                 {

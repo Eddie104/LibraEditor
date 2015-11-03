@@ -10,7 +10,7 @@ namespace LibraEditor.mapEditor.model
     /// <summary>
     /// 资源类型
     /// </summary>
-    enum ResType
+    public enum ResType
     {
         png,
         jpg
@@ -19,7 +19,7 @@ namespace LibraEditor.mapEditor.model
     /// <summary>
     /// 地图资源
     /// </summary>
-    class MapRes
+    public class MapRes
     {
         /// <summary>
         /// 资源类型

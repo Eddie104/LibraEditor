@@ -94,15 +94,27 @@ namespace LibraEditor.mapEditor.model
         /// 添加一个资源文件
         /// </summary>
         /// <param name="path">文件的路径</param>
-        public void AddMapRes(string[] path)
+        public List<MapRes> AddMapRes(string[] path)
         {
+            List<MapRes> result = new List<MapRes>();
             if (path != null)
             {
+                MapRes r;
                 foreach (string p in path)
                 {
-                    ResList.Add(new MapRes(p));
+                    r = new MapRes(p);
+                    ResList.Add(r);
+                    result.Add(r);
                 }
+                this.NeedSave = true;
             }
+            return result;
+        }
+
+        internal void RemoveMapRes(MapRes mapRes)
+        {
+            ResList.Remove(mapRes);
+            this.NeedSave = true;
         }
 
         ///// <summary>
@@ -116,7 +128,7 @@ namespace LibraEditor.mapEditor.model
         //    {
         //        if (item.Name == layerName)
         //        {
-                    
+
         //            break;
         //        }
         //    }
@@ -129,6 +141,7 @@ namespace LibraEditor.mapEditor.model
             {
                 Directory.CreateDirectory(Path);
             }
+            this.NeedSave = true;
             Save();
         }
 

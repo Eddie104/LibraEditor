@@ -1,6 +1,7 @@
-﻿using LibraEditor.libra.util;
+﻿using Libra.helper;
 using LibraEditor.mapEditor.events;
 using LibraEditor.mapEditor.model;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -18,9 +19,11 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         public NetLayerItem NetLayerItem { get; set; }
 
-        private List<Canvas> layers = new List<Canvas>();
+        private List<MapLayerView> layers = new List<MapLayerView>();
 
-        private Canvas curLayer;
+        private MapLayerView curLayer;
+
+        private MapResView selectedMapResView;
 
         public MapCanvas()
         {
@@ -31,6 +34,18 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             Point index = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(e.GetPosition(netLayer)) : RectangularHelper.GetItemIndex(e.GetPosition(netLayer));
             mouseCursor.SetRowAndCol((int)index.Y, (int)index.X);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if (selectedMapResView != null)
+                {
+                    selectedMapResView.SetRowAndCol((int)index.Y, (int)index.X);
+                }
+            }
+        }
+
+        private void OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            selectedMapResView = null;
         }
 
         internal void CreateMap()
@@ -57,30 +72,46 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void OnDrop(object sender, DragEventArgs e)
         {
-            if (curLayer != null)
+            //仅支持文件的拖放
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                //仅支持文件的拖放
-                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                //获取拖拽的文件
+                MapRes res = e.Data.GetData(DataFormats.FileDrop) as MapRes;
+                if (res != null)
                 {
-                    //获取拖拽的文件
-                    MapRes res = e.Data.GetData(DataFormats.FileDrop) as MapRes;
-                    switch (res.ResType)
+                    if (curLayer != null)
                     {
-                        case ResType.jpg:
-                        case ResType.png:
-                            Image img = new Image();
-                            BitmapImage bi = new BitmapImage(new Uri(res.Path, UriKind.Absolute));
-                            img.Source = bi;
-                            img.Width = bi.PixelWidth;
-                            img.Height = bi.PixelHeight;
-                            curLayer.Children.Add(img);
-                            break;
-                        default:
-                            break;
+                        switch (res.ResType)
+                        {
+                            case ResType.jpg:
+                            case ResType.png:
+                                MapResView resView = new MapResView(res);
+                                resView.SetRowAndCol(0, 0);
+                                curLayer.Children.Add(resView);
+
+                                resView.MouseDown += ResView_MouseDown;
+                                break;
+                            default:
+                                break;
+                        }
+                        //MapData.GetInstance().AddMapRes(curLayer.Name, res);
                     }
-                    //MapData.GetInstance().AddMapRes(curLayer.Name, res);
+                    else
+                    {
+                        DialogManager.ShowMessageAsync(MainWindow.GetInstance(), "层错误", "请选择真确的层");
+                    }
                 }
             }
+        }
+
+        private void ResView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SetSelectdMapResView(sender as MapResView);
+        }
+
+        private void SetSelectdMapResView(MapResView resView)
+        {
+            selectedMapResView = resView;
         }
 
         internal void ChangeLayerVisible(string name, bool isVisible)
@@ -91,7 +122,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         internal void AddLayer(string name)
         {
-            Canvas layer = new Canvas();
+            MapLayerView layer = new MapLayerView();
             layer.Name = name;
             Children.Add(layer);
             layers.Add(layer);
@@ -110,7 +141,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             }
         }
 
-        private Canvas GetLayer(string name)
+        private MapLayerView GetLayer(string name)
         {
             foreach (var item in layers)
             {

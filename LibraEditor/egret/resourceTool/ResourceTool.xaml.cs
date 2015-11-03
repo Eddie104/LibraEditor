@@ -1,4 +1,4 @@
-﻿using libra.util;
+﻿using Libra.helper;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace LibraEditor.egret.resourceTool
 {
-    
+
     public enum ResourceType
     {
         image,

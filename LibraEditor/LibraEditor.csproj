@@ -93,17 +93,6 @@
     <Compile Include="egret\resourceTool\Scale9Grid.xaml.cs">
       <DependentUpon>Scale9Grid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="libra\log4CSharp\Logger.cs" />
-    <Compile Include="libra\util\ByteConvertHelper.cs" />
-    <Compile Include="libra\util\FileHelper.cs" />
-    <Compile Include="libra\util\GraphicsHelper.cs" />
-    <Compile Include="libra\util\ImageHelper.cs" />
-    <Compile Include="libra\util\ISOHelper.cs" />
-    <Compile Include="libra\util\PlistHelper.cs" />
-    <Compile Include="libra\util\RectangularHelper.cs" />
-    <Compile Include="libra\util\RegularHelper.cs" />
-    <Compile Include="libra\util\StringHelper.cs" />
-    <Compile Include="libra\web\HTMLHelper.cs" />
     <Compile Include="mapEditor\events\VisibleChangedEventArgs.cs" />
     <Compile Include="mapEditor\model\LayerData.cs" />
     <Compile Include="mapEditor\model\MapData.cs" />
@@ -114,9 +103,11 @@
     <Compile Include="mapEditor\view\mapLayer\MapCanvas.xaml.cs">
       <DependentUpon>MapCanvas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="mapEditor\view\mapLayer\MapLayerView.cs" />
     <Compile Include="mapEditor\view\mapLayer\MapLayer.xaml.cs">
       <DependentUpon>MapLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="mapEditor\view\mapLayer\MapResView.cs" />
     <Compile Include="mapEditor\view\mapLayer\MouseCursor.xaml.cs">
       <DependentUpon>MouseCursor.xaml</DependentUpon>
     </Compile>
@@ -125,6 +116,12 @@
     </Compile>
     <Compile Include="mapEditor\view\mapLayer\NetLayerItem.xaml.cs">
       <DependentUpon>NetLayerItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\ResEditor.xaml.cs">
+      <DependentUpon>ResEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor\view\mapLayer\TextListBoxItem.xaml.cs">
+      <DependentUpon>TextListBoxItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="mapEditor\view\NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
@@ -170,6 +167,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="mapEditor\view\mapLayer\NetLayerItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\ResEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor\view\mapLayer\TextListBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,6 +275,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libra-CSharp\Libra\Libra.csproj">
+      <Project>{b2b12517-276f-4d3e-9410-6d8e3eb9bee1}</Project>
+      <Name>Libra</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

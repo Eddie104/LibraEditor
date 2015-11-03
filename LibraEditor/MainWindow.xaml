@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:LibraEditor"
         xmlns:mapEditor="clr-namespace:LibraEditor.mapEditor.view.mapLayer"
-        Title="MainWindow" Height="800" Width="1224" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="OnClosing">
+        Title="MainWindow" Height="800" Width="1224" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="OnClosing" Loaded="MetroWindow_Loaded">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="settings"/>
