@@ -90,5 +90,14 @@ G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.g
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.baml
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Libra.dll
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Libra.pdb
+<<<<<<< HEAD
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\animationTool\AnimationTool.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\animationTool\AnimationTool.baml
+=======
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.g.cs
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\TextListBoxItem.g.cs
+E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\Libra.dll
+E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\Libra.pdb
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.baml
+E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\TextListBoxItem.baml
+>>>>>>> 8ccf0f78855e3ad195af110256076b1b8474f946

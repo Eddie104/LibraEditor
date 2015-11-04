@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 FG:\codeLib\LibraEditor\LibraEditor\App.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\animationTool\AnimationTool.xaml;;
@@ -14,4 +15,21 @@ FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\ResEditor.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\TextListBoxItem.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\plistTool\PlistTool.xaml;;
+=======
+﻿E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+FE:\vsProjects\LibraEditor\LibraEditor\App.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\egret\resourceTool\ResourceTool.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\egret\resourceTool\Scale9Grid.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\MainWindow.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapCanvas.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MouseCursor.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayer.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\NetLayerItem.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\ResEditor.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\TextListBoxItem.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\plistTool\PlistTool.xaml;;
+>>>>>>> 8ccf0f78855e3ad195af110256076b1b8474f946
 
