@@ -154,8 +154,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 Point p = e.GetPosition(canvas);
                 p = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(p) : RectangularHelper.GetItemIndex(p);
                 int row = (int)p.Y; int col = (int)p.X;
-                //mapResView.Res.Rows = Math.Max(row + 1, mapResView.Res.Rows);
-                //mapResView.Res.Cols = Math.Max(col + 1, mapResView.Res.Cols);
+                mapRes.ChangeCover(row, col);
             }
         }
 
@@ -169,6 +168,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 ISOHelper.TopPoint = oldTopPoint;
             }
+            mapRes.ResetUnderside();
         }
 
         private void offsetXNumericUpDown_ValueChanged(object sender, object e)

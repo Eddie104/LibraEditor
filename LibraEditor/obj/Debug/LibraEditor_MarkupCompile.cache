@@ -4,26 +4,17 @@
 winexe
 C#
 .cs
-E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\
 LibraEditor
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
 G:\codeLib\LibraEditor\LibraEditor\App.xaml
 15-672561515
 
 25-1470830732
 21105840503
 animationTool\AnimationTool.xaml;egret\resourceTool\ResourceTool.xaml;egret\resourceTool\Scale9Grid.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapCanvas.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\mapLayer\ResEditor.xaml;mapEditor\view\mapLayer\TextListBoxItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
-=======
-E:\vsProjects\LibraEditor\LibraEditor\App.xaml
-14-810187366
-
-241314317076
-21-1233873538
-egret\resourceTool\ResourceTool.xaml;egret\resourceTool\Scale9Grid.xaml;MainWindow.xaml;mapEditor\view\mapLayer\LayerItem.xaml;mapEditor\view\mapLayer\MapCanvas.xaml;mapEditor\view\mapLayer\MapLayer.xaml;mapEditor\view\mapLayer\MouseCursor.xaml;mapEditor\view\mapLayer\NetLayer.xaml;mapEditor\view\mapLayer\NetLayerItem.xaml;mapEditor\view\mapLayer\ResEditor.xaml;mapEditor\view\mapLayer\TextListBoxItem.xaml;mapEditor\view\NewMap.xaml;plistTool\PlistTool.xaml;Resources\Icons.xaml;
->>>>>>> 8ccf0f78855e3ad195af110256076b1b8474f946
 
 False
 

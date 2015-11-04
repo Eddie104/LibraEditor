@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LibraEditor.mapEditor.model
 {
@@ -41,20 +42,44 @@ namespace LibraEditor.mapEditor.model
         /// </summary>
         public int OffsetY { get; set; }
 
-        /// <summary>
-        /// 占地格子的行数
-        /// </summary>
-        public int Rows { get; set; }
+        ///// <summary>
+        ///// 占地格子的行数
+        ///// </summary>
+        //public int Rows { get; set; }
 
-        /// <summary>
-        /// 占地格子的列数
-        /// </summary>
-        public int Cols { get; set; }
+        ///// <summary>
+        ///// 占地格子的列数
+        ///// </summary>
+        //public int Cols { get; set; }
 
         /// <summary>
         /// 占地数据
         /// </summary>
-        public string Underside { get; set; }
+        private string underside;
+        public string Underside
+        {
+            get { return underside; }
+            set
+            {
+                underside = value;
+
+                undersideAry = new int[10, 10];
+                if (!string.IsNullOrEmpty(underside))
+                {
+                    var t = underside.Split(new char[] { '&' });
+                    for (int i = 0; i < t.Length; i++)
+                    {
+                        var tt = t[i].Split(new char[] { '|' });
+                        for (int j = 0; j < tt.Length; j++)
+                        {
+                            undersideAry[i, j] = int.Parse(tt[j]);
+                        }
+                    }
+                }
+            }
+        }
+
+        private int[,] undersideAry = new int[10, 10];
 
         public MapRes(string path)
         {
@@ -78,9 +103,43 @@ namespace LibraEditor.mapEditor.model
             }
         }
 
+        public void ChangeCover(int row, int col)
+        {
+            undersideAry[row, col] = undersideAry[row, col] == 0 ? 1 : 0;
+        }
+
         public override string ToString()
         {
             return Name;
+        }
+
+        internal void ResetUnderside()
+        {
+            int maxRow = 0, maxCol = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (undersideAry[i, j] == 1)
+                    {
+                        maxRow = Math.Max(maxRow, i);
+                        maxCol = Math.Max(maxCol, j);
+                    }
+                }
+            }
+            underside = "";
+            for (int i = 0; i <= maxRow; i++)
+            {
+                for (int j = 0; j <= maxCol; j++)
+                {
+                    underside += j == maxCol ? undersideAry[i, j].ToString() : undersideAry[i, j].ToString() + "|";
+                }
+                if (i < maxRow)
+                {
+                    underside += "&";
+                }
+            }
+            MapData.GetInstance().NeedSave = true;
         }
     }
 }
