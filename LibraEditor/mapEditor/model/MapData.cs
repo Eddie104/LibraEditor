@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Timers;
+using LibraEditor.mapEditor.view.mapLayer;
 
 namespace LibraEditor.mapEditor.model
 {
@@ -29,6 +30,9 @@ namespace LibraEditor.mapEditor.model
 
     class MapData
     {
+
+        public static int resID = 36;
+
         private static MapData instance;
 
         /// <summary>
@@ -117,22 +121,47 @@ namespace LibraEditor.mapEditor.model
             this.NeedSave = true;
         }
 
-        ///// <summary>
-        ///// 往图层里添加资源
-        ///// </summary>
-        ///// <param name="name">图层名</param>
-        ///// <param name="res">资源</param>
-        //internal void AddMapRes(string layerName, MapRes res)
-        //{
-        //    foreach (var item in LayerList)
-        //    {
-        //        if (item.Name == layerName)
-        //        {
+        internal MapRes GetMapRes(string name)
+        {
+            foreach (var item in ResList)
+            {
+                if (item.Name == name)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
 
-        //            break;
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// 往图层里添加资源
+        /// </summary>
+        /// <param name="name">图层名</param>
+        /// <param name="res">资源</param>
+        internal void AddMapRes(string layerName, MapResView mapResView, int id)
+        {
+            foreach (var item in LayerList)
+            {
+                if (item.Name == layerName)
+                {
+                    item.AddRes(mapResView, id);
+                    NeedSave = true;
+                    break;
+                }
+            }
+        }
+
+        internal void UpdateMapRes(MapResView mapResView)
+        {
+            foreach (var item in LayerList)
+            {
+                if (item.UpdateRes(mapResView))
+                {
+                    NeedSave = true;
+                    break;
+                }
+            }
+        }
 
         public void Created()
         {

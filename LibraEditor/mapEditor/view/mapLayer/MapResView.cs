@@ -7,12 +7,16 @@ using System.Windows.Media.Imaging;
 
 namespace LibraEditor.mapEditor.view.mapLayer
 {
-    class MapResView : Image
+    public class MapResView : Image
     {
+
+        public int ID { get; set; }
 
         public int Row { get; set; }
 
         public int Col { get; set; }
+
+        public bool IsRotate { get; set; }
 
         public MapRes Res { get; set; }
 

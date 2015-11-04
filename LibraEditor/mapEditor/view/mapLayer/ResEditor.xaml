@@ -19,7 +19,7 @@
         </ToolBar>
         <Canvas Grid.Row="1" Name="canvas"/>
         <Canvas Grid.Row="1" Name="resCanvas"/>
-        <Canvas Grid.Row="1" Name="netCanvas"/>
+        <Canvas Grid.Row="1" Name="undersideCanvas" IsHitTestVisible="False"/>
         <WrapPanel Grid.Row="2">
             <Label Content="offsetX:"/>
             <controls:NumericUpDown Name="offsetXNumericUpDown" Width="120" ValueChanged="offsetXNumericUpDown_ValueChanged"/>

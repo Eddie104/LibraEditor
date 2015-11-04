@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LibraEditor.mapEditor.view.mapLayer;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace LibraEditor.mapEditor.model
 {
@@ -16,6 +18,41 @@ namespace LibraEditor.mapEditor.model
         {
             ResList = new List<LayerRes>();
         }
+
+        public void AddRes(MapResView mapResView, int id)
+        {
+            var res = new LayerRes() { ID = id, Name = mapResView.Res.Name };
+            ResList.Add(res);
+            UpdateRes(mapResView, res);
+        }
+
+        public bool UpdateRes(MapResView mapResView, LayerRes res = null)
+        {
+            if (res == null)
+            {
+                res = GetRes(mapResView.ID);
+            }
+            if (res != null)
+            {
+                res.Row = mapResView.Row;
+                res.Col = mapResView.Col;
+                res.IsRotate = mapResView.IsRotate;
+                return true;
+            }
+            return false;
+        }
+
+        private LayerRes GetRes(int id)
+        {
+            foreach (var item in ResList)
+            {
+                if (item.ID == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 
     /// <summary>
@@ -23,6 +60,7 @@ namespace LibraEditor.mapEditor.model
     /// </summary>
     public class LayerRes
     {
+        public int ID { get; set; }
 
         /// <summary>
         /// 资源实例名

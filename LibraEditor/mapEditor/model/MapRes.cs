@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace LibraEditor.mapEditor.model
@@ -42,16 +43,6 @@ namespace LibraEditor.mapEditor.model
         /// </summary>
         public int OffsetY { get; set; }
 
-        ///// <summary>
-        ///// 占地格子的行数
-        ///// </summary>
-        //public int Rows { get; set; }
-
-        ///// <summary>
-        ///// 占地格子的列数
-        ///// </summary>
-        //public int Cols { get; set; }
-
         /// <summary>
         /// 占地数据
         /// </summary>
@@ -80,6 +71,8 @@ namespace LibraEditor.mapEditor.model
         }
 
         private int[,] undersideAry = new int[10, 10];
+        [JsonIgnore]
+        public int[,] UndersideAry { get { return undersideAry; } }
 
         public MapRes(string path)
         {
@@ -106,6 +99,7 @@ namespace LibraEditor.mapEditor.model
         public void ChangeCover(int row, int col)
         {
             undersideAry[row, col] = undersideAry[row, col] == 0 ? 1 : 0;
+            ResetUnderside();
         }
 
         public override string ToString()

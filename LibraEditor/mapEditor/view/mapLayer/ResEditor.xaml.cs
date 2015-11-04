@@ -55,18 +55,17 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
             this.offsetXNumericUpDown.Value = mapRes.OffsetX;
             this.offsetYNumericUpDown.Value = mapRes.OffsetY;
+
+            DrawUndersideNet();
         }
 
         private void DrawNet(int rows = 10, int cols = 10)
         {
-            this.canvas.Children.Clear();
-
             List<LinePoint> points = new List<LinePoint>();
-
             MapData mapData = MapData.GetInstance();
-            int startX = 0; int startY = 0;
             if (mapData.ViewType == ViewType.tile)
             {
+                int startX = 0; int startY = 0;
                 int totalWidth = mapData.CellWidth * cols;
                 int totalHeight = mapData.CellHeight * rows;
                 startX = (int)(canvas.ActualWidth - totalWidth) / 2;
@@ -129,7 +128,6 @@ namespace LibraEditor.mapEditor.view.mapLayer
                     });
                 }
             }
-
             GraphicsHelper.Draw(canvas, points, Brushes.Black);
         }
 
@@ -153,9 +151,77 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 Point p = e.GetPosition(canvas);
                 p = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(p) : RectangularHelper.GetItemIndex(p);
-                int row = (int)p.Y; int col = (int)p.X;
-                mapRes.ChangeCover(row, col);
+                if (p.X > -1 && p.Y > -1)
+                {
+                    mapRes.ChangeCover((int)p.Y, (int)p.X);
+                    DrawUndersideNet();
+                }
             }
+        }
+
+        private void DrawUndersideNet()
+        {
+            //绘制占地的格子
+            undersideCanvas.Children.Clear();
+            var ary = mapRes.UndersideAry;
+            for (int row = 0; row < ary.GetLength(0); row++)
+            {
+                for (int col = 0; col < ary.GetLength(1); col++)
+                {
+                    if (ary[row, col] == 1)
+                    {
+                        DrawUndersideNet(row, col);
+                    }
+                }
+            }
+        }
+
+        private void DrawUndersideNet(int row, int col)
+        {
+            List<LinePoint> points = new List<LinePoint>();
+            MapData mapData = MapData.GetInstance();
+            if (mapData.ViewType == ViewType.tile)
+            {
+                int startX = 0; int startY = 0;
+                Point index = RectangularHelper.GetItemPos(row, col);
+                startX = (int)index.X; startY = (int)index.Y;
+                points.Add(new LinePoint()
+                {
+                    StartPoint = new Point(startX, startY + row * mapData.CellHeight),
+                    EndPoint = new Point(startX + mapData.CellWidth, startY + row * mapData.CellHeight)
+                });
+                points.Add(new LinePoint()
+                {
+                    StartPoint = new Point(startX + col * mapData.CellWidth, startY),
+                    EndPoint = new Point(startX + col * mapData.CellWidth, startY + mapData.CellHeight)
+                });
+            }
+            else if (mapData.ViewType == ViewType.iso)
+            {
+                double endX = mapData.CellWidth / 2;
+                double endY = endX / 2;
+                Point p;
+                for (int t = row; t <= row + 1; t++)
+                {
+                    p = ISOHelper.GetItemPos(t, col);
+                    points.Add(new LinePoint()
+                    {
+                        StartPoint = p,
+                        EndPoint = p + new Vector(endX, endY)
+                    });
+                }
+
+                for (int t = col; t <= col + 1; t++)
+                {
+                    p = ISOHelper.GetItemPos(row, t);
+                    points.Add(new LinePoint()
+                    {
+                        StartPoint = p,
+                        EndPoint = new Point(p.X - endX, p.Y + endY)
+                    });
+                }
+            }
+            GraphicsHelper.Draw(undersideCanvas, points, Brushes.Red, false);
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -66,6 +66,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 AddLayerItem(new LayerItem(item));
             }
 
+            mapCanvas.InitMapRes();
+
             IsEnabled = true;
         }
 

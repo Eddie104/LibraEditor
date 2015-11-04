@@ -39,6 +39,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 if (selectedMapResView != null)
                 {
                     selectedMapResView.SetRowAndCol((int)index.Y, (int)index.X);
+                    MapData.GetInstance().UpdateMapRes(selectedMapResView);
                 }
             }
         }
@@ -57,6 +58,26 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 NetLayerItem = new NetLayerItem();
                 NetLayerItem.VisibleChanged += OnNetLayerItemVisibleChanged;
+            }
+        }
+
+        internal void InitMapRes()
+        {
+            MapLayerView layer = null;
+            MapResView resView = null;
+            foreach (var layerData in MapData.GetInstance().LayerList)
+            {
+                layer = GetLayer(layerData.Name);
+                foreach (var layerRes in layerData.ResList)
+                {
+                    resView = new MapResView(MapData.GetInstance().GetMapRes(layerRes.Name));
+                    resView.ID = layerRes.ID;
+                    resView.SetRowAndCol(layerRes.Row, layerRes.Col);
+                    layer.Children.Add(resView);
+                    resView.MouseDown += ResView_MouseDown;
+                    MapData.resID = Math.Max(resView.ID, MapData.resID);
+                    MapData.resID++;
+                }
             }
         }
 
@@ -81,20 +102,24 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 {
                     if (curLayer != null)
                     {
+                        MapResView resView = null;
                         switch (res.ResType)
                         {
                             case ResType.jpg:
                             case ResType.png:
-                                MapResView resView = new MapResView(res);
+                                resView = new MapResView(res);
+                                resView.ID = MapData.resID++;
                                 resView.SetRowAndCol(0, 0);
                                 curLayer.Children.Add(resView);
-
                                 resView.MouseDown += ResView_MouseDown;
                                 break;
                             default:
                                 break;
                         }
-                        //MapData.GetInstance().AddMapRes(curLayer.Name, res);
+                        if (resView != null)
+                        {
+                            MapData.GetInstance().AddMapRes(curLayer.Name, resView, resView.ID);
+                        }
                     }
                     else
                     {
