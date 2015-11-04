@@ -50,9 +50,6 @@
                     <ListBox Grid.Row="1" Name="layerListBox" SelectionChanged="OnLayerSelected"/>
                 </Grid>
             </Expander>
-            <!--<Expander Header="图层管理" IsExpanded="True">
-                <Grid/>
-            </Expander>-->
         </StackPanel>
         <StackPanel Grid.Column="2">
             <Expander Header="aaa" IsExpanded="True">

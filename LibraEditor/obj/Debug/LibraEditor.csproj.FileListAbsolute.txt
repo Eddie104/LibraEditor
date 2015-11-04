@@ -90,3 +90,5 @@ G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.g
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor\view\mapLayer\ResEditor.baml
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Libra.dll
 G:\codeLib\LibraEditor\LibraEditor\bin\Debug\Libra.pdb
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\animationTool\AnimationTool.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\animationTool\AnimationTool.baml

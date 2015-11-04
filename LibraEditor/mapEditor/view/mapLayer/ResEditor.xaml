@@ -6,15 +6,21 @@
         xmlns:local="clr-namespace:LibraEditor.mapEditor.view.mapLayer"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="ResEditor" Height="300" Width="400" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
+        Title="ResEditor" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
             <RowDefinition/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Name="canvas"/>
-        <Canvas Grid.Row="0" Name="resCanvas"/>
-        <WrapPanel Grid.Row="1">
+        <ToolBar Grid.Row="0">
+            <RadioButton GroupName="resEditor" Content="编辑偏移值" IsChecked="True" Checked="OnStartEditOffset"/>
+            <RadioButton GroupName="resEditor" Content="编辑占地面积" Checked="OnStartEditUnderSider"/>
+        </ToolBar>
+        <Canvas Grid.Row="1" Name="canvas"/>
+        <Canvas Grid.Row="1" Name="resCanvas"/>
+        <Canvas Grid.Row="1" Name="netCanvas"/>
+        <WrapPanel Grid.Row="2">
             <Label Content="offsetX:"/>
             <controls:NumericUpDown Name="offsetXNumericUpDown" Width="120" ValueChanged="offsetXNumericUpDown_ValueChanged"/>
             <Label Content="offsetX:"/>

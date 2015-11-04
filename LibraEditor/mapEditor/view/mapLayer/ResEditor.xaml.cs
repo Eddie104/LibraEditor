@@ -15,6 +15,13 @@ namespace LibraEditor.mapEditor.view.mapLayer
     /// </summary>
     public partial class ResEditor : MetroWindow
     {
+        enum EditType
+        {
+            Offset, UnderSider
+        }
+
+        private EditType curEditType = EditType.Offset;
+
         private MapRes mapRes;
 
         private MapResView mapResView;
@@ -48,21 +55,6 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
             this.offsetXNumericUpDown.Value = mapRes.OffsetX;
             this.offsetYNumericUpDown.Value = mapRes.OffsetY;
-        }
-
-        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var t = mapResView.GetValue(Canvas.LeftProperty);
-            int x = 0, y = 0;
-            int.TryParse(mapResView.GetValue(Canvas.LeftProperty).ToString(), out x);
-            int.TryParse(mapResView.GetValue(Canvas.TopProperty).ToString(), out y);
-
-            Point topPoint = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.TopPoint : RectangularHelper.TopPoint;
-            int offsetX = (int)(topPoint.X - x);
-            int offsetY = (int)(topPoint.Y - y);
-
-            offsetXNumericUpDown.Value = offsetX;
-            offsetYNumericUpDown.Value = offsetY;
         }
 
         private void DrawNet(int rows = 10, int cols = 10)
@@ -141,6 +133,32 @@ namespace LibraEditor.mapEditor.view.mapLayer
             GraphicsHelper.Draw(canvas, points, Brushes.Black);
         }
 
+        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (curEditType == EditType.Offset)
+            {
+                var t = mapResView.GetValue(Canvas.LeftProperty);
+                int x = 0, y = 0;
+                int.TryParse(mapResView.GetValue(Canvas.LeftProperty).ToString(), out x);
+                int.TryParse(mapResView.GetValue(Canvas.TopProperty).ToString(), out y);
+
+                Point topPoint = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.TopPoint : RectangularHelper.TopPoint;
+                int offsetX = (int)(topPoint.X - x);
+                int offsetY = (int)(topPoint.Y - y);
+
+                offsetXNumericUpDown.Value = offsetX;
+                offsetYNumericUpDown.Value = offsetY;
+            }
+            else if (curEditType == EditType.UnderSider)
+            {
+                Point p = e.GetPosition(canvas);
+                p = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(p) : RectangularHelper.GetItemIndex(p);
+                int row = (int)p.Y; int col = (int)p.X;
+                //mapResView.Res.Rows = Math.Max(row + 1, mapResView.Res.Rows);
+                //mapResView.Res.Cols = Math.Max(col + 1, mapResView.Res.Cols);
+            }
+        }
+
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MapData.GetInstance().ViewType == ViewType.tile)
@@ -159,7 +177,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 mapRes.OffsetX = (int)offsetXNumericUpDown.Value;
                 MapData.GetInstance().NeedSave = true;
-                mapResView.SetRowAndCol(mapResView.Row, mapResView.Col);
+                mapResView.SetRowAndCol(mapResView.Row, mapResView.Col, true);
             }
         }
 
@@ -169,8 +187,23 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 mapRes.OffsetY = (int)offsetYNumericUpDown.Value;
                 MapData.GetInstance().NeedSave = true;
-                mapResView.SetRowAndCol(mapResView.Row, mapResView.Col);
+                mapResView.SetRowAndCol(mapResView.Row, mapResView.Col, true);
             }
+        }
+
+        private void OnStartEditOffset(object sender, RoutedEventArgs e)
+        {
+            if (this.IsInitialized)
+            {
+                curEditType = EditType.Offset;
+                mapResView.IsCanDrag = true;
+            }
+        }
+
+        private void OnStartEditUnderSider(object sender, RoutedEventArgs e)
+        {
+            curEditType = EditType.UnderSider;
+            mapResView.IsCanDrag = false;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Libra.helper;
+using LibraEditor.animationTool;
 using LibraEditor.egret.resourceTool;
 using LibraEditor.mapEditor.model;
 using LibraEditor.mapEditor.view.newMap;
@@ -87,6 +88,12 @@ namespace LibraEditor
         private void OnShowEgretResTool(object sender, RoutedEventArgs e)
         {
             ResourceTool win = new ResourceTool();
+            win.ShowDialog();
+        }
+
+        private void OnShowAnimationTool(object sender, RoutedEventArgs e)
+        {
+            AnimationTool win = new AnimationTool();
             win.ShowDialog();
         }
 

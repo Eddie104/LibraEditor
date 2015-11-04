@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LibraEditor.mapEditor.model
 {
@@ -45,6 +40,21 @@ namespace LibraEditor.mapEditor.model
         /// 图片左上角到格子中心点的纵坐标偏移值
         /// </summary>
         public int OffsetY { get; set; }
+
+        /// <summary>
+        /// 占地格子的行数
+        /// </summary>
+        public int Rows { get; set; }
+
+        /// <summary>
+        /// 占地格子的列数
+        /// </summary>
+        public int Cols { get; set; }
+
+        /// <summary>
+        /// 占地数据
+        /// </summary>
+        public string Underside { get; set; }
 
         public MapRes(string path)
         {

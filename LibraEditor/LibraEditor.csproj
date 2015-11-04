@@ -86,6 +86,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="animationTool\AnimationTool.xaml.cs">
+      <DependentUpon>AnimationTool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="egret\resourceTool\ResourceTool.xaml.cs">
       <DependentUpon>ResourceTool.xaml</DependentUpon>
@@ -126,6 +129,10 @@
     <Compile Include="mapEditor\view\NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
     </Compile>
+    <Page Include="animationTool\AnimationTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="egret\resourceTool\ResourceTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

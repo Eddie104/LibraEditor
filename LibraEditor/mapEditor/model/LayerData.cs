@@ -38,5 +38,10 @@ namespace LibraEditor.mapEditor.model
         /// 所在格子的列索引
         /// </summary>
         public int Col { get; set; }
+
+        /// <summary>
+        /// 是否旋转了
+        /// </summary>
+        public bool IsRotate { get; set; }
     }
 }

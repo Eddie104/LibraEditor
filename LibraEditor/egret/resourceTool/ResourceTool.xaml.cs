@@ -220,6 +220,7 @@ namespace LibraEditor.egret.resourceTool
             {
                 if (group.HasKey(p.name))
                 {
+                    group.AddResItem(p);
                     p.groupName = group.name;
                 }
             });
@@ -413,12 +414,12 @@ namespace LibraEditor.egret.resourceTool
             ResGroup oldGroup = GetResGroup(oldGroupName);
             if (oldGroup != null)
             {
-                oldGroup.RemoveKey(resItem.name);
+                oldGroup.RemoveResItem(resItem);
             }
             ResGroup newGroup = GetResGroup(resItem.groupName);
             if (newGroup != null)
             {
-                newGroup.AddKey(resItem.name);
+                newGroup.AddResItem(resItem);
             }
         }
 
@@ -433,7 +434,22 @@ namespace LibraEditor.egret.resourceTool
 
     public class ResItem
     {
-        public string name { get; set; }
+        private string _name;
+        public string name
+        {
+            get { return _name; }
+            set
+            {
+                if (!string.IsNullOrEmpty(_name))
+                {
+                    if (Group != null)
+                    {
+                        Group.ChangeKey(_name, value);
+                    }
+                }
+                _name = value;
+            }
+        }
 
         private string _type;
         public string type
@@ -460,10 +476,16 @@ namespace LibraEditor.egret.resourceTool
         [JsonIgnore]
         public ResItem Image { get; set; }
 
+        [JsonIgnore]
+        public ResGroup Group { get; set; }
+
     }
 
     public class ResGroup
     {
+        [JsonIgnore]
+        public List<ResItem> ResList { get; set; }
+
         public string name { get; set; }
 
         private List<string> _keyList = new List<string>();
@@ -481,7 +503,32 @@ namespace LibraEditor.egret.resourceTool
             }
         }
 
-        public void RemoveKey(string name)
+        public ResGroup()
+        {
+            ResList = new List<ResItem>();
+        }
+
+        public void AddResItem(ResItem res)
+        {
+            if (!ResList.Contains(res))
+            {
+                ResList.Add(res);
+                res.Group = this;
+                AddKey(res.name);
+            }
+        }
+
+        public void RemoveResItem(ResItem res)
+        {
+            if (ResList.Contains(res))
+            {
+                ResList.Remove(res);
+                res.Group = null;
+                RemoveKey(res.name);
+            }            
+        }
+
+        private void RemoveKey(string name)
         {
             foreach (string item in _keyList)
             {
@@ -494,7 +541,7 @@ namespace LibraEditor.egret.resourceTool
             }
         }
 
-        public void AddKey(string name)
+        private void AddKey(string name)
         {
             if (!_keyList.Contains(name))
             {
@@ -506,6 +553,19 @@ namespace LibraEditor.egret.resourceTool
         public bool HasKey(string name)
         {
             return _keyList.Contains(name);
+        }
+
+        public void ChangeKey(string oldKey, string newKey)
+        {
+            for (int i = 0; i < _keyList.Count; i++)
+            {
+                if (_keyList[i] == oldKey)
+                {
+                    _keyList[i] = newKey;
+                    break;
+                }
+            }
+            this._keys = string.Join(",", _keyList);
         }
 
         public override string ToString()
