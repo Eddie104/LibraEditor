@@ -32,7 +32,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            Point index = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(e.GetPosition(netLayer)) : RectangularHelper.GetItemIndex(e.GetPosition(netLayer));
+            Point index = MainWindow.GetInstance().CoordinateHelper.GetItemIndex(e.GetPosition(netLayer));
             mouseCursor.SetRowAndCol((int)index.Y, (int)index.X);
             if (e.LeftButton == MouseButtonState.Pressed)
             {

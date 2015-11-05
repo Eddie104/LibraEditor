@@ -1,0 +1,33 @@
+﻿<controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.ResEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraEditor.mapEditor2.view"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="ResEditor" Height="600" Width="800" WindowStartupLocation="CenterScreen" BorderBrush="Gray" Loaded="MetroWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Expander Header="地板资源" IsExpanded="True">
+                <ListBox Name="floorListBox" SelectionChanged="OnListBox_SelectionChanged"/>
+            </Expander>
+            <Expander Header="建筑资源" IsExpanded="True">
+                <ListBox Name="buildingListBox" SelectionChanged="OnListBox_SelectionChanged"/>
+            </Expander>
+        </StackPanel>
+        <Canvas Grid.Column="1" Name="canvas" MouseDown="canvas_MouseDown">
+            <Canvas.Background>
+                <VisualBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">
+                    <VisualBrush.Visual>
+                        <Image Source="/LibraEditor;component/Resources/alpha.png"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Canvas.Background>
+        </Canvas>
+    </Grid>
+</controls:MetroWindow>

@@ -24,12 +24,15 @@
                         <RowDefinition Height="26"/>
                         <RowDefinition Height="200"/>
                     </Grid.RowDefinitions>
-                       <Image Grid.Row="0" Name="previewImg"/>
+                    <!--预览图-->
+                    <Image Grid.Row="0" Name="previewImg"/>
+                    <!--工具栏-->
                     <WrapPanel Grid.Row="1">
                         <Button Click="OnImportRes">
                             <Image Source="/LibraEditor;component/Resources/import_16.png"/>
                         </Button>
                     </WrapPanel>
+                    <!--资源列表-->
                     <ListBox Name="resLibListBox" Grid.Row="2" SelectionChanged="OnResSelected" AllowDrop="True" PreviewMouseLeftButtonDown="OnDragRes"/>
                 </Grid>
             </Expander>

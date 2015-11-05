@@ -3,6 +3,7 @@ using LibraEditor.animationTool;
 using LibraEditor.egret.resourceTool;
 using LibraEditor.mapEditor.model;
 using LibraEditor.mapEditor.view.newMap;
+using LibraEditor.mapEditor2.view;
 using LibraEditor.plistTool;
 using MahApps.Metro.Controls;
 using System;
@@ -19,6 +20,8 @@ namespace LibraEditor
     {
 
         private static MainWindow instance;
+
+        public ICoordinateHelper CoordinateHelper { get; set; }
 
         public Timer Timer { get; set; }
 
@@ -94,6 +97,12 @@ namespace LibraEditor
         private void OnShowAnimationTool(object sender, RoutedEventArgs e)
         {
             AnimationTool win = new AnimationTool();
+            win.ShowDialog();
+        }
+
+        private void OnShowMapTool(object sender, RoutedEventArgs e)
+        {
+            MapEditor win = new MapEditor();
             win.ShowDialog();
         }
 

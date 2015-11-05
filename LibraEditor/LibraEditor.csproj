@@ -96,6 +96,26 @@
     <Compile Include="egret\resourceTool\Scale9Grid.xaml.cs">
       <DependentUpon>Scale9Grid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="mapEditor2\model\data\MapData.cs" />
+    <Compile Include="mapEditor2\model\data\Prop.cs" />
+    <Compile Include="mapEditor2\view\CreateMapWin.xaml.cs">
+      <DependentUpon>CreateMapWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\LayerBoxListItem.xaml.cs">
+      <DependentUpon>LayerBoxListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\LayerLib.xaml.cs">
+      <DependentUpon>LayerLib.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\MapEditor.xaml.cs">
+      <DependentUpon>MapEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\ResEditor.xaml.cs">
+      <DependentUpon>ResEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\ResLib.xaml.cs">
+      <DependentUpon>ResLib.xaml</DependentUpon>
+    </Compile>
     <Compile Include="mapEditor\events\VisibleChangedEventArgs.cs" />
     <Compile Include="mapEditor\model\LayerData.cs" />
     <Compile Include="mapEditor\model\MapData.cs" />
@@ -153,6 +173,30 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="mapEditor2\view\CreateMapWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\LayerBoxListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\LayerLib.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\MapEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\ResEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\ResLib.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="mapEditor\view\mapLayer\LayerItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +333,7 @@
       <Name>Libra</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
