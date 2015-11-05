@@ -99,3 +99,5 @@ E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\plistTool\PlistTool.baml
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\LibraEditor.g.resources
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\LibraEditor.Properties.Resources.resources
 E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\LibraEditor.csproj.GenerateResource.Cache
+E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\MongoDB.Driver.dll
+E:\vsProjects\LibraEditor\LibraEditor\bin\Debug\MongoDB.Bson.dll
