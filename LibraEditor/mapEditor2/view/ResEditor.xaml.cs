@@ -15,6 +15,9 @@ namespace LibraEditor.mapEditor2.view
     public partial class ResEditor : MetroWindow
     {
 
+        /// <summary>
+        /// 坐标和格子索引换算的工具
+        /// </summary>
         private ICoordinateHelper coordinateHelper;
 
         private Prop prop = null;
@@ -56,8 +59,11 @@ namespace LibraEditor.mapEditor2.view
                 if (prop != null)
                 {
                     canvas.Children.Remove(prop);
+                    prop.MouseLeftButtonDown -= Prop_MouseDown;
+                    prop.MouseMove -= Prop_MouseMove;
+                    prop.MouseLeftButtonUp -= Prop_MouseUp;
                     prop = null;
-                }                
+                }
                 if (item is FloorTypeData)
                 {
                     prop = new Floor(item as FloorTypeData);
@@ -68,18 +74,27 @@ namespace LibraEditor.mapEditor2.view
                 }
                 if (prop != null)
                 {
-                    prop.SetRowAndCol(0, 0, coordinateHelper);
                     canvas.Children.Add(prop);
                     prop.MouseLeftButtonDown += Prop_MouseDown;
                     prop.MouseMove += Prop_MouseMove;
                     prop.MouseLeftButtonUp += Prop_MouseUp;
+
+                    offsetXNumericUpDown.Value = prop.GetData().OffsetX;
+                    offsetYNumericUpDown.Value = prop.GetData().OffsetY;
+                    prop.SetRowAndCol(0, 0, coordinateHelper);
                 }
             }
         }
 
         private void Prop_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            
+            double t = (double)prop.GetValue(Canvas.LeftProperty);
+            int propX = (int)t;
+            t = (double)prop.GetValue(Canvas.TopProperty);
+            int propY = (int)t;
+            prop.GetData().OffsetX = (int)coordinateHelper.TopPoint.X - propX;
+            prop.GetData().OffsetY = (int)coordinateHelper.TopPoint.Y - propY;
+            MapData.GetInstance().NeedSave = true;
         }
 
         private void Prop_MouseMove(object sender, MouseEventArgs e)
@@ -99,10 +114,30 @@ namespace LibraEditor.mapEditor2.view
             oldPropPosition = e.GetPosition(canvas);
         }
 
-        private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        private void offsetXNumericUpDown_ValueChanged(object sender, object e)
         {
-            var t = coordinateHelper.GetItemIndex(e.GetPosition(canvas));
-            Console.WriteLine(string.Format("row = {0}, col = {1}", t.Y, t.X));
+            if (prop != null)
+            {
+                if (offsetXNumericUpDown.Value != null && offsetYNumericUpDown.Value != null)
+                {
+                    prop.GetData().OffsetX = (int)offsetXNumericUpDown.Value;
+                    prop.SetRowAndCol(0, 0, coordinateHelper);
+                    MapData.GetInstance().NeedSave = true;
+                }
+            }
+        }
+
+        private void offsetYNumericUpDown_ValueChanged(object sender, object e)
+        {
+            if (prop != null)
+            {
+                if (offsetXNumericUpDown.Value != null && offsetYNumericUpDown.Value != null)
+                {
+                    prop.GetData().OffsetY = (int)offsetYNumericUpDown.Value;
+                    prop.SetRowAndCol(0, 0, coordinateHelper);
+                    MapData.GetInstance().NeedSave = true;
+                }
+            }
         }
     }
 }

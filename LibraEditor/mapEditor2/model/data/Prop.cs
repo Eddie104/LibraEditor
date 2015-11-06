@@ -20,10 +20,6 @@ namespace LibraEditor.mapEditor2.model.data
 
         public int Col { get; set; }
 
-        public int OffsetX { get; set; }
-
-        public int OffsetY { get; set; }
-
         private string path;
         [JsonIgnore]
         public string Path
@@ -56,13 +52,18 @@ namespace LibraEditor.mapEditor2.model.data
             Data = data;
         }
 
+        public PropTypeData GetData()
+        {
+            return data;
+        }
+
         public void SetRowAndCol(int row, int col, ICoordinateHelper coordinateHelper)
         {
             Row = row;
             Col = col;
             Point p = coordinateHelper.GetItemPos(row, col);
-            Canvas.SetLeft(this, p.X);
-            Canvas.SetTop(this, p.Y);
+            Canvas.SetLeft(this, p.X - data.OffsetX);
+            Canvas.SetTop(this, p.Y - data.OffsetY);
         }
     }
 
@@ -84,12 +85,9 @@ namespace LibraEditor.mapEditor2.model.data
             }
         }
 
-        public Floor(FloorTypeData data) : base(data)
-        {
+        public Floor(FloorTypeData data) : base(data) { }
 
-        }
-
-        public FloorTypeData GetData()
+        public new FloorTypeData GetData()
         {
             return data;
         }
@@ -112,12 +110,9 @@ namespace LibraEditor.mapEditor2.model.data
             }
         }
 
-        public Building(BuildingTypeData data) : base(data)
-        {
+        public Building(BuildingTypeData data) : base(data) { }
 
-        }
-
-        public BuildingTypeData GetData()
+        public new BuildingTypeData GetData()
         {
             return data;
         }

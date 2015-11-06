@@ -260,17 +260,15 @@ namespace LibraEditor.mapEditor2.model.data
         }
     }
 
-    class PropTypeData
+    abstract class PropTypeData
     {
         public string Name { get; set; }
 
         public string Des { get; set; }
 
-        [JsonIgnore]
-        public virtual string Path
-        {
-            get { return null; }
-        }
+        public int OffsetX { get; set; }
+
+        public int OffsetY { get; set; }
 
         protected string underside = "";
         public virtual string Underside
@@ -288,6 +286,12 @@ namespace LibraEditor.mapEditor2.model.data
         protected int rows;
 
         protected int cols;
+
+        [JsonIgnore]
+        public virtual string Path
+        {
+            get { return null; }
+        }
 
         public override string ToString()
         {

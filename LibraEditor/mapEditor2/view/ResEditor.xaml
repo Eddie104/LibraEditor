@@ -20,14 +20,44 @@
                 <ListBox Name="buildingListBox" SelectionChanged="OnListBox_SelectionChanged"/>
             </Expander>
         </StackPanel>
-        <Canvas Grid.Column="1" Name="canvas" MouseDown="canvas_MouseDown">
-            <Canvas.Background>
-                <VisualBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">
-                    <VisualBrush.Visual>
-                        <Image Source="/LibraEditor;component/Resources/alpha.png"/>
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Canvas.Background>
-        </Canvas>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Canvas Grid.Row="0" Name="canvas">
+                <Canvas.Background>
+                    <VisualBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">
+                        <VisualBrush.Visual>
+                            <Image Source="/LibraEditor;component/Resources/alpha.png"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Canvas.Background>
+            </Canvas>
+            <Grid Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="水平偏移值:" VerticalAlignment="Center"/>
+                    <Label Content="垂直偏移值:" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+                    <controls:NumericUpDown Grid.Column="1" Name="offsetXNumericUpDown" ValueChanged="offsetXNumericUpDown_ValueChanged"/>
+                    <controls:NumericUpDown Grid.Column="3" Name="offsetYNumericUpDown" ValueChanged="offsetYNumericUpDown_ValueChanged"/>
+                    <!--<Label Content="放大缩小" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center"/>-->
+                </Grid>
+                <Border Grid.Row="0" CornerRadius="5" BorderBrush="#FF2374EA" BorderThickness="2" Margin="0,0,0,0"/>
+                <Grid>
+                    <GridSplitter></GridSplitter>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </controls:MetroWindow>
