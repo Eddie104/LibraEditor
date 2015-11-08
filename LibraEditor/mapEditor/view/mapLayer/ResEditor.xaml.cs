@@ -63,6 +63,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
         {
             List<LinePoint> points = new List<LinePoint>();
             MapData mapData = MapData.GetInstance();
+            ICoordinateHelper helper = MainWindow.GetInstance().CoordinateHelper;
             if (mapData.ViewType == ViewType.tile)
             {
                 int startX = 0; int startY = 0;
@@ -70,11 +71,11 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 int totalHeight = mapData.CellHeight * rows;
                 startX = (int)(canvas.ActualWidth - totalWidth) / 2;
                 startY = (int)(canvas.ActualHeight - totalHeight) / 2;
-                oldTopPoint = RectangularHelper.TopPoint;
-                RectangularHelper.TopPoint = new Point(startX, startY);
+                oldTopPoint = helper.TopPoint;
+                helper.TopPoint = new Point(startX, startY);
 
-                Point index = RectangularHelper.GetItemIndex(new Point(startX, startY));
-                index = RectangularHelper.GetItemPos((int)index.X, (int)index.Y);
+                Point index = helper.GetItemIndex(new Point(startX, startY));
+                index = helper.GetItemPos((int)index.X, (int)index.Y);
                 startX = (int)index.X; startY = (int)index.Y;
                 for (int row = 0; row <= rows; row++)
                 {
@@ -97,8 +98,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 int totalWidth = (rows + cols) * mapData.CellWidth / 2;
                 int totalHeight = (rows + cols) * mapData.CellHeight / 2;
-                oldTopPoint = ISOHelper.TopPoint;
-                ISOHelper.TopPoint = new Point(canvas.ActualWidth / 2 - (totalWidth - mapData.CellWidth * rows) / 2,
+                oldTopPoint = helper.TopPoint;
+                helper.TopPoint = new Point(canvas.ActualWidth / 2 - (totalWidth - mapData.CellWidth * rows) / 2,
                     (int)Math.Floor((canvas.ActualHeight - totalHeight) * 0.5));
 
                 double endX = cols * mapData.CellWidth / 2;
@@ -106,8 +107,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 Point p;
                 for (int row = 0; row <= rows; row++)
                 {
-                    p = new Point(ISOHelper.TopPoint.X - mapData.CellWidth / 2 * row,
-                            ISOHelper.TopPoint.Y + mapData.CellHeight / 2 * row);
+                    p = new Point(helper.TopPoint.X - mapData.CellWidth / 2 * row,
+                            helper.TopPoint.Y + mapData.CellHeight / 2 * row);
                     points.Add(new LinePoint()
                     {
                         StartPoint = p,
@@ -119,8 +120,8 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 endY = endX / 2;
                 for (int col = 0; col <= cols; col++)
                 {
-                    p = new Point(ISOHelper.TopPoint.X + mapData.CellWidth / 2 * col,
-                        ISOHelper.TopPoint.Y + mapData.CellHeight / 2 * col);
+                    p = new Point(helper.TopPoint.X + mapData.CellWidth / 2 * col,
+                        helper.TopPoint.Y + mapData.CellHeight / 2 * col);
                     points.Add(new LinePoint()
                     {
                         StartPoint = p,
@@ -133,6 +134,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            ICoordinateHelper helper = MainWindow.GetInstance().CoordinateHelper;
             if (curEditType == EditType.Offset)
             {
                 var t = mapResView.GetValue(Canvas.LeftProperty);
@@ -140,7 +142,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 int.TryParse(mapResView.GetValue(Canvas.LeftProperty).ToString(), out x);
                 int.TryParse(mapResView.GetValue(Canvas.TopProperty).ToString(), out y);
 
-                Point topPoint = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.TopPoint : RectangularHelper.TopPoint;
+                Point topPoint = helper.TopPoint;
                 int offsetX = (int)(topPoint.X - x);
                 int offsetY = (int)(topPoint.Y - y);
 
@@ -150,7 +152,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             else if (curEditType == EditType.UnderSider)
             {
                 Point p = e.GetPosition(canvas);
-                p = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemIndex(p) : RectangularHelper.GetItemIndex(p);
+                p = helper.GetItemIndex(p);
                 if (p.X > -1 && p.Y > -1)
                 {
                     mapRes.ChangeCover((int)p.Y, (int)p.X);
@@ -178,12 +180,13 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void DrawUndersideNet(int row, int col)
         {
+            ICoordinateHelper helper = MainWindow.GetInstance().CoordinateHelper;
             List<LinePoint> points = new List<LinePoint>();
             MapData mapData = MapData.GetInstance();
             if (mapData.ViewType == ViewType.tile)
             {
                 int startX = 0; int startY = 0;
-                Point index = RectangularHelper.GetItemPos(row, col);
+                Point index = helper.GetItemPos(row, col);
                 startX = (int)index.X; startY = (int)index.Y;
                 points.Add(new LinePoint()
                 {
@@ -203,7 +206,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 Point p;
                 for (int t = row; t <= row + 1; t++)
                 {
-                    p = ISOHelper.GetItemPos(t, col);
+                    p = helper.GetItemPos(t, col);
                     points.Add(new LinePoint()
                     {
                         StartPoint = p,
@@ -213,7 +216,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
                 for (int t = col; t <= col + 1; t++)
                 {
-                    p = ISOHelper.GetItemPos(row, t);
+                    p = helper.GetItemPos(row, t);
                     points.Add(new LinePoint()
                     {
                         StartPoint = p,
@@ -226,14 +229,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MapData.GetInstance().ViewType == ViewType.tile)
-            {
-                RectangularHelper.TopPoint = oldTopPoint;
-            }
-            else
-            {
-                ISOHelper.TopPoint = oldTopPoint;
-            }
+            MainWindow.GetInstance().CoordinateHelper.TopPoint = oldTopPoint;                
             mapRes.ResetUnderside();
         }
 

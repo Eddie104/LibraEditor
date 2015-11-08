@@ -1,0 +1,76 @@
+﻿<controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.ResEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraEditor.mapEditor2.view"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="ResEditor" Height="600" Width="800" WindowStartupLocation="CenterScreen" BorderBrush="Gray" Loaded="MetroWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Expander Header="地板资源" IsExpanded="True">
+                <ListBox Name="floorListBox" SelectionChanged="OnListBox_SelectionChanged"/>
+            </Expander>
+            <Expander Header="建筑资源" IsExpanded="True">
+                <ListBox Name="buildingListBox" SelectionChanged="OnListBox_SelectionChanged"/>
+            </Expander>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Canvas Grid.Row="0" Name="canvas" PreviewMouseMove="canvas_PreviewMouseMove">
+                <Canvas.Background>
+                    <VisualBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">
+                        <VisualBrush.Visual>
+                            <Image Source="/LibraEditor;component/Resources/alpha.png"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Canvas.Background>
+            </Canvas>
+            <!--放大镜-->
+            <Canvas Grid.Row="0" Name="magnifierCanvas" IsHitTestVisible="False" Visibility="Hidden">
+                <!--magnifierEllipse就是我们要填充的控件-->
+                <Ellipse Width="150" Height="150" Name="magnifierEllipse">
+                    <Ellipse.Fill>
+                        <VisualBrush x:Name="vb" Visual="{Binding ElementName=canvas}" Stretch="UniformToFill"   
+                                    ViewboxUnits="Absolute" Viewbox="0, 25, 50, 50"  
+                                    ViewportUnits="RelativeToBoundingBox" Viewport="0, 0, 1, 1">
+                        </VisualBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Canvas>
+
+            <Grid Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="水平偏移值:" VerticalAlignment="Center"/>
+                    <Label Content="垂直偏移值:" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+                    <controls:NumericUpDown Grid.Column="1" Name="offsetXNumericUpDown" ValueChanged="offsetXNumericUpDown_ValueChanged"/>
+                    <controls:NumericUpDown Grid.Column="3" Name="offsetYNumericUpDown" ValueChanged="offsetYNumericUpDown_ValueChanged"/>
+                    <controls:ToggleSwitch Grid.Column="4" Width="160" Content="放大镜开关" VerticalAlignment="Center" Checked="ToggleSwitch_Checked" Unchecked="ToggleSwitch_Unchecked"/>
+                </Grid>
+                <Border Grid.Row="0" CornerRadius="5" BorderBrush="#FF2374EA" BorderThickness="2" Margin="0,0,0,0"/>
+                <Grid>
+                    <GridSplitter></GridSplitter>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>

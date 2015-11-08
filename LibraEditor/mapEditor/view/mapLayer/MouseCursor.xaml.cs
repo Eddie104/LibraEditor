@@ -90,7 +90,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
             {
                 CurRow = row;
                 CurCol = col;
-                Point p = MapData.GetInstance().ViewType == ViewType.iso ? ISOHelper.GetItemPos(row, col) : RectangularHelper.GetItemPos(row, col);
+                Point p = MainWindow.GetInstance().CoordinateHelper.GetItemPos(row, col);
                 Canvas.SetLeft(mouseCursor, p.X);
                 Canvas.SetTop(mouseCursor, p.Y);
             }

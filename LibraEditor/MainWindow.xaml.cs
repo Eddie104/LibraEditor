@@ -1,8 +1,10 @@
 ﻿using Libra.helper;
 using LibraEditor.animationTool;
 using LibraEditor.egret.resourceTool;
+using LibraEditor.helper;
 using LibraEditor.mapEditor.model;
 using LibraEditor.mapEditor.view.newMap;
+using LibraEditor.mapEditor2.view;
 using LibraEditor.plistTool;
 using MahApps.Metro.Controls;
 using System;
@@ -19,6 +21,8 @@ namespace LibraEditor
     {
 
         private static MainWindow instance;
+
+        public ICoordinateHelper CoordinateHelper { get; set; }
 
         public Timer Timer { get; set; }
 
@@ -97,9 +101,26 @@ namespace LibraEditor
             win.ShowDialog();
         }
 
+        private void OnShowMapTool(object sender, RoutedEventArgs e)
+        {
+            MapEditor win = new MapEditor();
+            win.ShowDialog();
+        }
+
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Config.Save();
+        }
+
+        /// <summary>
+        /// 测试按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            CSVHelper test = new CSVHelper(@"E:\codeLib\egret\Libra-Egret\Libra_Egret\editor\Demo\xls\floor.csv");
+            test.Save(@"E:\codeLib\egret\Libra-Egret\Libra_Egret\editor\Demo\xls\floorTest.csv");
         }
     }
 }

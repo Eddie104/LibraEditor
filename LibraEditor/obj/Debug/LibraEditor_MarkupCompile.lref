@@ -1,9 +1,15 @@
-﻿E:\vsProjects\LibraEditor\LibraEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 FE:\vsProjects\LibraEditor\LibraEditor\App.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\animationTool\AnimationTool.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\egret\resourceTool\ResourceTool.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\egret\resourceTool\Scale9Grid.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\MainWindow.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor2\view\CreateMapWin.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor2\view\LayerBoxListItem.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor2\view\LayerLib.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor2\view\MapEditor.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor2\view\ResEditor.xaml;;
+FE:\vsProjects\LibraEditor\LibraEditor\mapEditor2\view\ResLib.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\LayerItem.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapCanvas.xaml;;
 FE:\vsProjects\LibraEditor\LibraEditor\mapEditor\view\mapLayer\MapLayer.xaml;;

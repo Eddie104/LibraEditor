@@ -111,24 +111,25 @@ namespace LibraEditor.mapEditor.view.newMap
         private void InitHelper()
         {
             MapData mapData = MapData.GetInstance();
+            ICoordinateHelper helper;
             if (mapData.ViewType == ViewType.iso)
             {
-                ISOHelper.Width = mapData.CellWidth;
-                ISOHelper.Height = mapData.CellHeight;
-
+                helper = new ISOHelper(mapData.CellWidth, mapData.CellHeight);
                 if (mapData.CellWidth % 4 != 0)
                 {
                     DialogManager.ShowMessageAsync(this, "地图宽度有误", "斜视角地图中，格子宽度应为4的倍数");
                     return;
                 }
                 mapData.CellHeight = mapData.CellWidth / 2;
-                ISOHelper.Height = ISOHelper.Width / 2;
+                helper.Height = helper.Width / 2;
             }
             else
             {
-                RectangularHelper.Width = mapData.CellWidth;
-                RectangularHelper.Height = mapData.CellHeight;
+                helper = new RectangularHelper();
+                helper.Width = mapData.CellWidth;
+                helper.Height = mapData.CellHeight;
             }
+            MainWindow.GetInstance().CoordinateHelper = helper;
         }
     }
 }

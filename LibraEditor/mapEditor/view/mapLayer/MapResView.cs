@@ -81,16 +81,7 @@ namespace LibraEditor.mapEditor.view.mapLayer
                 Row = row;
                 Col = col;
 
-                Point p;
-                if (MapData.GetInstance().ViewType == ViewType.iso)
-                {
-                    p = ISOHelper.GetItemPos(row, col);
-
-                }
-                else
-                {
-                    p = RectangularHelper.GetItemPos(row, col);
-                }
+                Point p = MainWindow.GetInstance().CoordinateHelper.GetItemPos(row, col);
                 Canvas.SetLeft(this, p.X - Res.OffsetX);
                 Canvas.SetTop(this, p.Y - Res.OffsetY);
             }
