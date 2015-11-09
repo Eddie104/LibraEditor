@@ -28,7 +28,7 @@
         <!--资源列表-->
         <controls:MetroAnimatedTabControl Grid.Row="2" Name="resTabControl">
             <controls:MetroTabItem Header="地板">
-                <ListBox Name="floorResListBox" SelectionChanged="OnResListBox_SelectionChanged"/>
+                <ListBox Name="floorResListBox" SelectionChanged="OnResListBox_SelectionChanged" PreviewMouseLeftButtonDown="OnDragFloorRes" AllowDrop="True"/>
             </controls:MetroTabItem>
             <controls:MetroTabItem Header="建筑">
                 <ListBox Name="buildingResListBox" SelectionChanged="OnResListBox_SelectionChanged"/>

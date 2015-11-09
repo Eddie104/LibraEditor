@@ -22,4 +22,5 @@ FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\mapLayer\TextListBoxItem.xaml
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor\view\NewMap.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\plistTool\PlistTool.xaml;;
 FG:\codeLib\LibraEditor\LibraEditor\mapEditor2\view\MapCanvas.xaml;;
+FG:\codeLib\LibraEditor\LibraEditor\mapEditor2\view\CreateMapWin.xaml;;
 

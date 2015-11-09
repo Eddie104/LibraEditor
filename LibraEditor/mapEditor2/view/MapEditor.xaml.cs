@@ -45,14 +45,31 @@ namespace LibraEditor.mapEditor2.view
             return instance;
         }
 
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            GameData.GetInstance().Save();
+        }
+
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             mapLib.MapDataChangedHandler += MapLib_MapDataChangedHandler;
+            mapLib.AddLayerHandler += MapLib_AddLayerHandler;
+            mapLib.SelectedLayerChangedHandler += MapLib_SelectedLayerChangedHandler;
+        }
+
+        private void MapLib_SelectedLayerChangedHandler(string name)
+        {
+            mapCanvas.SelectedLayerChanged(name);
         }
 
         private void MapLib_MapDataChangedHandler(object sender, EventArgs e)
         {
             mapCanvas.UpdateMapData(sender as MapData);
+        }
+
+        private void MapLib_AddLayerHandler(string name)
+        {
+            mapCanvas.AddLayer(name);
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Libra.helper;
 using LibraEditor.mapEditor2.model.data;
 using MahApps.Metro.Controls;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LibraEditor.mapEditor2.view
 {
@@ -15,6 +15,11 @@ namespace LibraEditor.mapEditor2.view
     public partial class ResEditor : MetroWindow
     {
 
+        enum EditorType
+        {
+            MOVE, UNDER_SIDE
+        }
+
         /// <summary>
         /// 坐标和格子索引换算的工具
         /// </summary>
@@ -23,6 +28,8 @@ namespace LibraEditor.mapEditor2.view
         private Prop prop = null;
 
         private Point oldPropPosition;
+
+        private EditorType curEditorType = EditorType.MOVE;
 
         /// <summary>
         /// 是否显示放大镜
@@ -45,7 +52,6 @@ namespace LibraEditor.mapEditor2.view
         {
             int canvasWidth = (int)canvas.ActualWidth;
             int canvasHeight = (int)canvas.ActualHeight;
-            List<LinePoint> points = new List<LinePoint>();
 
             GameData gameData = GameData.GetInstance();
             GraphicsHelper.DrawNet(0, 0, 10, 10, gameData.CellWidth, gameData.CellHeight, canvasWidth, canvasHeight, canvas, gameData.ViewType == MapViewType.iso, out coordinateHelper);
@@ -87,38 +93,124 @@ namespace LibraEditor.mapEditor2.view
                     offsetXNumericUpDown.Value = prop.GetData().OffsetX;
                     offsetYNumericUpDown.Value = prop.GetData().OffsetY;
                     prop.SetRowAndCol(0, 0, coordinateHelper);
+
+                    DrawUndersideNet();
                 }
             }
         }
 
         private void Prop_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            double t = (double)prop.GetValue(Canvas.LeftProperty);
-            int propX = (int)t;
-            t = (double)prop.GetValue(Canvas.TopProperty);
-            int propY = (int)t;
-            prop.GetData().OffsetX = (int)coordinateHelper.TopPoint.X - propX;
-            prop.GetData().OffsetY = (int)coordinateHelper.TopPoint.Y - propY;
-            offsetXNumericUpDown.Value = prop.GetData().OffsetX;
-            offsetYNumericUpDown.Value = prop.GetData().OffsetY;
-            GameData.GetInstance().NeedSave = true;
+            if (curEditorType == EditorType.MOVE)
+            {
+                double t = (double)prop.GetValue(Canvas.LeftProperty);
+                int propX = (int)t;
+                t = (double)prop.GetValue(Canvas.TopProperty);
+                int propY = (int)t;
+                prop.GetData().OffsetX = (int)coordinateHelper.TopPoint.X - propX;
+                prop.GetData().OffsetY = (int)coordinateHelper.TopPoint.Y - propY;
+                offsetXNumericUpDown.Value = prop.GetData().OffsetX;
+                offsetYNumericUpDown.Value = prop.GetData().OffsetY;
+                GameData.GetInstance().NeedSave = true;
+            }
+            else if (curEditorType == EditorType.UNDER_SIDE)
+            {
+                Point p = e.GetPosition(canvas);
+                p = coordinateHelper.GetItemIndex(p);
+                if (p.X > -1 && p.Y > -1)
+                {
+                    prop.Data.ChangeUnderSide((int)p.Y, (int)p.X);
+                    DrawUndersideNet();
+                }
+            }
+        }
+
+        private void DrawUndersideNet()
+        {
+            //绘制占地的格子
+            underSideCanvas.Children.Clear();
+            var ary = prop.Data.UndersideAry;
+            for (int row = 0; row < ary.GetLength(0); row++)
+            {
+                for (int col = 0; col < ary.GetLength(1); col++)
+                {
+                    if (ary[row, col] == 1)
+                    {
+                        DrawUndersideNet(row, col);
+                    }
+                }
+            }
+        }
+
+        private void DrawUndersideNet(int row, int col)
+        {
+            List<LinePoint> points = new List<LinePoint>();
+            GameData gameData = GameData.GetInstance();
+            if (gameData.ViewType == MapViewType.tile)
+            {
+                int startX = 0; int startY = 0;
+                Point index = coordinateHelper.GetItemPos(row, col);
+                startX = (int)index.X; startY = (int)index.Y;
+                points.Add(new LinePoint()
+                {
+                    StartPoint = new Point(startX, startY + row * gameData.CellHeight),
+                    EndPoint = new Point(startX + gameData.CellWidth, startY + row * gameData.CellHeight)
+                });
+                points.Add(new LinePoint()
+                {
+                    StartPoint = new Point(startX + col * gameData.CellWidth, startY),
+                    EndPoint = new Point(startX + col * gameData.CellWidth, startY + gameData.CellHeight)
+                });
+            }
+            else if (gameData.ViewType == MapViewType.iso)
+            {
+                double endX = gameData.CellWidth / 2;
+                double endY = endX / 2;
+                Point p;
+                for (int t = row; t <= row + 1; t++)
+                {
+                    p = coordinateHelper.GetItemPos(t, col);
+                    points.Add(new LinePoint()
+                    {
+                        StartPoint = p,
+                        EndPoint = p + new Vector(endX, endY)
+                    });
+                }
+
+                for (int t = col; t <= col + 1; t++)
+                {
+                    p = coordinateHelper.GetItemPos(row, t);
+                    points.Add(new LinePoint()
+                    {
+                        StartPoint = p,
+                        EndPoint = new Point(p.X - endX, p.Y + endY)
+                    });
+                }
+            }
+            GraphicsHelper.Draw(underSideCanvas, points, Brushes.Red, false);
         }
 
         private void Prop_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (curEditorType == EditorType.MOVE)
             {
-                double xPos = e.GetPosition(canvas).X - oldPropPosition.X + (double)prop.GetValue(Canvas.LeftProperty);
-                double yPos = e.GetPosition(canvas).Y - oldPropPosition.Y + (double)prop.GetValue(Canvas.TopProperty);
-                prop.SetValue(Canvas.LeftProperty, xPos);
-                prop.SetValue(Canvas.TopProperty, yPos);
-                oldPropPosition = e.GetPosition(canvas);
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    double xPos = e.GetPosition(canvas).X - oldPropPosition.X + (double)prop.GetValue(Canvas.LeftProperty);
+                    double yPos = e.GetPosition(canvas).Y - oldPropPosition.Y + (double)prop.GetValue(Canvas.TopProperty);
+                    prop.SetValue(Canvas.LeftProperty, xPos);
+                    prop.SetValue(Canvas.TopProperty, yPos);
+                    oldPropPosition = e.GetPosition(canvas);
+                }
             }
         }
 
         private void Prop_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            oldPropPosition = e.GetPosition(canvas);
+            if (curEditorType == EditorType.MOVE)
+            {
+                oldPropPosition = e.GetPosition(canvas);
+            }
         }
 
         private void offsetXNumericUpDown_ValueChanged(object sender, object e)
@@ -182,6 +274,23 @@ namespace LibraEditor.mapEditor2.view
         {
             isMagnifierShowing = false;
             magnifierCanvas.Visibility = Visibility.Hidden;
+        }
+
+        private void OnEditprTypeChanged(object sender, RoutedEventArgs e)
+        {
+            if (IsInitialized)
+            {
+                if (moveCheckBox.IsChecked == true)
+                {
+                    curEditorType = EditorType.MOVE;
+                    underSideCanvas.Visibility = Visibility.Hidden;
+                }
+                else if (underSideCheckBox.IsChecked == true)
+                {
+                    curEditorType = EditorType.UNDER_SIDE;
+                    underSideCanvas.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

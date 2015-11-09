@@ -1,19 +1,8 @@
 ﻿using LibraEditor.mapEditor2.model.data;
 using MahApps.Metro.Controls.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LibraEditor.mapEditor2.view
 {
@@ -24,6 +13,11 @@ namespace LibraEditor.mapEditor2.view
     {
 
         public event EventHandler MapDataChangedHandler;
+
+        public delegate void LayerDelegate(string name);
+        public event LayerDelegate AddLayerHandler;
+
+        public event LayerDelegate SelectedLayerChangedHandler;
 
         private MapData curMapData;
 
@@ -42,16 +36,19 @@ namespace LibraEditor.mapEditor2.view
             mapListBox.SelectedIndex = 0;
         }
 
-        private async void OnCreateMap(object sender, RoutedEventArgs e)
+        private void OnCreateMap(object sender, RoutedEventArgs e)
         {
-            string name = await DialogManager.ShowInputAsync(MapEditor.GetInstance(), "新建地图", "请输入地图名:");
-            if (!string.IsNullOrEmpty(name))
+            CreateMapWin win = new CreateMapWin();
+            win.CreateMapHandler += Win_CreateMapHandler;
+            win.ShowDialog();
+        }
+
+        private void Win_CreateMapHandler(string name, int rows, int cols)
+        {
+            var mapData = GameData.GetInstance().AddMapData(name, rows, cols);
+            if (mapData != null)
             {
-                var mapData = GameData.GetInstance().AddMapData(name);
-                if (mapData != null)
-                {
-                    AddMapItem(mapData.Name);
-                }
+                AddMapItem(mapData.Name);
             }
         }
 
@@ -98,6 +95,7 @@ namespace LibraEditor.mapEditor2.view
                 {
                     curMapData.AddLayerData(name);
                     layerListBox.Items.Add(name);
+                    AddLayerHandler(name);
                 }
             }
         }
@@ -112,10 +110,19 @@ namespace LibraEditor.mapEditor2.view
             {
                 if (layerListBox.SelectedItem != null)
                 {
-                    string name = (layerListBox.SelectedItem as LayerListBoxItem).Name;
+                    string name = layerListBox.SelectedItem.ToString();
                     curMapData.RemoveLayerData(name);
                     layerListBox.Items.Remove(layerListBox.SelectedItem);
                 }
+            }
+        }
+
+        private void OnLayerSelectedChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (layerListBox.SelectedItem != null)
+            {
+                string name = layerListBox.SelectedItem.ToString();
+                SelectedLayerChangedHandler(name);
             }
         }
     }

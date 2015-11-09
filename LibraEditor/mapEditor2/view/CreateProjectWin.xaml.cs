@@ -45,8 +45,8 @@ namespace LibraEditor.mapEditor2.view
                     gameData.ViewType = (bool)obliqueRadioButton.IsChecked ? MapViewType.iso : MapViewType.tile;
                     gameData.CellWidth = (int)tileWidthNumeric.Value;
                     gameData.CellHeight = (int)tileHeightNumeric.Value;
-                    gameData.CellRows = (int)tileRowsNumeric.Value;
-                    gameData.CellCols = (int)tileColsNumeric.Value;
+                    //gameData.CellRows = (int)tileRowsNumeric.Value;
+                    //gameData.CellCols = (int)tileColsNumeric.Value;
 
                     InitHelper();
                     Config.GetInstance().MapPropjects.Add(gameData.Path);

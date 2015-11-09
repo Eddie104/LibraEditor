@@ -1,4 +1,4 @@
-﻿    <controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.CreateProjectWin"
+﻿<controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.CreateProjectWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -38,12 +38,12 @@
                     <Label Name="tileHeightLabel" Content="格子高度"/>
                     <controls:NumericUpDown Name="tileHeightNumeric" Maximum="999" Minimum="1" Value="30"/>
                 </WrapPanel>
-                <WrapPanel Grid.Row="4">
+                <!--<WrapPanel Grid.Row="4">
                     <Label Content="格子行数"/>
                     <controls:NumericUpDown Name="tileRowsNumeric" Maximum="999" Minimum="1" Value="10"/>
                     <Label Content="格子列数"/>
                     <controls:NumericUpDown Name="tileColsNumeric" Maximum="999" Minimum="1" Value="10"/>
-                </WrapPanel>
+                </WrapPanel>-->
                 <WrapPanel Grid.Row="5">
                     <Label Content="存储路径"/>
                     <TextBlock Name="mapFloderTextBlock" Width="190" VerticalAlignment="Center"/>

@@ -99,6 +99,9 @@
     <Compile Include="helper\CSVHelper.cs" />
     <Compile Include="mapEditor2\model\data\GameData.cs" />
     <Compile Include="mapEditor2\model\data\Prop.cs" />
+    <Compile Include="mapEditor2\view\CreateMapWin.xaml.cs">
+      <DependentUpon>CreateMapWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="mapEditor2\view\CreateProjectWin.xaml.cs">
       <DependentUpon>CreateProjectWin.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="mapEditor2\view\CreateMapWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="mapEditor2\view\CreateProjectWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -348,7 +355,9 @@
       <Name>Libra</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Brush.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

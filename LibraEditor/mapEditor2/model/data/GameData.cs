@@ -41,15 +41,15 @@ namespace LibraEditor.mapEditor2.model.data
         /// </summary>
         public double CellHeight { get; set; }
 
-        /// <summary>
-        /// 格子行数
-        /// </summary>
-        public int CellRows { get; set; }
+        ///// <summary>
+        ///// 格子行数
+        ///// </summary>
+        //public int CellRows { get; set; }
 
-        /// <summary>
-        /// 格子列数
-        /// </summary>
-        public int CellCols { get; set; }
+        ///// <summary>
+        ///// 格子列数
+        ///// </summary>
+        //public int CellCols { get; set; }
 
         /// <summary>
         /// 地图路径
@@ -202,11 +202,11 @@ namespace LibraEditor.mapEditor2.model.data
             return null;
         }
 
-        internal MapData AddMapData(string name)
+        internal MapData AddMapData(string name, int rows, int cols)
         {
             if (GetMapData(name) == null)
             {
-                MapData i = new MapData() { Name = name };
+                MapData i = new MapData() { Name = name, CellRows = rows, CellCols = cols };
                 MapDataList.Add(i);
                 NeedSave = true;
                 return i;
@@ -296,8 +296,25 @@ namespace LibraEditor.mapEditor2.model.data
                 var t = underside.Split(new char[] { '&' });
                 rows = t.Length;
                 cols = t[0].Split(new char[] { '|' }).Length;
+
+                undersideAry = new int[10, 10];
+                if (!string.IsNullOrEmpty(underside))
+                {
+                    for (int i = 0; i < rows; i++)
+                    {
+                        var tt = t[i].Split(new char[] { '|' });
+                        for (int j = 0; j < tt.Length; j++)
+                        {
+                            undersideAry[i, j] = int.Parse(tt[j]);
+                        }
+                    }
+                }
             }
         }
+
+        protected int[,] undersideAry = new int[10, 10];
+        [JsonIgnore]
+        public int[,] UndersideAry { get { return undersideAry; } }
 
         protected int rows;
 
@@ -307,6 +324,41 @@ namespace LibraEditor.mapEditor2.model.data
         public virtual string Path
         {
             get { return null; }
+        }
+
+        internal virtual void ChangeUnderSide(int row, int col)
+        {
+            undersideAry[row, col] = undersideAry[row, col] == 0 ? 1 : 0;
+            ResetUnderside();
+        }
+
+        internal virtual void ResetUnderside()
+        {
+            int maxRow = 0, maxCol = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (undersideAry[i, j] == 1)
+                    {
+                        maxRow = Math.Max(maxRow, i);
+                        maxCol = Math.Max(maxCol, j);
+                    }
+                }
+            }
+            underside = "";
+            for (int i = 0; i <= maxRow; i++)
+            {
+                for (int j = 0; j <= maxCol; j++)
+                {
+                    underside += j == maxCol ? undersideAry[i, j].ToString() : undersideAry[i, j].ToString() + "|";
+                }
+                if (i < maxRow)
+                {
+                    underside += "&";
+                }
+            }
+            GameData.GetInstance().NeedSave = true;
         }
 
         public override string ToString()
@@ -321,6 +373,21 @@ namespace LibraEditor.mapEditor2.model.data
         public override string Underside
         {
             get { return "1"; }
+            set { underside = "1"; }
+        }
+
+        protected new int[,] undersideAry = new int[1, 1] { { 1 } };
+        [JsonIgnore]
+        public new int[,] UndersideAry { get { return undersideAry; } }
+
+        internal override void ChangeUnderSide(int row, int col)
+        {
+            //do nothing
+        }
+
+        internal override void ResetUnderside()
+        {
+            //do nothing
         }
 
         public override string Path
@@ -341,6 +408,16 @@ namespace LibraEditor.mapEditor2.model.data
     {
         public string Name { get; set; }
 
+        /// <summary>
+        /// 格子行数
+        /// </summary>
+        public int CellRows { get; set; }
+
+        /// <summary>
+        /// 格子列数
+        /// </summary>
+        public int CellCols { get; set; }
+
         public List<LayerData> LayerDataList { get; set; }
 
         public MapData()
@@ -355,6 +432,7 @@ namespace LibraEditor.mapEditor2.model.data
             {
                 layerData = new LayerData() { Name = name };
                 LayerDataList.Add(layerData);
+                GameData.GetInstance().NeedSave = true;
                 return true;
             }
             return false;
@@ -367,6 +445,7 @@ namespace LibraEditor.mapEditor2.model.data
                 if (item.Name == name)
                 {
                     LayerDataList.Remove(item);
+                    GameData.GetInstance().NeedSave = true;
                     return true;
                 }
             }

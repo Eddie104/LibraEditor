@@ -45,7 +45,7 @@
                         <Image Source="/LibraEditor;component/Resources/delete_16.png"/>
                     </Button>
                 </WrapPanel>
-                <ListBox Grid.Row="1" Name="layerListBox"/>
+                <ListBox Grid.Row="1" Name="layerListBox" SelectionChanged="OnLayerSelectedChanged"/>
             </Grid>
         </GroupBox>
     </Grid>

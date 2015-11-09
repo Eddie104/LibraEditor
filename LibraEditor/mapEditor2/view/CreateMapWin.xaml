@@ -1,0 +1,29 @@
+﻿<controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.CreateMapWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraEditor.mapEditor2.view"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="CreateMapWin" Height="200" Width="200" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="26"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="1" VerticalAlignment="Center">
+            <Label Content="地图名:"/>
+            <TextBox Name="nameTextBox" Width="120"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="2" VerticalAlignment="Center">
+            <Label Content="行数:" VerticalAlignment="Center"/>
+            <controls:NumericUpDown Name="rowsNumeric" Minimum="1" Value="10" Width="58"/>
+            <Label Content="列数:" VerticalAlignment="Center"/>
+            <controls:NumericUpDown Name="colsNumeric" Minimum="1" Value="10" Width="58"/>
+        </WrapPanel>
+        <Button Grid.Row="3" Width="60" Content="创建" Click="OnCreateMap"/>
+    </Grid>
+</controls:MetroWindow>

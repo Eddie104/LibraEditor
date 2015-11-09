@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LibraEditor.mapEditor2.view"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MapEditor" Height="600" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
+        Title="MapEditor" Height="600" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="settings"/>

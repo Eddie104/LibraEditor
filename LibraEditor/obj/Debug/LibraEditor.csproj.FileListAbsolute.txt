@@ -132,3 +132,5 @@ G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor2\view\CreateProjectWin.g.
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor2\view\CreateProjectWin.baml
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor2\view\MapCanvas.g.cs
 G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor2\view\MapCanvas.baml
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor2\view\CreateMapWin.g.cs
+G:\codeLib\LibraEditor\LibraEditor\obj\Debug\mapEditor2\view\CreateMapWin.baml

@@ -154,6 +154,15 @@ namespace LibraEditor.mapEditor2.view
                 }
             }
         }
+
+        private void OnDragFloorRes(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (floorResListBox.SelectedItem != null)
+            {
+                FloorTypeData res = (floorResListBox.SelectedItem as ResListBoxItem).PropData as FloorTypeData;
+                DragDrop.DoDragDrop(floorResListBox, new DataObject(DataFormats.FileDrop, res), DragDropEffects.Copy);
+            }
+        }
     }
 
     class ResListBoxItem : ListBoxItem
