@@ -10,13 +10,11 @@ namespace LibraEditor.mapEditor2.view
     public partial class LayerListBoxItem : Grid
     {
 
-        public string LayerName { get; set; }
-
         public LayerListBoxItem(string layerName)
         {
             InitializeComponent();
 
-            LayerName = layerName;
+            Name = layerName;
             nameLabel.Content = layerName;
         }
     }

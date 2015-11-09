@@ -33,9 +33,9 @@ namespace LibraEditor.mapEditor2.view
         {
             InitializeComponent();
 
-            MapData mapData = MapData.GetInstance();
-            floorListBox.ItemsSource = mapData.FloorTypeList;
-            buildingListBox.ItemsSource = mapData.BuildingTypeList;
+            GameData gameData = GameData.GetInstance();
+            floorListBox.ItemsSource = gameData.FloorTypeList;
+            buildingListBox.ItemsSource = gameData.BuildingTypeList;
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace LibraEditor.mapEditor2.view
             int canvasHeight = (int)canvas.ActualHeight;
             List<LinePoint> points = new List<LinePoint>();
 
-            MapData mapData = MapData.GetInstance();
-            GraphicsHelper.DrawNet(0, 0, 10, 10, mapData.CellWidth, mapData.CellHeight, canvasWidth, canvasHeight, canvas, mapData.ViewType == MapViewType.iso, out coordinateHelper);
+            GameData gameData = GameData.GetInstance();
+            GraphicsHelper.DrawNet(0, 0, 10, 10, gameData.CellWidth, gameData.CellHeight, canvasWidth, canvasHeight, canvas, gameData.ViewType == MapViewType.iso, out coordinateHelper);
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -99,7 +99,9 @@ namespace LibraEditor.mapEditor2.view
             int propY = (int)t;
             prop.GetData().OffsetX = (int)coordinateHelper.TopPoint.X - propX;
             prop.GetData().OffsetY = (int)coordinateHelper.TopPoint.Y - propY;
-            MapData.GetInstance().NeedSave = true;
+            offsetXNumericUpDown.Value = prop.GetData().OffsetX;
+            offsetYNumericUpDown.Value = prop.GetData().OffsetY;
+            GameData.GetInstance().NeedSave = true;
         }
 
         private void Prop_MouseMove(object sender, MouseEventArgs e)
@@ -127,7 +129,7 @@ namespace LibraEditor.mapEditor2.view
                 {
                     prop.GetData().OffsetX = (int)offsetXNumericUpDown.Value;
                     prop.SetRowAndCol(0, 0, coordinateHelper);
-                    MapData.GetInstance().NeedSave = true;
+                    GameData.GetInstance().NeedSave = true;
                 }
             }
         }
@@ -140,7 +142,7 @@ namespace LibraEditor.mapEditor2.view
                 {
                     prop.GetData().OffsetY = (int)offsetYNumericUpDown.Value;
                     prop.SetRowAndCol(0, 0, coordinateHelper);
-                    MapData.GetInstance().NeedSave = true;
+                    GameData.GetInstance().NeedSave = true;
                 }
             }
         }

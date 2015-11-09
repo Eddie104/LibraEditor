@@ -1,4 +1,4 @@
-﻿    <controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.CreateMapWin"
+﻿    <controls:MetroWindow x:Class="LibraEditor.mapEditor2.view.CreateProjectWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="Libra-Editor" Height="336" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" BorderBrush="Gray" Closing="MetroWindow_Closing">
     <controls:MetroAnimatedTabControl>
-        <controls:MetroTabItem Header="新建地图">
+        <controls:MetroTabItem Header="新建项目">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36"/>
@@ -52,7 +52,7 @@
                 <Button Grid.Row="6" Content="创建" Width="36" Height="30" Margin="200, 0, 0, 0" Click="OnCreateMap"/>
             </Grid>
         </controls:MetroTabItem>
-        <controls:MetroTabItem Header="打开地图">
+        <controls:MetroTabItem Header="打开项目">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="220"/>

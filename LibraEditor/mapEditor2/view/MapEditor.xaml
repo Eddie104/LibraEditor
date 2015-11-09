@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LibraEditor.mapEditor2.view"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MapEditor" Height="600" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="MapEditor" Height="600" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="settings"/>
@@ -114,7 +114,7 @@
         <!--工具栏-->
         <WrapPanel Grid.Row="1">
             <ToolBar>
-                <Button Click="OnCreateMap" ToolTip="新建地图">
+                <Button Click="OnCreateProject" ToolTip="新建项目">
                     <Image Source="/LibraEditor;component/Resources/new_file.png"/>
                 </Button>
                 <Button>
@@ -147,11 +147,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <!--资源库和图层库-->
+            <!--资源库和地图库-->
             <StackPanel Grid.Column="0">
                 <local:ResLib x:Name="resLib"/>
-                <local:LayerLib x:Name="layerLib"/>
+                <local:MapLib x:Name="mapLib"/>
             </StackPanel>
+            <!--地图画布，显示和编辑区域-->
+            <local:MapCanvas x:Name="mapCanvas" Grid.Column="1"/>
         </Grid>
         <!--状态栏-->
         <StatusBar Grid.Row="3" Width="Auto">

@@ -24,10 +24,10 @@ namespace LibraEditor.mapEditor2.model.data
         iso
     }
 
-    class MapData
+    class GameData
     {
 
-        private static MapData instance;
+        private static GameData instance;
 
         public MapViewType ViewType { get; set; }
 
@@ -84,16 +84,16 @@ namespace LibraEditor.mapEditor2.model.data
 
         public List<BuildingTypeData> BuildingTypeList { get; set; }
 
-        public List<LayerData> LayerDataList { get; set; }
+        public List<MapData> MapDataList { get; set; }
 
         [JsonIgnore]
         public bool NeedSave { get; set; }
 
-        public MapData()
+        public GameData()
         {
             FloorTypeList = new List<FloorTypeData>();
             BuildingTypeList = new List<BuildingTypeData>();
-            LayerDataList = new List<LayerData>();
+            MapDataList = new List<MapData>();
 
             //每10秒就自动保存一次
             MainWindow.GetInstance().Timer.Elapsed += Save;
@@ -202,25 +202,25 @@ namespace LibraEditor.mapEditor2.model.data
             return null;
         }
 
-        internal LayerData AddLayerData(string name)
+        internal MapData AddMapData(string name)
         {
-            if (GetLayerData(name) == null)
+            if (GetMapData(name) == null)
             {
-                LayerData i = new LayerData() { Name = name };
-                LayerDataList.Add(i);
+                MapData i = new MapData() { Name = name };
+                MapDataList.Add(i);
                 NeedSave = true;
                 return i;
             }
             return null;
         }
 
-        internal bool RemoveLayerData(string name)
+        internal bool RemoveMapData(string name)
         {
-            foreach (var item in LayerDataList)
+            foreach (var item in MapDataList)
             {
                 if (item.Name == name)
                 {
-                    LayerDataList.Remove(item);
+                    MapDataList.Remove(item);
                     NeedSave = true;
                     return true;
                 }
@@ -228,9 +228,9 @@ namespace LibraEditor.mapEditor2.model.data
             return false;
         }
 
-        private LayerData GetLayerData(string name)
+        internal MapData GetMapData(string name)
         {
-            foreach (var item in LayerDataList)
+            foreach (var item in MapDataList)
             {
                 if (item.Name == name)
                 {
@@ -257,11 +257,11 @@ namespace LibraEditor.mapEditor2.model.data
             }
         }
 
-        internal static MapData GetInstance()
+        internal static GameData GetInstance()
         {
             if (instance == null)
             {
-                instance = new MapData();
+                instance = new GameData();
             }
             return instance;
         }
@@ -271,7 +271,7 @@ namespace LibraEditor.mapEditor2.model.data
             using (StreamReader sr = new StreamReader(mapJsonPath))
             {
                 string jsonTxt = sr.ReadToEnd();
-                instance = JsonConvert.DeserializeObject(jsonTxt, typeof(MapData)) as MapData;
+                instance = JsonConvert.DeserializeObject(jsonTxt, typeof(GameData)) as GameData;
             }
         }
     }
@@ -325,7 +325,7 @@ namespace LibraEditor.mapEditor2.model.data
 
         public override string Path
         {
-            get { return string.Format("{0}\\floor\\{1}", MapData.GetInstance().Path, Name); }
+            get { return string.Format("{0}\\floor\\{1}", GameData.GetInstance().Path, Name); }
         }
     }
 
@@ -333,7 +333,56 @@ namespace LibraEditor.mapEditor2.model.data
     {
         public override string Path
         {
-            get { return string.Format("{0}\\building\\{1}", MapData.GetInstance().Path, Name); }
+            get { return string.Format("{0}\\building\\{1}", GameData.GetInstance().Path, Name); }
+        }
+    }
+
+    class MapData
+    {
+        public string Name { get; set; }
+
+        public List<LayerData> LayerDataList { get; set; }
+
+        public MapData()
+        {
+            LayerDataList = new List<LayerData>();
+        }
+
+        public bool AddLayerData(string name)
+        {
+            LayerData layerData = GetLayerData(name);
+            if (layerData == null)
+            {
+                layerData = new LayerData() { Name = name };
+                LayerDataList.Add(layerData);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveLayerData(string name)
+        {
+            foreach (var item in LayerDataList)
+            {
+                if (item.Name == name)
+                {
+                    LayerDataList.Remove(item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal LayerData GetLayerData(string name)
+        {
+            foreach (var item in LayerDataList)
+            {
+                if (item.Name == name)
+                {
+                    return item;
+                }
+            }
+            return null;
         }
     }
 

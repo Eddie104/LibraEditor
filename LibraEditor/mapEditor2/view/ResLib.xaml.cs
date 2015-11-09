@@ -29,15 +29,15 @@ namespace LibraEditor.mapEditor2.view
         /// <param name="e"></param>
         private void OnImportRes(object sender, RoutedEventArgs e)
         {
-            MapData mapData = MapData.GetInstance();
+            GameData gameData = GameData.GetInstance();
             if (resTabControl.SelectedIndex == 0)
             {
                 //导入地板资源
                 string[] resList = FileHelper.FindFile("*.png", true);
                 if (resList != null)
                 {
-                    mapData.AddFloorRes(resList);
-                    foreach (FloorTypeData item in mapData.FloorTypeList)
+                    gameData.AddFloorRes(resList);
+                    foreach (FloorTypeData item in gameData.FloorTypeList)
                     {
                         AddResItem(item);
                     }
@@ -49,8 +49,8 @@ namespace LibraEditor.mapEditor2.view
                 string[] resList = FileHelper.FindFile("*.png;*.jpg", true);
                 if (resList != null)
                 {
-                    mapData.AddBuildingRes(resList);
-                    foreach (BuildingTypeData item in mapData.BuildingTypeList)
+                    gameData.AddBuildingRes(resList);
+                    foreach (BuildingTypeData item in gameData.BuildingTypeList)
                     {
                         AddResItem(item);
                     }
@@ -58,14 +58,14 @@ namespace LibraEditor.mapEditor2.view
             }            
         }
 
-        internal void InitWithMapdata()
+        internal void InitWithGamedata()
         {
-            MapData mapData = MapData.GetInstance();
-            foreach (FloorTypeData item in mapData.FloorTypeList)
+            GameData gameData = GameData.GetInstance();
+            foreach (FloorTypeData item in gameData.FloorTypeList)
             {
                 AddResItem(item);
             }
-            foreach (BuildingTypeData item in mapData.BuildingTypeList)
+            foreach (BuildingTypeData item in gameData.BuildingTypeList)
             {
                 AddResItem(item);
             }
@@ -107,7 +107,7 @@ namespace LibraEditor.mapEditor2.view
 
         private void OnDelRes(object sender, EventArgs e)
         {
-            MapData mapData = MapData.GetInstance();
+            GameData gameData = GameData.GetInstance();
 
             ResListBoxItem item = sender as ResListBoxItem;
             var propData = item.PropData;
@@ -120,14 +120,14 @@ namespace LibraEditor.mapEditor2.view
             item.OnEdit -= OnEditRes;
             if (propData is FloorTypeData)
             {
-                if (mapData.RemoveFloorRes(propData as FloorTypeData))
+                if (gameData.RemoveFloorRes(propData as FloorTypeData))
                 {
                     floorResListBox.Items.Remove(item);
                 }
             }
             else if (propData is BuildingTypeData)
             {
-                if (mapData.RemoveBuildingRes(propData as BuildingTypeData))
+                if (gameData.RemoveBuildingRes(propData as BuildingTypeData))
                 {
                     buildingResListBox.Items.Remove(item);
                 }

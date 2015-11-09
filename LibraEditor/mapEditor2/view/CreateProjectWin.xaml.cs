@@ -12,12 +12,12 @@ namespace LibraEditor.mapEditor2.view
     /// <summary>
     /// CreateMapWin.xaml 的交互逻辑
     /// </summary>
-    public partial class CreateMapWin : MetroWindow
+    public partial class CreateProjectWin : MetroWindow
     {
 
         public event EventHandler CreateMapHandler;
 
-        public CreateMapWin()
+        public CreateProjectWin()
         {
             InitializeComponent();
 
@@ -39,25 +39,25 @@ namespace LibraEditor.mapEditor2.view
                 string mapName = mapNameTextBox.Text;
                 if (RegularHelper.IsLetterAndNumber(mapName))
                 {
-                    MapData mapData = MapData.GetInstance();
-                    mapData.Name = mapName;
-                    mapData.Path = mapFloderTextBlock.Text + "\\" + mapData.Name;
-                    mapData.ViewType = (bool)obliqueRadioButton.IsChecked ? MapViewType.iso : MapViewType.tile;
-                    mapData.CellWidth = (int)tileWidthNumeric.Value;
-                    mapData.CellHeight = (int)tileHeightNumeric.Value;
-                    mapData.CellRows = (int)tileRowsNumeric.Value;
-                    mapData.CellCols = (int)tileColsNumeric.Value;
+                    GameData gameData = GameData.GetInstance();
+                    gameData.Name = mapName;
+                    gameData.Path = mapFloderTextBlock.Text + "\\" + gameData.Name;
+                    gameData.ViewType = (bool)obliqueRadioButton.IsChecked ? MapViewType.iso : MapViewType.tile;
+                    gameData.CellWidth = (int)tileWidthNumeric.Value;
+                    gameData.CellHeight = (int)tileHeightNumeric.Value;
+                    gameData.CellRows = (int)tileRowsNumeric.Value;
+                    gameData.CellCols = (int)tileColsNumeric.Value;
 
                     InitHelper();
-                    Config.GetInstance().MapPropjects.Add(mapData.Path);
+                    Config.GetInstance().MapPropjects.Add(gameData.Path);
 
                     //创建map的文件夹
-                    if (!Directory.Exists(mapData.Path))
+                    if (!Directory.Exists(gameData.Path))
                     {
-                        Directory.CreateDirectory(mapData.Path);
+                        Directory.CreateDirectory(gameData.Path);
                     }
-                    mapData.NeedSave = true;
-                    mapData.Save();
+                    gameData.NeedSave = true;
+                    gameData.Save();
 
                     CreateMapHandler(this, null);
                     this.Close();
@@ -75,24 +75,24 @@ namespace LibraEditor.mapEditor2.view
 
         private void InitHelper()
         {
-            MapData mapData = MapData.GetInstance();
+            GameData gameData = GameData.GetInstance();
             ICoordinateHelper helper;
-            if (mapData.ViewType == MapViewType.iso)
+            if (gameData.ViewType == MapViewType.iso)
             {
-                helper = new ISOHelper(mapData.CellWidth, mapData.CellHeight);
-                if (mapData.CellWidth % 2 != 0)
+                helper = new ISOHelper(gameData.CellWidth, gameData.CellHeight);
+                if (gameData.CellWidth % 2 != 0)
                 {
                     DialogManager.ShowMessageAsync(this, "地图宽度有误", "斜视角地图中，格子宽度应为2的倍数");
                     return;
                 }
-                mapData.CellHeight = mapData.CellWidth / 2;
+                gameData.CellHeight = gameData.CellWidth / 2;
                 helper.Height = helper.Width / 2;
             }
             else
             {
                 helper = new RectangularHelper();
-                helper.Width = mapData.CellWidth;
-                helper.Height = mapData.CellHeight;
+                helper.Width = gameData.CellWidth;
+                helper.Height = gameData.CellHeight;
             }
             MapEditor.GetInstance().CoordinateHelper = helper;
         }
@@ -107,7 +107,7 @@ namespace LibraEditor.mapEditor2.view
             if (this.mapListBox.SelectedItem != null)
             {
                 string mapPath = mapListBox.SelectedItem.ToString();
-                MapData.CreateWithJson(string.Format("{0}\\{1}.json", mapPath, Path.GetFileName(mapPath)));
+                GameData.CreateWithJson(string.Format("{0}\\{1}.json", mapPath, Path.GetFileName(mapPath)));
                 InitHelper();
                 CreateMapHandler(this, null);
                 this.Close();
@@ -152,7 +152,7 @@ namespace LibraEditor.mapEditor2.view
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //移除事件监听
-            EventHelper.RemoveEvent<CreateMapWin>(this, "CreateMapHandler");
+            EventHelper.RemoveEvent<CreateProjectWin>(this, "CreateMapHandler");
         }
     }
 }

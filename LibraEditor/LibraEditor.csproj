@@ -97,16 +97,22 @@
       <DependentUpon>Scale9Grid.xaml</DependentUpon>
     </Compile>
     <Compile Include="helper\CSVHelper.cs" />
-    <Compile Include="mapEditor2\model\data\MapData.cs" />
+    <Compile Include="mapEditor2\model\data\GameData.cs" />
     <Compile Include="mapEditor2\model\data\Prop.cs" />
-    <Compile Include="mapEditor2\view\CreateMapWin.xaml.cs">
-      <DependentUpon>CreateMapWin.xaml</DependentUpon>
+    <Compile Include="mapEditor2\view\CreateProjectWin.xaml.cs">
+      <DependentUpon>CreateProjectWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="mapEditor2\view\LayerBoxListItem.xaml.cs">
       <DependentUpon>LayerBoxListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="mapEditor2\view\LayerLib.xaml.cs">
-      <DependentUpon>LayerLib.xaml</DependentUpon>
+    <Compile Include="mapEditor2\view\MapBoxListItem.xaml.cs">
+      <DependentUpon>MapBoxListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\MapCanvas.xaml.cs">
+      <DependentUpon>MapCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="mapEditor2\view\MapLib.xaml.cs">
+      <DependentUpon>MapLib.xaml</DependentUpon>
     </Compile>
     <Compile Include="mapEditor2\view\MapEditor.xaml.cs">
       <DependentUpon>MapEditor.xaml</DependentUpon>
@@ -174,7 +180,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="mapEditor2\view\CreateMapWin.xaml">
+    <Page Include="mapEditor2\view\CreateProjectWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,7 +188,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="mapEditor2\view\LayerLib.xaml">
+    <Page Include="mapEditor2\view\MapBoxListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\MapCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mapEditor2\view\MapLib.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
